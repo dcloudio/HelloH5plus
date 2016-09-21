@@ -1,0 +1,152 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="HandheldFriendly" content="true">
+<meta name="MobileOptimized" content="320">
+<title>Hello H5+</title>
+<link rel="stylesheet" type="text/css" href="res/doc.css" charset="utf-8">
+<link rel="stylesheet" type="text/css" href="res/prettify.sons.css" charset="utf-8">
+<script type="text/javascript" src="res/doc.js" charset="utf-8"></script><script type="text/javascript" src="res/prettify.js" charset="utf-8"></script>
+</head>
+<body><div id="content" class="content">
+<h1><a name="plus.nativeObj">nativeObj</a></h1>
+<p>nativeObj管理系统原生对象。</p>
+<h2>对象：</h2>
+<ul>
+<li>
+<a href="#plus.nativeObj.Bitmap">Bitmap</a>: 原生图片对象</li>
+<li>
+<a href="#plus.nativeObj.BitmapSaveOptions">BitmapSaveOptions</a>: JSON对象，保存图片的参数</li>
+</ul>
+<h2>回调方法：</h2>
+<ul>
+<li>
+<a href="#plus.nativeObj.BitmapSaveSuccessCallback">BitmapSaveSuccessCallback</a>: 图片保存操作成功回调接口</li>
+<li>
+<a href="#plus.nativeObj.NativeObjSuccessCallback">NativeObjSuccessCallback</a>: 操作成功回调函数接口</li>
+<li>
+<a href="#plus.nativeObj.NativeObjErrorCallback">NativeObjErrorCallback</a>: 操作错误回调函数接口</li>
+</ul>
+<h2>权限：</h2>
+<p>permissions</p>
+<pre class="prettyprint linenums">
+"NativeObj": {
+	"description": "系统原生对象"
+}
+			</pre>
+<h1><a name="plus.nativeObj.Bitmap">Bitmap</a></h1>
+<p>原生图片对象</p>
+<h2>说明：</h2>
+<p class="des">
+	原生图片对象会占用较大的内存资源，在使用时需谨慎管理，当图片不再使用时应该及时调用clear方法进行销毁。
+				</p>
+<h2>构造：</h2>
+<ul><li>
+<a href="#plus.nativeObj.Bitmap.Bitmap(id)">Bitmap(id)</a>: 创建Bitmap对象</li></ul>
+<h2>属性：</h2>
+<ul><li>
+<a href="#plus.nativeObj.Bitmap.id">id</a>: Bitmap对象的标识</li></ul>
+<h2>方法：</h2>
+<ul>
+<li>
+<a href="#plus.nativeObj.Bitmap.getItems">getItems</a>: 静态方法，获取所有Bitmap图片对象</li>
+<li>
+<a href="#plus.nativeObj.Bitmap.getBitmapById">getBitmapById</a>: 静态方法，获取指定标识的Bitmap图片对象</li>
+<li>
+<a href="#plus.nativeObj.Bitmap.clear">clear</a>: 销毁Bitmap图片</li>
+<li>
+<a href="#plus.nativeObj.Bitmap.load">load</a>: 加载Bitmap图片</li>
+<li>
+<a href="#plus.nativeObj.Bitmap.loadBase64Data">loadBase64Data</a>: 加载Base64编码格式图片到Bitmap对象</li>
+<li>
+<a href="#plus.nativeObj.Bitmap.save">save</a>: 保存图片</li>
+<li>
+<a href="#plus.nativeObj.Bitmap.toBase64Data">toBase64Data</a>: 获取图片的Base64编码数据</li>
+</ul>
+<h1><a name="plus.nativeObj.BitmapSaveOptions">BitmapSaveOptions</a></h1>
+<p>JSON对象，保存图片的参数</p>
+<h2>属性：</h2>
+<ul>
+<li>overwrite: <em>(<font class="type">Boolean</font>
+	类型
+)</em>覆盖保存图片文件<br><p>
+	仅在保存的图片路径文件存在时有效：
+	true表示覆盖存在的文件；
+	false表示不覆盖，如果文件存在，则返回失败。
+	默认值为false。
+						</p>
+</li>
+<li>format: <em>(<font class="type">String</font>
+	类型
+)</em>保存图片的格式<br><p>
+	支持"jpg"、"png"，如果未指定则默认使用指定的保存路径后缀对应的文件格式，如果后缀文件格式无效则使用jpg格式。
+						</p>
+</li>
+<li>quality: <em>(<font class="type">Number</font>
+	类型
+)</em>保存图片的质量<br><p>
+	取值范围为1-100，1表示使用最低的图片质量（保存后的图片文件最小）、100表示使用最高的图片质量（保存后的图片文件最大）；
+	默认值为50。
+						</p>
+</li>
+</ul>
+<h1><a name="plus.nativeObj.BitmapSaveSuccessCallback">BitmapSaveSuccessCallback</a></h1>
+<p>图片保存操作成功回调接口</p>
+<pre class="prettyprint linenums">
+void onSuccess( Event event ){
+	// Code here
+	var target = event.target; // 保存后的图片url路径，以"file://"开头
+	var size = event.size; // 保存后图片的大小，单位为字节（Byte）
+	var width = event.width; // 保存后图片的实际宽度，单位为px
+	var height = event.height; // 保存后图片的实际高度，单位为px
+}
+				</pre>
+<h2>参数：</h2>
+<ul><li>event: 
+		<em>(
+			<font class="type">Event</font>
+			)
+			可选 </em>保存后的图片信息<br>
+	可通过event.target（String类型）获取保存后的图片url路径，以"file://"开头，可直接在html页面中通过src属性引用，如Android平台"file:///storage/sdcard0/Android/data/io.dcloud.HBuilder/.HBuilder/apps/HBuilder/doc/ａ.jpg"，iOS平台"file:///var/mobile/Containers/Data/Application/757966CF-345C-4348-B07F-EEF83CF9A369/Library/Pandora/apps/HBuilder/doc/a.png"；
+	可通过event.size（Number类型）获取保存后图片的大小，单位为字节（Byte）；
+	可通过event.width（Number类型）获取保存后的图片的实际宽度，单位为px；
+	可通过event.height（Number类型）获取保存后的图片的实际高度，单位为px。
+						</li></ul>
+<h2>返回值：</h2>
+<font class="type">void</font>
+			: 无<h1><a name="plus.nativeObj.NativeObjSuccessCallback">NativeObjSuccessCallback</a></h1>
+<p>操作成功回调函数接口</p>
+<pre class="prettyprint linenums">
+void onSuccess(){
+	// Code here
+}
+				</pre>
+<h2>参数：</h2>
+<p>无</p>
+<h2>返回值：</h2>
+<font class="type">void</font>
+			: 无<h1><a name="plus.nativeObj.NativeObjErrorCallback">NativeObjErrorCallback</a></h1>
+<p>操作错误回调函数接口</p>
+<pre class="prettyprint linenums">
+function void onError( Exception error ) {
+	// Error.
+	var code = error.code; // 错误编码
+	var message = error.message; // 错误描述信息
+}
+				</pre>
+<h2>参数：</h2>
+<ul><li>error: 
+		<em>(
+			<font class="type">Exception</font>
+			)
+			必选 </em>用户选择操作失败信息<br>
+	可通过error.code（Number类型）获取错误编码；
+	可通过error.message（String类型）获取错误描述信息。
+						</li></ul>
+<h2>返回值：</h2>
+<font class="type">void</font>
+			: 无<br><br>
+</div></body>
+</html>
