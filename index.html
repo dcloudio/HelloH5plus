@@ -29,6 +29,8 @@ function plusReady(){
 		}
 	},false);
 	compatibleAdjust();
+	// 兼容低版本流应用环境创建快捷方式
+	shrotcutForStream();
 }
 if(window.plus){
 	plusReady();
@@ -129,6 +131,22 @@ function preateClear(){
 		if(w&&w.showded&&!w.isVisible()){
 			w.close();
 			preate[p]=null;
+		}
+	}
+}
+// 为流应用创建快捷方式
+function shrotcutForStream(){
+	if(navigator.userAgent.indexOf('StreamApp')<0||plus.os.name!='Android'){	// 非流应用Android平台环境不需处理
+		return;
+	}
+	var versions = plus.runtime.innerVersion.split('.');
+	if(versions[versions.length - 1]<21013){	// 需手动创建快捷方式
+		if(plus.navigator.createShortcut&&'created'!=plus.storage.getItem('customeshortcut')){	// 
+			plus.navigator.createShortcut({ // 注意：设置正确的应用名称和图标路径
+                name: "HelloH5", 
+                icon: "_www/icon.png" 
+            });
+			plus.storage.setItem('customeshortcut','created');	// 设置已创建快捷方式标记，防止每次启动都创建快捷方式
 		}
 	}
 }

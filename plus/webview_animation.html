@@ -14,6 +14,9 @@ function plusReady(){
 	ws=plus.webview.currentWebview();
 	wo=ws.opener();
 	wp=plus.webview.create('webview_new.html','webview_new.html',{scrollIndicator:'none',scalable:false,popGesture:'none'},{preate:true});
+	wp.addEventListener('close',function(){
+		wp=null;
+	},false);
 }
 if(window.plus){
 	plusReady();
@@ -22,14 +25,13 @@ if(window.plus){
 }
 // 动画窗口
 function animateWindow(type){
+	wp||(wp=plus.webview.create('webview_new.html','webview_new.html',{scrollIndicator:'none',scalable:false,popGesture:'none'},{preate:true}));
 	wp.show(type);
 }
 // 关闭窗口
 var _back=window.back;
 function preateBack(){
-	if(!ws.preate){
-		wp&&wp.close();
-	}
+	wp&&(wp.close(),wp=null);
 	_back();
 }
 window.back=preateBack;

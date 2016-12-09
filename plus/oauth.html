@@ -70,7 +70,7 @@ function userinfo(a){
 	a.getUserInfo(function(){
 		outLine("获取用户信息成功：");
 		outLine(JSON.stringify(a.userInfo));
-		var nickname=a.userInfo.nickname||a.userInfo.name;
+		var nickname=a.userInfo.nickname||a.userInfo.name||a.userInfo.miliaoNick;
 		plus.nativeUI.alert("欢迎“"+nickname+"”登录！");
 	},function(e){
 		outLine("获取用户信息失败：");

@@ -112,8 +112,8 @@ function compatibleAdjust(){
 		window.addEventListener("orientationchange",function(){
 			var nowo=window.orientation;
 			if(lasto!=nowo&&(90==nowo||-90==nowo)){
-				dcontent&&(0==dcontent.scrollTop)&&(dcontent.scrollTop=1);
-				content&&(0==content.scrollTop)&&(content.scrollTop=1);
+				window.dcontent&&(0==dcontent.scrollTop)&&(dcontent.scrollTop=1);
+				window.content&&(0==content.scrollTop)&&(content.scrollTop=1);
 			}
 			lasto=nowo;
 		},false);

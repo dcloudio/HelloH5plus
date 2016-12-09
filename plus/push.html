@@ -65,11 +65,12 @@ function logoutPushMsg( msg ) {
  */
 function getPushInfo(){
 	var info = plus.push.getClientInfo();
-	outSet( "获取客户端推送标识信息：" );
-	outLine( "token: "+info.token );
-	outLine( "clientid: "+info.clientid );
-	outLine( "appid: "+info.appid );
-	outLine( "appkey: "+info.appkey );
+	outSet("获取客户端推送标识信息：");
+	outLine("id: "+info.id);
+	outLine("token: "+info.token);
+	outLine("clientid: "+info.clientid);
+	outLine("appid: "+info.appid);
+	outLine("appkey: "+info.appkey);
 }
 /**
  * 本地创建一条推动消息
@@ -122,10 +123,12 @@ function requireNotiMsg(){
 		plus.nativeUI.toast('当前环境暂不支持发送推送消息');
 		return;
 	}
+	var inf = plus.push.getClientInfo();
 	var url = pushServer+'type=noti&appid='+encodeURIComponent(plus.runtime.appid);
-	url += ('&cid='+encodeURIComponent(plus.push.getClientInfo().clientid));
+	inf.id&&(url+='&id='+inf.id);
+	url += ('&cid='+encodeURIComponent(inf.clientid));
 	if(plus.os.name == 'iOS'){
-		url += ('&token='+encodeURIComponent(plus.push.getClientInfo().token));
+		url += ('&token='+encodeURIComponent(inf.token));
 	}
 	url += ('&title='+encodeURIComponent('Hello H5+'));
 	url += ('&content='+encodeURIComponent('欢迎回来体验HTML5 plus应用！'));
@@ -140,10 +143,12 @@ function requireLinkMsg(){
 		plus.nativeUI.toast('当前环境暂不支持发送推送消息');
 		return;
 	}
+	var inf = plus.push.getClientInfo();
 	var url = pushServer+"type=link&appid="+encodeURIComponent(plus.runtime.appid);
-	url += ('&cid='+encodeURIComponent(plus.push.getClientInfo().clientid));
+	inf.id&&(url+='&id='+inf.id);
+	url += ('&cid='+encodeURIComponent(inf.clientid));
 	if(plus.os.name == 'iOS'){
-		url += ('&token='+encodeURIComponent(plus.push.getClientInfo().token));
+		url += ('&token='+encodeURIComponent(inf.token));
 	}
 	url += ('&title='+encodeURIComponent('HBuilder飞一样的编码'));
 	url += ('&content='+encodeURIComponent('看HBuilder如何追求代码编写速度的极致！立即去瞧一瞧？'));
@@ -163,8 +168,10 @@ function requireDownMsg(){
 		plus.nativeUI.alert( "此平台不支持！" );
 		return;
 	}
+	var inf = plus.push.getClientInfo();
 	var url = pushServer+'type=down&appid='+encodeURIComponent(plus.runtime.appid);
-	url += ('&cid='+encodeURIComponent(plus.push.getClientInfo().clientid));
+	inf.id&&(url+='&id='+inf.id);
+	url += ('&cid='+encodeURIComponent(inf.clientid));
 	url += ('&title='+encodeURIComponent('Hello H5+'));
 	url += ('&content='+encodeURIComponent('新版本发布了！立即下载体验？'));
 	url += ('&ptitle='+encodeURIComponent('Hello H5+'));
@@ -182,14 +189,16 @@ function requireTranMsg(){
 		plus.nativeUI.toast('当前环境暂不支持发送推送消息');
 		return;
 	}
+	var inf = plus.push.getClientInfo();
 	var url = pushServer+'type=tran&appid='+encodeURIComponent(plus.runtime.appid);
-	url += ('&cid='+encodeURIComponent(plus.push.getClientInfo().clientid));
+	inf.id&&(url+='&id='+inf.id);
+	url += ('&cid='+encodeURIComponent(inf.clientid));
 	if(plus.os.name == 'iOS'){
-		url += ('&token='+encodeURIComponent(plus.push.getClientInfo().token));
+		url += ('&token='+encodeURIComponent(inf.token));
 	}
 	url += ('&title='+encodeURIComponent('Hello H5+'));
 	url += ('&content='+encodeURIComponent('带透传数据推送通知，可通过plus.push API获取数据并进行业务逻辑处理！'));
-	url += ('&payload='+encodeURIComponent('{title:"Hello H5+ Test",content:"test content",payload:{id:"1234567890"}}'));
+	url += ('&payload='+encodeURIComponent('{"title":"Hello H5+ Test","content":"test content","payload":"1234567890"}'));
 	url += ('&version='+encodeURIComponent(plus.runtime.version));
 	plus.runtime.openURL( url );
 }

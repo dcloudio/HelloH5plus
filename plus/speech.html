@@ -16,6 +16,24 @@ function startRecognize() {
 	}
 	var options = {};
 	options.engine = 'iFly';
+	//options.punctuation = false;	// 是否需要标点符号 
+	text.value = "";
+	outSet( "开始语音识别：" );
+	plus.speech.startRecognize( options, function ( s ) {
+		outLine( s );
+		text.value += s;
+	}, function ( e ) {
+		outSet( "语音识别失败："+e.message );
+	} );
+}
+function startRecognizeEnglish(){
+	if(plus.os.name=='Android'&&navigator.userAgent.indexOf('StreamApp')>0){
+		plus.nativeUI.toast('当前环境暂不支持语音识别插件');
+		return;
+	}
+	var options = {};
+	options.engine = 'iFly';
+	options.lang = 'en-us';
 	text.value = "";
 	outSet( "开始语音识别：" );
 	plus.speech.startRecognize( options, function ( s ) {
@@ -44,6 +62,8 @@ function startRecognize() {
 		<div id="dcontent" class="dcontent">
 			<br/>
 			<div class="button" onclick="startRecognize()">开始语音识别</div>
+			<br/>
+			<div class="button" onclick="startRecognizeEnglish()">开始语音识别（英语）</div>
 			<br/>
 			<textarea readonly="readonly" id="text" style="margin:2%;padding:2%;height:50%;width:90%;border:1px solid #6C6C6C;-webkit-border-radius: 2px;border-radius: 2px;-webkit-appearance:none;">
 语音输入内容

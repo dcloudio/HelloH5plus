@@ -191,7 +191,7 @@ function shareShow(){
 	var shareBts=[];
 	// 更新分享列表
 	var ss=shares['weixin'];
-	if(navigator.userAgent.indexOf('StreamApp')<0&&navigator.userAgent.indexOf('qihoo')<0){  //在360流应用中微信不支持分享图片
+	if(navigator.userAgent.indexOf('qihoo')<0){  //在360流应用中微信不支持分享图片
 		ss&&ss.nativeClient&&(shareBts.push({title:'微信朋友圈',s:ss,x:'WXSceneTimeline'}),
 		shareBts.push({title:'微信好友',s:ss,x:'WXSceneSession'}));
 	}
