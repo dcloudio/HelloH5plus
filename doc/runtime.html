@@ -20,7 +20,11 @@
 <li>
 <a href="#plus.runtime.arguments">arguments</a>: 第三方程序调用时传递给程序的参数</li>
 <li>
+<a href="#plus.runtime.channel">channel</a>: 应用的市场推广渠道标识</li>
+<li>
 <a href="#plus.runtime.launcher">launcher</a>: 应用启动来源</li>
+<li>
+<a href="#plus.runtime.origin">origin</a>: 应用安装来源</li>
 <li>
 <a href="#plus.runtime.version">version</a>: 客户端的版本号</li>
 <li>
@@ -54,7 +58,7 @@
 <li>
 <a href="#plus.runtime.WidgetInfo">WidgetInfo</a>: JSON对象，应用信息</li>
 <li>
-<a href="#plus.runtime.OpenFileOption">OpenFileOption</a>: JSON对象，打开文件参数</li>
+<a href="#plus.runtime.OpenFileOptions">OpenFileOptions</a>: JSON对象，打开文件参数</li>
 <li>
 <a href="#plus.runtime.ApplicationInf">ApplicationInf</a>: JSON对象，打开第三方程序参数</li>
 </ul>
@@ -72,10 +76,16 @@
 <a href="#plus.runtime.LaunchErrorCallback">LaunchErrorCallback</a>: 调用第三方程序失败回调函数</li>
 </ul>
 <h2>权限：</h2>
-<p>permissions</p>
+<p>5+功能模块（permissions）</p>
 <pre class="prettyprint linenums">
-"Runtime": {
-	"description": "访问运行环境信息"
+{
+// ...
+"permissions":{
+	// ...
+	"Runtime": {
+		"description": "运行环境"
+	}
+}
 }
 			</pre>
 <h1><a name="plus.runtime.WidgetOptions">WidgetOptions</a></h1>
@@ -131,13 +141,24 @@
 )</em>应用许可特性列表<br>
 </li>
 </ul>
-<h1><a name="plus.runtime.OpenFileOption">OpenFileOption</a></h1>
+<h1><a name="plus.runtime.OpenFileOptions">OpenFileOptions</a></h1>
 <p>JSON对象，打开文件参数</p>
 <h2>属性：</h2>
-<ul><li>popover: <em>(<font class="type">json</font>
+<ul>
+<li>pname: <em>(<font class="type">String</font>
 	类型
-)</em>弹出系统选择程序界面指示区域<br><p>JSON对象，格式如{top:10;left:10;width:200;height:200;}，所有值为像素值，左上坐标相对于容器webview的位置。仅在iPad设备平台有效。</p>
-</li></ul>
+)</em>优先使用的程序包名<br><p>
+	如果指定包名的程序已经安装，则调用其打开文件，若程序不支持打开文件则触发错误回调。
+	如果指定包名的程序未安装，则弹出系统支持打开此文件的列表，由用户选择程序打开。
+						</p>
+</li>
+<li>popover: <em>(<font class="type">json</font>
+	类型
+)</em>弹出系统选择程序界面指示区域<br><p>
+	JSON对象，格式如{top:10;left:10;width:200;height:200;}，所有值为像素值，左上坐标相对于容器webview的位置。仅在iPad设备平台有效。
+						</p>
+</li>
+</ul>
 <h1><a name="plus.runtime.ApplicationInf">ApplicationInf</a></h1>
 <p>JSON对象，打开第三方程序参数</p>
 <h2>属性：</h2>

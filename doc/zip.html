@@ -39,10 +39,16 @@
 <a href="#plus.zip.ZipErrorCallback">ZipErrorCallback</a>: 操作错误回调函数接口，在解压Zip文件或压缩成Zip文件失败时调用</li>
 </ul>
 <h2>权限：</h2>
-<p>permissions</p>
+<p>5+功能模块（permissions）</p>
 <pre class="prettyprint linenums">
-"Zip": {
-	"description": "文件压缩与解压缩"
+{
+// ...
+"permissions":{
+	// ...
+	"Zip": {
+		"description": "压缩与解压"
+	}
+}
 }
 			</pre>
 <h1><a name="plus.zip.CompressImageOptions">CompressImageOptions</a></h1>

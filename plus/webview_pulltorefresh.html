@@ -14,6 +14,11 @@ var list=null;
 function plusReady(){
 	ws=plus.webview.currentWebview();
 	ws.setPullToRefresh({support:true,style:'circle',offset:"45px"},onRefresh);
+	// 第一次打开页面即开始刷新列表
+	setTimeout(function(){
+		console.log("Initializ refresh");
+		ws.beginPullToRefresh();
+	},200);
 }
 // 判断扩展API是否准备，否则监听"plusready"事件
 if(window.plus){
@@ -53,7 +58,7 @@ li:active {
 			<div class="nvbt iback" onclick="back()"></div>
 			<div class="nvtt">下拉刷新</div>
 		</header>
-		<div id="dcontent" class="dcontent">
+		<div style="height:44px;width:100%;"></div>
 		<ul id="list" style="list-style:none;margin:0;padding:0;">
 			<li><span>Initializ List Item 1</span></li>
 			<li><span>Initializ List Item 2</span></li>
@@ -66,6 +71,6 @@ li:active {
 			<li><span>Initializ List Item 9</span></li>
 			<li><span>Initializ List Item 10</span></li>
 		</ul>
-		</div>
+
 	</body>
 </html>

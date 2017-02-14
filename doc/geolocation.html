@@ -43,10 +43,16 @@
 <a href="#plus.geolocation.GeolocationErrorCallback">GeolocationErrorCallback</a>: 获取设备位置信息失败的回调函数</li>
 </ul>
 <h2>权限：</h2>
-<p>permissions</p>
+<p>5+功能模块（permissions）</p>
 <pre class="prettyprint linenums">
-"Geolocation": {
-	"description": "访问设备位置信息"
+{
+// ...
+"permissions":{
+	// ...
+	"Geolocation": {
+		"description": "位置信息"
+	}
+}
 }
 			</pre>
 <h1><a name="plus.geolocation.Position">Position</a></h1>
@@ -223,18 +229,19 @@ interface Coordinates {
 </li>
 <li>maximumAge: <em>(<font class="type">Number</font>
 	类型
-)</em>获取位置信息的缓存时间<br><p>
-	单位为毫秒（ms），默认值为0（立即更新获取）。如果设备缓存的位置信息超过指定的缓存时间，将重新更新位置信息后再返回。
+)</em>获取位置信息的间隔时间<br><p>
+	单位为毫秒（ms），默认值为5000（即5秒）。调用plus.geolocation.watchPosition时为更新位置信息的间隔时间。
+	注意：在不同定位模块下支持范围值可能不同，如百度定位模块的间隔范围为大于等于1秒，如果设置的值小于最小值则使用最小值。
 						</p>
 </li>
 <li>provider: <em>(<font class="type">String</font>
 	类型
-)</em>定位数据的供应者<br><p>
+)</em>优先使用的定位模块<br><p>
 	可取以下供应者：
 	"system"：表示系统定位模块，支持wgs84坐标系；
 	"baidu"：表示百度定位模块，支持gcj02/bd09/bd09ll坐标系；
 	"amap"：表示高德定位模板，支持gcj02坐标系。
-	默认使用“system”值，若指定的provider不存在或无效则返回错误回调。
+	默认值按以下优先顺序获取（amap&gt;baidu&gt;system），若指定的provider不存在或无效则返回错误回调。
 	注意：百度/高德定位模块需要配置百度/高德地图相关参数才能正常使用。
 						</p>
 </li>

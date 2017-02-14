@@ -28,10 +28,16 @@
 <a href="#plus.net.XhrProgressEventCallback">XhrProgressEventCallback</a>: 网络请求进度事件的回调函数</li>
 </ul>
 <h2>权限：</h2>
-<p>permissions</p>
+<p>5+功能模块（permissions）</p>
 <pre class="prettyprint linenums">
-"XMLHttpRequest": {
-	"description": "跨域网络访问"
+{
+// ...
+"permissions":{
+	// ...
+	"XMLHttpRequest": {
+		"description": "跨域网络连接"
+	}
+}
 }
 			</pre>
 <h1><a name="plus.net.XMLHttpRequest">XMLHttpRequest</a></h1>
@@ -70,6 +76,8 @@
 <a href="#plus.net.XMLHttpRequest.getResponseHeader">getResponseHeader</a>: 获取指定的HTTP响应头部的值</li>
 <li>
 <a href="#plus.net.XMLHttpRequest.open">open</a>: 初始化HTTP请求参数，例如URL和HTTP方法，但是并不发送请求</li>
+<li>
+<a href="#plus.net.XMLHttpRequest.overrideMimeType">overrideMimeType</a>: 重写服务器返回的MIME类型</li>
 <li>
 <a href="#plus.net.XMLHttpRequest.send">send</a>: 发送HTTP请求</li>
 <li>

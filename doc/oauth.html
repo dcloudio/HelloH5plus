@@ -37,8 +37,14 @@
 <h2>权限：</h2>
 <p>permissions</p>
 <pre class="prettyprint linenums">
-"OAuth": {
-	"description": "访问授权登录认证插件"
+{
+// ...
+"permissions":{
+	// ...
+	"OAuth": {
+		"description": "登录鉴权"
+	}
+}
 }
 			</pre>
 <h1><a name="plus.oauth.AuthService">AuthService</a></h1>
@@ -93,7 +99,10 @@ interface plus.oauth.AuthService {
 interface plus.oauth.AuthOptions {
 	attribute String scope;
 	attribute String state;
+	attribute String appid;
 	attribute String appkey;
+	attribute String appsecret;
+	attribute String redirect_uri;
 }
 				</pre>
 <h2>说明：</h2>
@@ -113,9 +122,33 @@ interface plus.oauth.AuthOptions {
 	类型
 )</em>客户端的当前状态，可以指定任意值，登录认证后原封不动的返回保存到AuthService对象的extra中<br>
 </li>
+<li>appid: <em>(<font class="type">String</font>
+	类型
+)</em>授权登录认证服务平台申请的appid<br><p>
+	动态设置登录授权服务中需要使用的appid，仅需要此参数的登录授权服务（如“微信登录”、“QQ登录”）支持。
+	如果未设置则使用运行环境中内置的appid值（如在HBuilder中可在manifest.json的SDK配置项中进行设置）。
+						</p>
+</li>
 <li>appkey: <em>(<font class="type">String</font>
 	类型
-)</em>360开放平台申请的生活助手应用appkey标识<br>
+)</em>授权登录认证服务平台申请的appkey<br><p>
+	动态设置登录授权服务中需要使用的appkey，仅需要此参数的登录授权服务（如“新浪微博登录”、“360登录”）支持。
+	如果未设置则使用运行环境中内置的appkey值（如在HBuilder中可在manifest.json的SDK配置项中进行设置）。
+						</p>
+</li>
+<li>appsecret: <em>(<font class="type">String</font>
+	类型
+)</em>授权登录认证服务平台申请的appsecret<br><p>
+	动态设置登录授权服务中需要使用的appsecret，仅需要此参数的登录授权服务（如“微信登录”、“新浪微博登录”）支持。
+	如果未设置则使用运行环境中内置的appkey值（如在HBuilder中可在manifest.json的SDK配置项中进行设置）；当开放平台申请的appsecret值涉及到安全问题时，可在应用运行时从服务器获取，然后通过此api动态设置。
+						</p>
+</li>
+<li>redirect_url: <em>(<font class="type">String</font>
+	类型
+)</em>授权登录认证服务平台申请的redirect_url<br><p>
+	动态设置登录授权服务中需要使用的redirect_url，仅需要此参数的登录授权服务（如“新浪微博登录”）支持。
+	如果未设置则使用运行环境中内置的redirect_url值（如在HBuilder中可在manifest.json的SDK配置项中进行设置）。
+						</p>
 </li>
 </ul>
 <h1><a name="plus.oauth.ServicesSuccessCallback">ServicesSuccessCallback</a></h1>

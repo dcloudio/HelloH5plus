@@ -15,17 +15,17 @@ var t=null;
 // H5 plus事件处理
 function plusReady(){
 	// 锁定只能竖屏显示
-	plus.screen.lockOrientation( "portrait-primary" );
+	plus.screen.lockOrientation('portrait-primary');
 	// 监听加速度
-	plus.accelerometer.watchAcceleration( function ( a ) {
+	plus.accelerometer.watchAcceleration(function(a){
 		if(!up){
 			return;
 		}
-		if ( !p && ( Math.abs(a.xAxis)+Math.abs(a.yAxis)+Math.abs(a.zAxis) > MAX ) ){
+		if(!p && ( Math.abs(a.xAxis)+Math.abs(a.yAxis)+Math.abs(a.zAxis) > MAX )){
 			// Play audio
-			p = plus.audio.createPlayer("_www/audio/shake.wav");
+			p = plus.audio.createPlayer('_www/audio/shake.wav');
 			p.play();
-			setTimeout( function(){
+			setTimeout(function(){
 				// Change background image
 				var index = Math.round(Math.random()*3+1);
 				if ( iLast == index ) {
@@ -34,7 +34,7 @@ function plusReady(){
 						index = 1;
 					}
 				}
-				document.body.style.backgroundImage="url(../img/shake/"+index+".jpg)";
+				document.body.style.backgroundImage='url(../img/shake/'+index+'.jpg)';
 				iLast = index;
 				// Stop play audio
 				p.stop();
@@ -43,34 +43,34 @@ function plusReady(){
 			}, 2000 );
 			// Animation
 			offset=up.offsetHeight/2;
-			up.style.webkitTransform = "translateY(-"+offset+"px)";
-			up.style.msTransform = "translateY(-"+offset+"px)";
-			down.style.webkitTransform = "translateY("+offset+"px)";
-			down.style.msTransform = "translateY("+offset+"px)";
-			if ( t ) {
-				clearTimeout( t );
+			up.style.webkitTransform = 'translateY(-'+offset+'px)';
+			up.style.msTransform = 'translateY(-'+offset+'px)';
+			down.style.webkitTransform = 'translateY('+offset+'px)';
+			down.style.msTransform = 'translateY('+offset+'px)';
+			if(t){
+				clearTimeout(t);
 			}
-			t = setTimeout( function() {
+			t = setTimeout(function(){
 				t = null;
-				up.style.webkitTransform = "";
-				up.style.msTransform = "";
-				down.style.webkitTransform = "";
-				down.style.msTransform = "";
+				up.style.webkitTransform = '';
+				up.style.msTransform = '';
+				down.style.webkitTransform = '';
+				down.style.msTransform = '';
 			}, 700 );
 		}
-	}, function ( e ) {
-		//outSet( "Watch failed: "+e.message );
-	}, {frequency:100} );
+	}, function(e){
+		//outSet('Watch failed: '+e.message);
+	}, {frequency:100});
 }
 if(window.plus){
 	plusReady();
 }else{
-	document.addEventListener("plusready",plusReady,false);
+	document.addEventListener('plusready', plusReady, false);
 }
 // 监听DOMContentLoaded事件
-document.addEventListener("DOMContentLoaded",function(){
-	up=document.getElementById("up");
-	down=document.getElementById("down");
+document.addEventListener('DOMContentLoaded', function(){
+	up=document.getElementById('up');
+	down=document.getElementById('down');
 	offset=up.offsetHeight/2;
 },false);
 // 解锁并关闭

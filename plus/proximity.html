@@ -55,7 +55,7 @@ function watchStop() {
 	</head>
 	<body>
 		<header id="header">
-			<div class="nvbt iback" onclick="watchStop();back(true)"></div>
+			<div class="nvbt iback" onclick="watchStop(),back()"></div>
 			<div class="nvtt">Proximity</div>
 			<div class="nvbt idoc" onclick="openDoc('Proximity Document','/doc/proximity.html')"></div>
 		</header>
@@ -64,9 +64,9 @@ function watchStop() {
 			<p class="des">距离传感器一般都在手机听筒的两侧或者是在手机听筒凹槽中，当有物体接近时（如将手机靠近耳朵接听或拨打电话），距离感应器可以检测并通知屏幕背景灯熄灭，拿开时再度点亮背景灯，这样可方便用户操作并节省电量。</p>
 			<br/>
 			<ul class="dlist">
-				<li class="ditem" onclick="getProximity();">获取距离传感器信息</li>
-				<li class="ditem" onclick="watchProximity();">监听距离传感器变化</li>
-				<li class="ditem" onclick="watchStop();">停止监听</li>
+				<li class="ditem" onclick="getProximity()">获取距离传感器信息</li>
+				<li class="ditem" onclick="watchProximity()">监听距离传感器变化</li>
+				<li class="ditem" onclick="watchStop()">停止监听</li>
 			</ul>
 		</div>
 		<div id="output">

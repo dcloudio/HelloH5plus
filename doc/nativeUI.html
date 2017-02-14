@@ -51,7 +51,7 @@
 <li>
 <a href="#plus.nativeUI.WaitingLoadingOptions">WaitingLoadingOptions</a>: JSON对象，原生等待对话框上loading图标自定义样式</li>
 <li>
-<a href="#plus.nativeUI.ToastOption">ToastOption</a>: JSON对象，系统提示消息框要设置的参数</li>
+<a href="#plus.nativeUI.ToastOptions">ToastOptions</a>: JSON对象，系统提示消息框要设置的参数</li>
 </ul>
 <h2>回调方法：</h2>
 <ul>
@@ -69,10 +69,16 @@
 <a href="#plus.nativeUI.PickDatetimeErrorCallback">PickDatetimeErrorCallback</a>: 选择日期或时间操作取消或失败的回调函数</li>
 </ul>
 <h2>权限：</h2>
-<p>permissions</p>
+<p>5+功能模块（permissions）</p>
 <pre class="prettyprint linenums">
-"NativeUI": {
-	"description": "原生UI控件"
+{
+// ...
+"permissions":{
+	// ...
+	"NativeUI": {
+		"description": "原生UI控件"
+	}
+}
 }
 			</pre>
 <h1><a name="plus.nativeUI.ActionButtonStyle">ActionButtonStyle</a></h1>
@@ -290,10 +296,16 @@
 	"none"表示不显示loading图标；
 						</p>
 </li>
+<li>height: <em>(<font class="type">String</font>
+	类型
+)</em>loading图标高度<br><p>
+	设置loading图标的高度（宽度等比率缩放），取值类型：像素值，如"14px"表示14像素高。
+						</p>
+</li>
 <li>icon: <em>(<font class="type">String</font>
 	类型
 )</em>loading图标路径<br><p>
-	自定义loading图标的路径，必须是本地资源地址；
+	自定义loading图标的路径，png格式，并且必须是本地资源地址；
 	loading图要求宽是高的整数倍，显示等待框时按照图片的高横向截取每帧刷新。
 						</p>
 </li>
@@ -304,13 +316,22 @@
 						</p>
 </li>
 </ul>
-<h1><a name="plus.nativeUI.ToastOption">ToastOption</a></h1>
+<h1><a name="plus.nativeUI.ToastOptions">ToastOptions</a></h1>
 <p>JSON对象，系统提示消息框要设置的参数</p>
 <h2>属性：</h2>
 <ul>
 <li>icon: <em>(<font class="type">String</font>
 	类型
 )</em>提示消息框上显示的图标<br>
+</li>
+<li>style: <em>(<font class="type">String</font>
+	类型
+)</em>提示消息框上显示的样式<br><p>
+	可取值：
+	"block"表示图标与文字分两行显示，上面显示图标，下面显示文字；
+	"inline"表示图标与文字在同一行显示，左边显示图标，右边显示文字。
+	默认值为"block"。
+						</p>
 </li>
 <li>duration: <em>(<font class="type">String</font>
 	类型

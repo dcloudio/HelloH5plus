@@ -27,7 +27,7 @@ function createEmbed(){
 		topoffset=(Math.round(plus.navigator.getStatusbarHeight())+45)+'px';
 	}
 	plus.nativeUI.showWaiting('',{style:'black',modal:false,background:'rgba(0,0,0,0)'});
-	embed=plus.webview.create('http://weibo.com/dhnetwork/','embed',{top:topoffset,bottom:'0px',position:'dock',dock:'bottom',bounce:'vertical'});
+	embed=plus.webview.create('http://m.weibo.cn/u/3196963860','embed',{top:topoffset,bottom:'0px',position:'dock',dock:'bottom',bounce:'vertical'});
 	ws.append(embed);
 	embed.addEventListener('loaded',function(){
 		plus.nativeUI.closeWaiting();
@@ -75,7 +75,7 @@ function onBrowserLoading(){
 			<div class="nvbt iback" onclick="back(),plus.nativeUI.closeWaiting();"></div>
 			<div class="nvtt">
 				<form action="?" method="get" onsubmit="openUrl();return false;">
-				<input id="url" type="url" value="http://weibo.com/dhnetwork"/>
+				<input id="url" type="url" value="http://m.weibo.cn/u/3196963860"/>
 				</form>
 			</div>
 			<div class="nvbt" onclick="openUrl();">Go</div>

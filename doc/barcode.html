@@ -56,7 +56,9 @@
 <li>
 <a href="#plus.barcode.Barcode">Barcode</a>: 条码扫描识别控件对象</li>
 <li>
-<a href="#plus.barcode.BarcodeOption">BarcodeOption</a>: JSON对象，条码识别控件扫描参数</li>
+<a href="#plus.barcode.BarcodeStyles">BarcodeStyles</a>: 条码扫描控件样式参数</li>
+<li>
+<a href="#plus.barcode.BarcodeOptions">BarcodeOptions</a>: 条码识别控件扫描参数</li>
 </ul>
 <h2>回调方法：</h2>
 <ul>
@@ -68,8 +70,14 @@
 <h2>权限：</h2>
 <p>permissions</p>
 <pre class="prettyprint linenums">
-"Barcode": {
-	"description": "访问条码扫描插件"
+{
+// ...
+"permissions":{
+	// ...
+	"Barcode": {
+		"description": "二维码"
+	}
+}
 }
 			</pre>
 <h1><a name="plus.barcode.Barcode">Barcode</a></h1>
@@ -79,6 +87,7 @@ interface plus.barcode.Barcode {
 	// Methods
 	function void start( options );
 	function void cancel();
+	function void close();
 	function void setFlash( open );
 
 	// Events
@@ -92,13 +101,15 @@ Barcode对象表示条码识别控件对象，在窗口中显示条码识别控�
 				</p>
 <h2>构造：</h2>
 <ul><li>
-<a href="#plus.barcode.Barcode.Barcode.constructor(id,filters)">Barcode.constructor(id,filters)</a>: 创建Barcode对象</li></ul>
+<a href="#plus.barcode.Barcode.Barcode.constructor(id,filters,styles)">Barcode.constructor(id,filters,styles)</a>: 创建Barcode对象</li></ul>
 <h2>方法：</h2>
 <ul>
 <li>
 <a href="#plus.barcode.Barcode.start">start</a>: 开始条码识别</li>
 <li>
 <a href="#plus.barcode.Barcode.cancel">cancel</a>: 结束条码识别</li>
+<li>
+<a href="#plus.barcode.Barcode.close">close</a>: 关闭条码识别控件</li>
 <li>
 <a href="#plus.barcode.Barcode.setFlash">setFlash</a>: 是否开启闪光灯</li>
 </ul>
@@ -109,12 +120,48 @@ Barcode对象表示条码识别控件对象，在窗口中显示条码识别控�
 <li>
 <a href="#plus.barcode.Barcode.onerror">onerror</a>: 条码识别错误事件</li>
 </ul>
-<h1><a name="plus.barcode.BarcodeOption">BarcodeOption</a></h1>
-<p>JSON对象，条码识别控件扫描参数</p>
+<h1><a name="plus.barcode.BarcodeStyles">BarcodeStyles</a></h1>
+<p>条码扫描控件样式参数</p>
 <pre class="prettyprint linenums">
-interface plus.barcode.BarcodeOption {
+interface plus.barcode.BarcodeStyles {
+	attribute String frameColor;
+	attribute String scanbarColor;
+	attribute String background;
+}
+				</pre>
+<h2>说明：</h2>
+<p class="des">
+	设置条码识别控件的样式，如扫描框、扫描条的颜色等。
+				</p>
+<h2>属性：</h2>
+<ul>
+<li>frameColor: <em>(<font class="type">String</font>
+	类型
+)</em>扫描框颜色<br><p>
+	颜色值支持(参考CSS颜色规范)：颜色名称(参考CSS Color Names)/十六进制值/rgb值/rgba值，默认值为红色。
+						</p>
+</li>
+<li>scanbarColor: <em>(<font class="type">String</font>
+	类型
+)</em>扫描条颜色<br><p>
+	颜色值支持(参考CSS颜色规范)：颜色名称(参考CSS Color Names)/十六进制值/rgb值/rgba值，默认值为红色。
+						</p>
+</li>
+<li>background: <em>(<font class="type">String</font>
+	类型
+)</em>条码识别控件背景颜色<br><p>
+	颜色值支持(参考CSS颜色规范)：颜色名称(参考CSS Color Names)/十六进制值/rgb值，默认值为红色。
+						</p>
+</li>
+</ul>
+<h1><a name="plus.barcode.BarcodeOptions">BarcodeOptions</a></h1>
+<p>条码识别控件扫描参数</p>
+<pre class="prettyprint linenums">
+interface plus.barcode.BarcodeOptions {
 	attribute Boolean conserve;
-	attribute DOMString filename;
+	attribute String filename;
+	attribute Boolean vibrate;
+	attribute String sound;
 }
 				</pre>
 <h2>说明：</h2>
@@ -133,6 +180,21 @@ interface plus.barcode.BarcodeOption {
 	类型
 )</em>保存成功扫描到的条码数据时的图片路径<br><p>
 	可通过此参数设置保存截图的路径或名称，如果设置图片文件名称则必须指定文件的后缀名（必须是.png），否则认为是指定目录，文件名称则自动生成。
+						</p>
+</li>
+<li>vibrate: <em>(<font class="type">Boolean</font>
+	类型
+)</em>成功扫描到条码数据时是否需要震动提醒<br><p>
+	如果设置为true则在成功扫描到条码数据时震动设备，false则不震动。默认值为true。
+						</p>
+</li>
+<li>sound: <em>(<font class="type">String</font>
+	类型
+)</em>成功扫描到条码数据时播放的提示音类型<br><p>
+	可取值：
+	"none" - 不播放提示音；
+	"default" - 播放默认提示音（5+引擎内置）。
+	默认值为"default"。
 						</p>
 </li>
 </ul>
@@ -154,12 +216,12 @@ void BarcodeSuccessCallback ( type, code, file ) {
 			必选 </em>识别到的条码类型<br>Number类型的值，与Barcode对象定义的条码类型常量一致。</li>
 <li>code: 
 		<em>(
-			<font class="type">DOMString</font>
+			<font class="type">String</font>
 			)
 			必选 </em>识别到的条码数据<br>从条码图片中扫描出的数据内容，字符串采用UTF8编码格式。</li>
 <li>file: 
 		<em>(
-			<font class="type">DOMString</font>
+			<font class="type">String</font>
 			)
 			可选 </em>识别到的条码图片文件路径<br>识别到的条码数据图片，为png格式文件，为设置为不保存图片，则返回undefined。</li>
 </ul>

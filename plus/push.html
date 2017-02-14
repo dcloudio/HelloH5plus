@@ -65,12 +65,12 @@ function logoutPushMsg( msg ) {
  */
 function getPushInfo(){
 	var info = plus.push.getClientInfo();
-	outSet("获取客户端推送标识信息：");
+	outSet( "获取客户端推送标识信息：" );
 	outLine("id: "+info.id);
-	outLine("token: "+info.token);
-	outLine("clientid: "+info.clientid);
-	outLine("appid: "+info.appid);
-	outLine("appkey: "+info.appkey);
+	outLine( "token: "+info.token );
+	outLine( "clientid: "+info.clientid );
+	outLine( "appid: "+info.appid );
+	outLine( "appkey: "+info.appkey );
 }
 /**
  * 本地创建一条推动消息
@@ -207,7 +207,7 @@ function requireTranMsg(){
 	</head>
 	<body>
 		<header id="header">
-			<div class="nvbt iback" onclick="back(true)"></div>
+			<div class="nvbt iback" onclick="back()"></div>
 			<div class="nvtt">Push</div>
 			<div class="nvbt idoc" onclick="openDoc('Push Document','/doc/push.html')"></div>
 		</header>

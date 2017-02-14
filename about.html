@@ -33,6 +33,8 @@ function plusReady(){
 	if(navigator.userAgent.indexOf('StreamApp')>=0){
 		shortcut.style.display='block';
 	}
+	// 设置窗口优化隐藏
+	dragHide();
 }
 document.addEventListener("plusready",plusReady,false);
 
@@ -42,7 +44,7 @@ var bStream = navigator.userAgent.indexOf('StreamApp')>=0;
 // 分享应用
 var shares={},shareBts=[];
 function share(){
-	shareBts.length>1?plus.nativeUI.actionSheet({title:'分享"HelloH5"应用',cancel:'取消',buttons:shareBts},function(e){
+	(shareBts.length>1)||('Android'!==plus.os.name&&shareBts.length>0)?plus.nativeUI.actionSheet({title:'分享"HelloH5"应用',cancel:'取消',buttons:shareBts},function(e){
 		(e.index>0)&&shareAction(shareBts[e.index-1]);
 	}):(shareBts.length>0?shareWithSystem():plus.nativeUI.alert('当前环境无法支持分享操作!'));
 }
@@ -93,6 +95,20 @@ function shareWithSystem(){
 function createShortcut(){
 	plus.navigator.createShortcut({name:'HelloH5',icon:'icon.png'});
 }
+function dragHide(){
+	var ws = plus.webview.currentWebview();
+	// 窗口隐藏时调整到正确位置（drag操作会修改窗口位置），否则可能导致无法调用show方法显示
+	ws.addEventListener('hide',function(){
+		ws.setStyle({left:'0px'});
+	},false);
+	// 设置拖动关闭当前窗口
+	ws.drag({direction:'right',moveMode:'followFinger'}, {view:plus.runtime.appid,moveMode:'silent'}, function(e){
+		if(e.type=='end'&&e.result){
+			ws.hide();
+		}
+		console.log('Drag Event: '+JSON.stringify(e));
+	});
+}
 		</script>
 		<link rel="stylesheet" href="css/common.css" type="text/css" charset="utf-8"/>
 		<style type="text/css">
@@ -126,9 +142,10 @@ footer {
 		<div id="content" class="content">
 		<div class="logo">
 			<br/>
+			<img style="width:64px" src="icon.png"/><br/>
 			<span style="font-size: 20px;">Hello HTML5+</span><br/>
-			(v<span id="version"></span>)<br/>
-			<img style="width:100%" src="img/qr.png"/>
+			(v<span id="version">1.0.0</span>)<br/>
+			<!--<img style="width:100%" src="img/qr.png"/>-->
 			<div id="shortcut" style="display:none;" class="button" onclick="createShortcut()">创建桌面图标</div>
 			<br/><br/>
 		</div>

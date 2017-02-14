@@ -40,7 +40,7 @@ function pickTime() {
 }
 function showAlert(){
 	outSet( "弹出系统提示对话框：" );
-	plus.nativeUI.alert("请注意！\n我是系统提示框",function(e){
+	plus.nativeUI.alert("系统提示框内容\n第二行内容",function(e){
 		var i=e.index;
 		if(i<0){
 			outLine( "按\"返回\"键关闭提示框！" );
@@ -52,7 +52,7 @@ function showAlert(){
 function showConfirm(){
 	outSet( "弹出系统确认对话框：" );
 	var bts=["是","否","取消"];
-	plus.nativeUI.confirm("请确认是否弹出系统框？",function(e){
+	plus.nativeUI.confirm("系统确认对话框内容\n第二行内容",function(e){
 		var i=e.index;
 		outLine( "按\""+((i>=0)?bts[e.index]:"返回")+"\"关闭！" );
 	},"nativeUI",bts);
@@ -60,10 +60,10 @@ function showConfirm(){
 function showPrompt(){
 	outSet( "弹出系统输入对话框：" );
 	var bts=["确认","取消"];
-	plus.nativeUI.prompt("请输入你的姓名",function(e){
+	plus.nativeUI.prompt("请输入内容",function(e){
 		var i=e.index;
 		outLine( "按\""+((i>=0)?bts[e.index]:"返回")+"\"关闭："+e.value );
-	},"nativeUI","姓名",bts);
+	},"nativeUI","内容",bts);
 }
 function showActionSheet(){
 	outSet( "弹出系统选择按钮框：" );
@@ -88,7 +88,7 @@ function showWaiting(){
 	</head>
 	<body>
 		<header id="header">
-			<div class="nvbt iback" onclick="back(true);"></div>
+			<div class="nvbt iback" onclick="back()"></div>
 			<div class="nvtt">nativeUI</div>
 			<div class="nvbt idoc" onclick="openDoc('NativeUI Document','/doc/nativeUI.html')"></div>
 		</header>

@@ -2,8 +2,8 @@
     "id": "HelloH5",
     "name": "HelloH5",
     "version": {
-        "name": "1.9.0",
-        "code": "10900"
+        "name": "1.9.1",
+        "code": "10901"
     },
     "description": "HTML5 Plus能力演示",
     "icons": {
@@ -72,6 +72,9 @@
         },
         "Webview": {
             "description": "窗口管理"
+        },
+        "NativeObj": {
+            "description": "原生控件"
         },
         "NativeUI": {
             "description": "原生UI控件"

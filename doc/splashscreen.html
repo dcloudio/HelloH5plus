@@ -18,12 +18,26 @@
 <a href="#plus.navigator.closeSplashscreen">closeSplashscreen</a>: 关闭程序启动界面</li></ul>
 <h2>权限：</h2>
 <p>
-	需要在应用的manifest文件中plus节点下配置splashscreen信息才能显示程序启动界面。
+	5+功能模块（permissions）。
+	在plus节点下配置splashscreen节点信息设置程序启动界面参数。
 			</p>
 <pre class="prettyprint linenums">
-"splashscreen": {
-	"autoclose": "true",
-	"delay": ""
+{
+// ...
+"permissions":{
+	// ...
+	"Navigator": {
+		"description": "浏览器信息"
+	}
+}
+// ...
+"plus":{
+	// ...
+	"splashscreen": {
+		"autoclose": "true",	// 首页加载完成后自动关闭splash界面
+		"delay": ""
+	}
+}
 }
 			</pre>
 			属性：

@@ -29,8 +29,6 @@ function plusReady(){
 		}
 	},false);
 	compatibleAdjust();
-	// 兼容低版本流应用环境创建快捷方式
-	shrotcutForStream();
 }
 if(window.plus){
 	plusReady();
@@ -60,16 +58,22 @@ function compatibleAdjust(){
 	// 预创建二级窗口
 //	preateWebviews();
 	// 关闭启动界面
-	setTimeout(function(){
-		plus.navigator.closeSplashscreen();
 		plus.navigator.setStatusBarBackground('#D74B28');
 		if(plus.navigator.isImmersedStatusbar()){
 			plus.navigator.setStatusBarStyle('UIStatusBarStyleBlackOpaque');
 		}
-	},500);
+	setTimeout(function(){
+		plus.navigator.closeSplashscreen();
+	},200);
 }
 // 处理点击事件
 var _openw=null;
+/**
+ * 点击打开新窗口
+ * @param {Object} id	加载的页面地址，也用作窗口标识
+ * @param {Object} a	页面动画内心，默认使用全局as设置的值
+ * @param {Object} s	是否不显示窗口
+ */
 function clicked(id,a,s){
 	if(_openw){return;}
 	a||(a=as);
@@ -81,7 +85,8 @@ function clicked(id,a,s){
 		});
 	}else{
 //		var wa=plus.nativeUI.showWaiting();
-		_openw=plus.webview.create(id,id,{scrollIndicator:'none',scalable:false,popGesture:'hide'},{preate:true});
+//		_openw=plus.webview.create(id,id,{scrollIndicator:'none',scalable:false,popGesture:'hide'},{preate:true});//复用二级页面
+		_openw=plus.webview.create(id,id,{scrollIndicator:'none',scalable:false,popGesture:'close'});
 		preate[id]=_openw;
 		_openw.addEventListener('loaded',function(){//叶面加载完成后才显示
 //		setTimeout(function(){//延后显示可避免低端机上动画时白屏
@@ -134,22 +139,6 @@ function preateClear(){
 		}
 	}
 }
-// 为流应用创建快捷方式
-function shrotcutForStream(){
-	if(navigator.userAgent.indexOf('StreamApp')<0||plus.os.name!='Android'){	// 非流应用Android平台环境不需处理
-		return;
-	}
-	var versions = plus.runtime.innerVersion.split('.');
-	if(versions[versions.length - 1]<21013){	// 需手动创建快捷方式
-		if(plus.navigator.createShortcut&&'created'!=plus.storage.getItem('customeshortcut')){	// 
-			plus.navigator.createShortcut({ // 注意：设置正确的应用名称和图标路径
-                name: "HelloH5", 
-                icon: "_www/icon.png" 
-            });
-			plus.storage.setItem('customeshortcut','created');	// 设置已创建快捷方式标记，防止每次启动都创建快捷方式
-		}
-	}
-}
 		</script>
 		<link rel="stylesheet" href="css/common.css" type="text/css" charset="utf-8"/>
 		<style type="text/css">
@@ -184,142 +173,147 @@ li:active {
 		</header>
 		<div id="content" class="content">
 		<ul id="plist" style="list-style:none;margin:0;padding:0;text-align:left;">
-			<li id="plus/accelerometer.html" onclick="clicked(this.id);">
+			<li id="plus/accelerometer.html" onclick="clicked(this.id)">
 				<span class="item">Accelerometer
 					<div class="chs">加速度传感器</div>
 				</span>
 			</li>
-			<li id="plus/audio.html" onclick="clicked(this.id);">
+			<li id="plus/audio.html" onclick="clicked(this.id)">
 				<span class="item">Audio
 					<div class="chs">音频录制/播放</div>
 				</span>
 			</li>
-			<li id="plus/barcode.html" onclick="clicked(this.id);">
+			<li id="plus/barcode.html" onclick="clicked(this.id)">
 				<span class="item">Barcode
 					<div class="chs">二维码扫描</div>
 				</span>
 			</li>
-			<li id="plus/camera.html" onclick="clicked(this.id);">
+			<li id="plus/camera.html" onclick="clicked(this.id)">
 				<span class="item">Camera
 					<div class="chs">摄像头拍照/录像</div>
 				</span>
 			</li>
-			<li id="plus/device.html" onclick="clicked(this.id);">
+			<li id="plus/device.html" onclick="clicked(this.id)">
 				<span class="item">Device
 					<div class="chs">设备信息</div>
 				</span>
 			</li>
-			<li id="plus/downloader.html" onclick="clicked(this.id);">
+			<li id="plus/downloader.html" onclick="clicked(this.id)">
 				<span class="item">Downloader
 					<div class="chs">下载管理</div>
 				</span>
 			</li>
-			<li id="plus/events.html" onclick="clicked(this.id);">
+			<li id="plus/events.html" onclick="clicked(this.id)">
 				<span class="item">Events
 					<div class="chs">系统事件</div>
 				</span>
 			</li>
-			<li id="plus/file.html" onclick="clicked(this.id);">
+			<li id="plus/file.html" onclick="clicked(this.id)">
 				<span class="item">File System
 					<div class="chs">文件系统</div>
 				</span>
 			</li>
-			<li id="plus/gallery.html" onclick="clicked(this.id);">
+			<li id="plus/gallery.html" onclick="clicked(this.id)">
 				<span class="item">Gallery
 					<div class="chs">系统相册</div>
 				</span>
 			</li>
-			<li id="plus/geolocation.html" onclick="clicked(this.id);">
+			<li id="plus/geolocation.html" onclick="clicked(this.id)">
 				<span class="item">Geolocation
 					<div class="chs">地理定位</div>
 				</span>
 			</li>
-			<li id="plus/maps.html" onclick="clicked(this.id);">
+			<li id="plus/maps.html" onclick="clicked(this.id)">
 				<span class="item">Maps
 					<div class="chs">地图</div>
 				</span>
 			</li>
-			<li id="plus/message.html" onclick="clicked(this.id);">
+			<li id="plus/message.html" onclick="clicked(this.id)">
 				<span class="item">Messaging
 					<div class="chs">消息通讯</div>
 				</span>
 			</li>
-			<li id="plus/nativeui.html" onclick="clicked(this.id);">
+			<li id="plus/nativeobj.html" onclick="clicked(this.id)">
+				<span class="item">NativeObj
+					<div class="chs">原生对象</div>
+				</span>
+			</li>
+			<li id="plus/nativeui.html" onclick="clicked(this.id)">
 				<span class="item">NativeUI
 					<div class="chs">原生界面</div>
 				</span>
 			</li>
-			<li id="plus/navigator.html" onclick="clicked(this.id);">
+			<li id="plus/navigator.html" onclick="clicked(this.id)">
 				<span class="item">Navigator
 					<div class="chs">浏览器环境</div>
 				</span>
 			</li>
-			<li id="plus/oauth.html" onclick="clicked(this.id);">
+			<li id="plus/oauth.html" onclick="clicked(this.id)">
 				<span class="item">OAuth
 					<div class="chs">授权登录认证</div>
 				</span>
 			</li>
-			<li id="plus/orientation.html" onclick="clicked(this.id);">
+			<li id="plus/orientation.html" onclick="clicked(this.id)">
 				<span class="item">Orientation
 					<div class="chs">方向传感器</div>
 				</span>
 			</li>
-			<li id="plus/payment.html" onclick="clicked(this.id);">
+			<li id="plus/payment.html" onclick="clicked(this.id)">
 				<span class="item">Payment
 					<div class="chs">支付</div>
 				</span>
 			</li>
-			<li id="plus/proximity.html" onclick="clicked(this.id);">
+			<li id="plus/proximity.html" onclick="clicked(this.id)">
 				<span class="item">Proximity
 					<div class="chs">距离传感器</div>
 				</span>
 			</li>
-			<li id="plus/push.html" onclick="clicked(this.id);">
+			<li id="plus/push.html" onclick="clicked(this.id)">
 				<span class="item">Push
 					<div class="chs">消息推送</div>
 				</span>
 			</li>
-			<li id="plus/runtime.html" onclick="clicked(this.id);">
+			<li id="plus/runtime.html" onclick="clicked(this.id)">
 				<span class="item">Runtime
 					<div class="chs">运行环境</div>
 				</span>
 			</li>
-			<li id="plus/share.html" onclick="clicked(this.id);">
+			<li id="plus/share.html" onclick="clicked(this.id)">
 				<span class="item">Share
 					<div class="chs">分享</div>
 				</span>
 			</li>
-			<li id="plus/speech.html" onclick="clicked(this.id);">
+			<li id="plus/speech.html" onclick="clicked(this.id)">
 				<span class="item">Speech
 					<div class="chs">语音识别</div>
 				</span>
 			</li>
-			<li id="plus/statistic.html" onclick="clicked(this.id);">
+			<li id="plus/statistic.html" onclick="clicked(this.id)">
 				<span class="item">Statistic
 					<div class="chs">统计管理</div>
 				</span>
 			</li>
-			<li id="plus/storage.html" onclick="clicked(this.id);">
+			<li id="plus/storage.html" onclick="clicked(this.id)">
 				<span class="item">Storage
 					<div class="chs">本地数据存储</div>
 				</span>
 			</li>
-			<li id="plus/uploader.html" onclick="clicked(this.id);">
+			<li id="plus/uploader.html" onclick="clicked(this.id)">
 				<span class="item">Uploader
 					<div class="chs">上传管理</div>
 				</span>
 			</li>
-			<li id="plus/webview.html" onclick="clicked(this.id);">
+			<li id="plus/webview.html" onclick="clicked(this.id)">
 				<span class="item">Webview
 					<div class="chs">窗口管理</div>
 				</span>
 			</li>
-			<li id="plus/xhr.html" onclick="clicked(this.id);">
+			<li id="plus/xhr.html" onclick="clicked(this.id)">
 				<span class="item">XMLHttpRequest
 					<div class="chs">跨域请求</div>
 				</span>
 			</li>
-			<li id="plus/zip.html" onclick="clicked(this.id);">
+			<li id="plus/zip.html" onclick="clicked(this.id)">
 				<span class="item">ZIP
 					<div class="chs">文件压缩/解压</div>
 				</span>

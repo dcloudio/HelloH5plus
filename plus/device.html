@@ -85,18 +85,18 @@ function dial(){
 	</head>
 	<body>
 		<header id="header">
-			<div class="nvbt iback" onclick="back(true);"></div>
+			<div class="nvbt iback" onclick="back()"></div>
 			<div class="nvtt">Device</div>
 			<div class="nvbt idoc" onclick="openDoc('Device Document','/doc/device.html')"></div>
 		</header>
 		<div id="dcontent" class="dcontent">
 			<br/>
 			<ul class="dlist">
-				<li class="ditem" onclick="getDeviceInfo();">获取设备信息</li>
-				<li class="ditem" onclick="getSysInfo();">获取系统信息</li>
-				<li class="ditem" onclick="deviceBeep();">蜂鸣</li>
-				<li class="ditem" onclick="deviceVibrate();">震动</li>
-				<li class="ditem" onclick="dial();">直接拨打电话</li>
+				<li class="ditem" onclick="getDeviceInfo()">获取设备信息</li>
+				<li class="ditem" onclick="getSysInfo()">获取系统信息</li>
+				<li class="ditem" onclick="deviceBeep()">蜂鸣</li>
+				<li class="ditem" onclick="deviceVibrate()">震动</li>
+				<li class="ditem" onclick="dial()">直接拨打电话</li>
 			</ul>
 		</div>
 		<div id="output">

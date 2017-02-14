@@ -71,19 +71,19 @@ function startAll(){
 	</head>
 	<body>
 		<header id="header">
-			<div class="nvbt iback" onclick="back(true);"></div>
+			<div class="nvbt iback" onclick="back()"></div>
 			<div class="nvtt">Downloader</div>
 			<div class="nvbt idoc" onclick="openDoc('Downloader Document','/doc/downloader.html')"></div>
 		</header>
 		<div id="dcontent" class="dcontent">
 			<br/>
 			<ul class="dlist">
-				<li class="ditem" onclick="createDownloadTask();">创建下载任务</li>
-				<li class="ditem" onclick="startDownloadTask();">启动下载任务</li>
-				<li class="ditem" onclick="pauseDownloadTask();">暂停下载任务</li>
-				<li class="ditem" onclick="resumeDownloadTask();">恢复下载任务</li>
-				<li class="ditem" onclick="cancelDownloadTask();">取消下载任务</li>
-				<!--<li class="ditem" onclick="clearDownloadTask();">清除所有任务</li>-->
+				<li class="ditem" onclick="createDownloadTask()">创建下载任务</li>
+				<li class="ditem" onclick="startDownloadTask()">启动下载任务</li>
+				<li class="ditem" onclick="pauseDownloadTask()">暂停下载任务</li>
+				<li class="ditem" onclick="resumeDownloadTask()">恢复下载任务</li>
+				<li class="ditem" onclick="cancelDownloadTask()">取消下载任务</li>
+				<!--<li class="ditem" onclick="clearDownloadTask()">清除所有任务</li>-->
 			</ul>
 		</div>
 		<div id="output">

@@ -20,11 +20,11 @@
 <li>
 <a href="#plus.android.newObject">newObject</a>: 创建实例对象</li>
 <li>
-<a href="#plus.android.getAttribute">getAttribute</a>: 获取对象（类对象/示例对象）的属性值</li>
+<a href="#plus.android.getAttribute">getAttribute</a>: 获取对象（类对象/实例对象）的属性值</li>
 <li>
-<a href="#plus.android.setAttribute">setAttribute</a>: 设置对象（类对象/示例对象）的属性值</li>
+<a href="#plus.android.setAttribute">setAttribute</a>: 设置对象（类对象/实例对象）的属性值</li>
 <li>
-<a href="#plus.android.invoke">invoke</a>: 调用对象（类对象/示例对象）的方法</li>
+<a href="#plus.android.invoke">invoke</a>: 调用对象（类对象/实例对象）的方法</li>
 <li>
 <a href="#plus.android.implements">implements</a>: 实现Interface的方法</li>
 <li>
@@ -40,10 +40,16 @@
 <a href="#plus.android.InstanceObject">InstanceObject</a>: Java实例对象</li>
 </ul>
 <h2>权限：</h2>
-<p>permissions</p>
+<p>5+功能模块（permissions）</p>
 <pre class="prettyprint linenums">
-"Invocation": {
-	"description": "Javascript桥"
+{
+// ...
+"permissions":{
+	// ...
+	"Invocation": {
+		"description": "Native.js"
+	}
+}
 }
 			</pre>
 <h1><a name="plus.android.ClassObject">ClassObject</a></h1>
@@ -80,15 +86,15 @@ interface InstanceObject {
 				</pre>
 <h2>说明：</h2>
 <p class="des">
-	Java实例对象，可通过其方法来操作示例的变量和方法。
-	注意：必须通过plusGetAttribute()方法读取示例对象的属性值，通过plusSetAttribute()方法设置示例对象的属性值。
+	Java实例对象，可通过其方法来操作实例的变量和方法。
+	注意：必须通过plusGetAttribute()方法读取实例对象的属性值，通过plusSetAttribute()方法设置实例对象的属性值。
 				</p>
 <h2>方法：</h2>
 <ul>
 <li>
 <a href="#plus.android.InstanceObject.plusGetAttribute">plusGetAttribute</a>: 获取Java实例对象的属性</li>
 <li>
-<a href="#plus.android.InstanceObject.plusSetAttribute">plusSetAttribute</a>: 设置Java示例对象的属性</li>
+<a href="#plus.android.InstanceObject.plusSetAttribute">plusSetAttribute</a>: 设置Java实例对象的属性</li>
 </ul>
 <br><br>
 </div></body>

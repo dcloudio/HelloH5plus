@@ -41,16 +41,26 @@
 <a href="#plus.gallery.GalleryErrorCallback">GalleryErrorCallback</a>: 系统相册操作失败的回调</li>
 </ul>
 <h2>权限：</h2>
-<p>permissions</p>
+<p>5+功能模块（permissions）</p>
 <pre class="prettyprint linenums">
-"Gallery": {
-	"description": "访问系统相册"
+{
+// ...
+"permissions":{
+	// ...
+	"Gallery": {
+		"description": "系统相册"
+	}
+}
 }
 			</pre>
 <h1><a name="plus.gallery.GalleryOptions">GalleryOptions</a></h1>
 <p>JSON对象，从相册中选择文件的参数</p>
 <h2>属性：</h2>
 <ul>
+<li>animation: <em>(<font class="type">Boolean</font>
+	类型
+)</em>是否显示系统相册文件选择界面的动画<br><p>是否显示系统相册文件选择界面的动画，可取值true、false，默认值为true。</p>
+</li>
 <li>filename: <em>(<font class="type">String</font>
 	类型
 )</em>选择文件保存的路径<br><p>
@@ -64,21 +74,40 @@
 	系统相册选择器中可选择的文件类型，可设置为仅选择图片文件（“image”）、视频文件（“video”）或所有文件（“none”），默认值为“image”。
 						</p>
 </li>
+<li>maximum: <em>(<font class="type">Number</font>
+	类型
+)</em>最多选择的图片数量<br><p>
+	仅在支持多选时有效，取值范围为1到Infinity，默认值为Infinity，即不限制选择的图片数。
+	如果设置的值非法则使用默认值Infinity。
+						</p>
+</li>
 <li>multiple: <em>(<font class="type">Boolean</font>
 	类型
 )</em>是否支持多选图片<br><p>
 	可从系统相册中选择多张图片，选择图片后通过GalleryMultiplePickSuccessCallback回调返回选择的图片。
 						</p>
 </li>
-<li>animation: <em>(<font class="type">Boolean</font>
+<li>onmaxed: <em>(<font class="type">Function</font>
 	类型
-)</em>是否显示系统相册文件选择界面的动画<br><p>是否显示系统相册文件选择界面的动画，可取值true、false，默认值为true。</p>
+)</em>超过最多选择图片数量事件<br><p>
+	使用相册多选图片时，可通过maximum属性设置最多选择的图片数量，当用户操作选择的数量大于此时触发此事件。
+						</p>
 </li>
 <li>popover: <em>(<a href="#plus.gallery.PopPosition">PopPosition</a>
 	类型
 )</em>相册选择界面弹出指示区域<br><p>
 	对于大屏幕设备如iPad，相册选择界面为弹出窗口，此时可通过此参数设置弹出窗口位置。
 	其为JSON对象，格式如{top:"10px",left:"10px",width:"200px",height:"200px"}，所有值为像素值，左上坐标相对于容器的位置，默认弹出位置为屏幕居中。
+						</p>
+</li>
+<li>selected: <em>(<font class="type">Array</font>[
+				<font class="type">String</font>
+				]
+			
+	类型
+)</em>已选择的图片路径列表<br><p>
+	仅在多图片选择时生效，相册选择界面将选中指定的图片路径列表。
+	如果指定的路径无效，则忽略此项；如果指定的路径数超过maximum属性指定的最大选择数目则超出的图片不选中。
 						</p>
 </li>
 <li>system: <em>(<font class="type">Boolean</font>

@@ -19,32 +19,69 @@
 <a href="#plus.nativeObj.Bitmap">Bitmap</a>: 原生图片对象</li>
 <li>
 <a href="#plus.nativeObj.BitmapSaveOptions">BitmapSaveOptions</a>: JSON对象，保存图片的参数</li>
+<li>
+<a href="#plus.nativeObj.View">View</a>: 原生控件对象</li>
+<li>
+<a href="#plus.nativeObj.AnimationOptions">AnimationOptions</a>: 原生动画参数</li>
+<li>
+<a href="#plus.nativeObj.AnimationViewStyles">AnimationViewStyles</a>: 原生动画窗口样式</li>
+<li>
+<a href="#plus.nativeObj.Rect">Rect</a>: 区域信息对象</li>
+<li>
+<a href="#plus.nativeObj.TextStyles">TextStyles</a>: 文本样式对象</li>
+<li>
+<a href="#plus.nativeObj.ViewAnimationOptions">ViewAnimationOptions</a>: View控件动画参数</li>
+<li>
+<a href="#plus.nativeObj.ViewEvents">ViewEvents</a>: View控件事件</li>
+<li>
+<a href="#plus.nativeObj.ViewStyles">ViewStyles</a>: View控件样式</li>
 </ul>
 <h2>回调方法：</h2>
 <ul>
 <li>
 <a href="#plus.nativeObj.BitmapSaveSuccessCallback">BitmapSaveSuccessCallback</a>: 图片保存操作成功回调接口</li>
 <li>
+<a href="#plus.nativeObj.TouchEventCallback">TouchEventCallback</a>: 触屏事件的回调函数</li>
+<li>
 <a href="#plus.nativeObj.NativeObjSuccessCallback">NativeObjSuccessCallback</a>: 操作成功回调函数接口</li>
 <li>
 <a href="#plus.nativeObj.NativeObjErrorCallback">NativeObjErrorCallback</a>: 操作错误回调函数接口</li>
 </ul>
 <h2>权限：</h2>
-<p>permissions</p>
+<p>5+功能模块（permissions）</p>
 <pre class="prettyprint linenums">
-"NativeObj": {
-	"description": "系统原生对象"
+{
+// ...
+"permissions":{
+	// ...
+	"NativeObj": {
+		"description": "原生对象"
+	}
+}
 }
 			</pre>
 <h1><a name="plus.nativeObj.Bitmap">Bitmap</a></h1>
 <p>原生图片对象</p>
+<pre class="prettyprint linenums">
+interface Bitmap {
+	readonly attribute String id;
+
+	static function Array[Bitmap] getItems();
+	static function Bitmap getBitmapById( id );
+	
+	function void clear();
+	function void load( path, successCallback, errorCallback );
+	function void loadBase64Data( data, successCallback, errorCallback );
+	function void save( path, options, successCallback, errorCallback );
+	function String toBase64Data();
+}				</pre>
 <h2>说明：</h2>
 <p class="des">
 	原生图片对象会占用较大的内存资源，在使用时需谨慎管理，当图片不再使用时应该及时调用clear方法进行销毁。
 				</p>
 <h2>构造：</h2>
 <ul><li>
-<a href="#plus.nativeObj.Bitmap.Bitmap(id)">Bitmap(id)</a>: 创建Bitmap对象</li></ul>
+<a href="#plus.nativeObj.Bitmap.Bitmap(id,%20path)">Bitmap(id, path)</a>: 创建Bitmap对象</li></ul>
 <h2>属性：</h2>
 <ul><li>
 <a href="#plus.nativeObj.Bitmap.id">id</a>: Bitmap对象的标识</li></ul>
@@ -61,12 +98,21 @@
 <li>
 <a href="#plus.nativeObj.Bitmap.loadBase64Data">loadBase64Data</a>: 加载Base64编码格式图片到Bitmap对象</li>
 <li>
+<a href="#plus.nativeObj.Bitmap.recycle">recycle</a>: 回收Bitmap图片内存</li>
+<li>
 <a href="#plus.nativeObj.Bitmap.save">save</a>: 保存图片</li>
 <li>
 <a href="#plus.nativeObj.Bitmap.toBase64Data">toBase64Data</a>: 获取图片的Base64编码数据</li>
 </ul>
 <h1><a name="plus.nativeObj.BitmapSaveOptions">BitmapSaveOptions</a></h1>
 <p>JSON对象，保存图片的参数</p>
+<pre class="prettyprint linenums">
+interface BitmapSaveOptions {
+	attribute Boolean overwrite;
+	attribute String format;
+	attribute Number quality;
+	attribute Rect clip;
+}				</pre>
 <h2>属性：</h2>
 <ul>
 <li>overwrite: <em>(<font class="type">Boolean</font>
@@ -91,6 +137,402 @@
 	默认值为50。
 						</p>
 </li>
+<li>clip: <em>(<a href="#plus.nativeObj.Rect">Rect</a>
+	类型
+)</em>指定裁剪区域保存图片<br><p>
+	相对于图片的区域信息，默认值为{top:'0px',left:'0px',width:'100%',height:'100%'}。
+						</p>
+</li>
+</ul>
+<h1><a name="plus.nativeObj.View">View</a></h1>
+<p>原生控件对象</p>
+<pre class="prettyprint linenums">
+interface View {
+	readonly attribute String id;
+
+	static function void startAnimation(options, view, otherview, callback);
+	static function void clearAnimation(type);
+	static function View getViewById(id);
+
+	function void addEventListener(event, listener, capture);
+	function void animate(options, callback);
+	function void drawBitmap(bitmap, src, dst, id);
+	function void drawRect(color, dst, id);
+	function void drawText(text, options, dst, id);
+	function void reset();
+	function void restore();
+	function void show();
+	function void setTouchEventRect(rect);
+	function void setStyle();
+	function void hide();
+	function void interceptTouchEvent(intercept);
+	function Boolean isVisible();
+	function void clear();
+}
+				</pre>
+<h2>说明：</h2>
+<p class="des">
+	原生控件对象可用于在屏幕上绘制图片或文本内容，当控件不再使用时需要调用clear方法销毁控件。
+				</p>
+<h2>构造：</h2>
+<ul><li>
+<a href="#plus.nativeObj.View.View(id,%20styles)">View(id, styles)</a>: 创建View对象</li></ul>
+<h2>属性：</h2>
+<ul><li>
+<a href="#plus.nativeObj.View.id">id</a>: View对象的标识</li></ul>
+<h2>方法：</h2>
+<ul>
+<li>
+<a href="#plus.nativeObj.View.startAnimation">startAnimation</a>: 静态方法，开始原生动画</li>
+<li>
+<a href="#plus.nativeObj.View.clearAnimation">clearAnimation</a>: 静态方法，关闭原生动画窗口</li>
+<li>
+<a href="#plus.nativeObj.View.getViewById">getViewById</a>: 静态方法，获取指定标识的View控件对象</li>
+<li>
+<a href="#plus.nativeObj.View.addEventListener">addEventListener</a>: 添加事件监听器</li>
+<li>
+<a href="#plus.nativeObj.View.animate">animate</a>: View控件内容动画</li>
+<li>
+<a href="#plus.nativeObj.View.clear">clear</a>: 销毁View控件</li>
+<li>
+<a href="#plus.nativeObj.View.drawBitmap">drawBitmap</a>: 绘制图片</li>
+<li>
+<a href="#plus.nativeObj.View.drawRect">drawRect</a>: 绘制矩形区域</li>
+<li>
+<a href="#plus.nativeObj.View.drawText">drawText</a>: 绘制文本</li>
+<li>
+<a href="#plus.nativeObj.View.reset">reset</a>: 重置view控件显示内容</li>
+<li>
+<a href="#plus.nativeObj.View.restore">restore</a>: 恢复View控件显示内容</li>
+<li>
+<a href="#plus.nativeObj.View.show">show</a>: 显示View控件</li>
+<li>
+<a href="#plus.nativeObj.View.setStyle">setStyle</a>: 设置View控件的样式</li>
+<li>
+<a href="#plus.nativeObj.View.setTouchEventRect">setTouchEventRect</a>: 指定监听触屏事件区域</li>
+<li>
+<a href="#plus.nativeObj.View.hide">hide</a>: 隐藏View控件</li>
+<li>
+<a href="#plus.nativeObj.View.interceptTouchEvent">interceptTouchEvent</a>: 是否拦截View控件的触屏事件</li>
+<li>
+<a href="#plus.nativeObj.View.isVisible">isVisible</a>: 获取View控件的显示状态</li>
+</ul>
+<h1><a name="plus.nativeObj.AnimationOptions">AnimationOptions</a></h1>
+<p>原生动画参数</p>
+<pre class="prettyprint linenums">
+interface AnimationOptions {
+	attribute String type;
+	attribute Number duration;
+}				</pre>
+<h2>说明：</h2>
+<p class="des">
+	指定动画的类型、持续时间等信息。
+				</p>
+<h2>属性：</h2>
+<ul>
+<li>type: <em>(<font class="type">String</font>
+	类型
+)</em>动画类型<br><p>
+	可取值：
+	"pop-in" - 从右侧平移入栈动画效果（副窗口从右侧向左平移滑出显示，主窗口从当前屏幕区域向左侧平移滑出被遮盖）；
+	"pop-out" - 从右侧平移出栈动画效果（副窗口从当前屏幕区域向右侧平移出可视区域，主窗口从左侧向右平移滑出显示）；
+	"slide-in-right" - 从右侧横向滑动效果（主窗口从当前屏幕右侧外向内横向滑动显示）；
+	"slide-out-right - 横向向右侧滑出屏幕动画（主窗口从屏幕中横向向右侧滑动到屏幕外）。
+						</p>
+</li>
+<li>duration: <em>(<font class="type">Number</font>
+	类型
+)</em>动画持续时间<br><p>
+	单位为毫秒，默认值为200ms。
+						</p>
+</li>
+</ul>
+<h1><a name="plus.nativeObj.AnimationViewStyles">AnimationViewStyles</a></h1>
+<p>原生动画窗口样式</p>
+<pre class="prettyprint linenums">
+interface AnimationViewStyles {
+	attribute Bitmap bitmap;
+	attribute String text;
+}				</pre>
+<h2>说明：</h2>
+<p class="des">
+	指定动画窗口的样式，如背景图片，绘制的文字等。
+				</p>
+<h2>属性：</h2>
+<ul>
+<li>bitmap: <em>(<a href="#plus.nativeObj.Bitmap">Bitmap</a>
+	类型
+)</em>动画窗口上绘制的背景图片<br><p>
+	图片可以通过Webview对象的draw方法截图，也可以通过Bitmap的API从本地文件中加载。
+						</p>
+</li>
+<li>text: <em>(<font class="type">String</font>
+	类型
+)</em>动画窗口上绘制的文本内容<br>
+</li>
+<li>textStyles: <em>(<a href="#plus.nativeObj.TextStyles">TextStyles</a>
+	类型
+)</em>动画窗口上绘制的文本样式<br>
+</li>
+<li>textRect: <em>(<a href="#plus.nativeObj.Rect">Rect</a>
+	类型
+)</em>动画窗口上绘制的文本区域<br><p>
+	默认值为{top:'0px',left:'0px',width:'100%',height:'44px'}。
+						</p>
+</li>
+</ul>
+<h1><a name="plus.nativeObj.Rect">Rect</a></h1>
+<p>区域信息对象</p>
+<pre class="prettyprint linenums">
+interface Rect {
+	attribute String top;
+	attribute String left;
+	attribute String width;
+	attribute String height;
+}				</pre>
+<h2>说明：</h2>
+<p class="des">
+	包括位置、大小等信息。
+				</p>
+<h2>属性：</h2>
+<ul>
+<li>top: <em>(<font class="type">String</font>
+	类型
+)</em>区域左上角的垂直偏移量<br><p>
+	可取值：像素值，如"100px"；百分比，如"10%"，相对于作用对象的高度；自动计算，如"auto",根据height值自动计算，相对于作用对象垂直居中。
+						</p>
+</li>
+<li>left: <em>(<font class="type">String</font>
+	类型
+)</em>区域左上角的水平偏移量<br><p>
+	可取值：像素值，如"100px"；百分比，如"10%"，相对于作用对象的宽度；自动计算，如"auto",根据width值自动计算，相对于作用对象水平居中。
+						</p>
+</li>
+<li>width: <em>(<font class="type">String</font>
+	类型
+)</em>区域的宽度<br><p>
+	可取值：像素值，如"100px";百分比，如"10%"，相对于作用对象的宽度。
+						</p>
+</li>
+<li>height: <em>(<font class="type">String</font>
+	类型
+)</em>区域的高度<br><p>
+	可取值：像素值，如"100px";百分比，如"10%"，相对于作用对象的高度。
+						</p>
+</li>
+</ul>
+<h1><a name="plus.nativeObj.TextStyles">TextStyles</a></h1>
+<p>文本样式对象</p>
+<pre class="prettyprint linenums">
+interface Rect {
+	attribute String color;
+	attribute String align;
+	attribute String family;
+	attribute String size;
+	attribute String style;
+	attribute String weight;
+}				</pre>
+<h2>说明：</h2>
+<p class="des">
+	用于定义文本的显示样式，如字体大小、字体颜色、字体粗细、字体样式、字体名称等信息。
+				</p>
+<h2>属性：</h2>
+<ul>
+<li>color: <em>(<font class="type">String</font>
+	类型
+)</em>字体颜色<br><p>
+	可取值：
+	"#RRGGBB"格式字符串，如"#FF0000"表示绘制红色区域；
+	"rgba(R,G,B,A)"，其中R/G/B分别代表红色值/绿色值/蓝色值，正整数类型，取值范围为0-255，A为透明度，浮点数类型，取值范围为0-1（0为全透明，1为不透明），如"rgba(255,0,0,0.5)"，表示红色半透明。
+	默认值为"#000000"（黑色）。
+						</p>
+</li>
+<li>align: <em>(<font class="type">String</font>
+	类型
+)</em>字体水平对齐方式<br><p>
+	可取值：
+	"left"-字体在指定的区域中居左对齐；
+	"center"-字体在指定的区域中居中对齐；
+	"right"-字体在指定的区域中居右对齐。
+	默认值为"center"。
+						</p>
+</li>
+<li>family: <em>(<font class="type">String</font>
+	类型
+)</em>字体名称<br><p>
+	例如"Times New Roman"，	如果指定名称的字体不存在，则使用默认字体。
+						</p>
+</li>
+<li>margin: <em>(<font class="type">String</font>
+	类型
+)</em>字体的边距<br><p>
+	用于设置字体在绘制目标区域四个方向（top/right/bottom/left）的边距，可取值：像素值，如"10px"；百分比，相对于绘制目标区域，如"5%"；
+	默认值为"0px"。
+						</p>
+</li>
+<li>size: <em>(<font class="type">String</font>
+	类型
+)</em>字体大小<br><p>
+	可取值：字体高度像素值，数字加"px"格式字符串，如"12px"。
+	默认值为"16px"。
+						</p>
+</li>
+<li>style: <em>(<font class="type">String</font>
+	类型
+)</em>字体样式<br><p>
+	可取值："normal" - 正常字体样式；"italic" - 斜体样式。默认值为"normal"。
+						</p>
+</li>
+<li>weight: <em>(<font class="type">String</font>
+	类型
+)</em>字体粗细<br><p>
+	可取值："normal" - 普通字体；"bold" - 粗字体。默认值为"normal"。
+						</p>
+</li>
+</ul>
+<h1><a name="plus.nativeObj.ViewAnimationOptions">ViewAnimationOptions</a></h1>
+<p>View控件动画参数</p>
+<pre class="prettyprint linenums">
+interface ViewAnimationOptions {
+	attribute String type;
+	attribute Number duration;
+	attribute Number frames;
+	attribute Rect region;
+}				</pre>
+<h2>说明：</h2>
+<p class="des">
+	指定动画的类型、持续时间等信息。
+				</p>
+<h2>属性：</h2>
+<ul>
+<li>type: <em>(<font class="type">String</font>
+	类型
+)</em>动画类型<br><p>
+	可取值："shrink" - 从上到下分块收缩清除窗口动画。
+						</p>
+</li>
+<li>duration: <em>(<font class="type">Number</font>
+	类型
+)</em>动画持续时间<br><p>
+	单位为毫秒，默认值为200ms。
+						</p>
+</li>
+<li>frames: <em>(<font class="type">Number</font>
+	类型
+)</em>动画帧数<br><p>
+	必须为大于0的整数，默认值为12。
+						</p>
+</li>
+<li>region: <em>(<font class="type">json</font>
+	类型
+)</em>动画作用区域<br><p>
+	支持以下属性：
+	top - 区域距离控件顶部的偏移量，属性值可取像素值（如"100px"），百分比（如"10%"，相对于控件的高度）,默认值为'0px'；
+	bottom - 区域距离控件底部的偏移量，属性值可取像素值（如"100px"），百分比（如"10%"，相对于控件的高度）,默认值为'0px'；
+	left - 区域距离控件左侧的偏移量，属性值可取像素值（如"100px"），百分比（如"10%"，相对于控件的宽度）,默认值为'0px'；
+	right - 区域距离控件右侧的偏移量，属性值可取像素值（如"100px"），百分比（如"10%"，相对于控件的宽度）,默认值为'0px'。
+	如“{top:'44px',bottom:'48px'}”。
+						</p>
+</li>
+</ul>
+<h1><a name="plus.nativeObj.ViewEvents">ViewEvents</a></h1>
+<p>View控件事件</p>
+<h2>常量：</h2>
+<ul>
+<li>"touchstart": <em>(<font class="type">String</font>
+	类型
+)</em>开始触屏事件<br><p>
+	当手指触摸屏幕时候触发。
+						</p>
+</li>
+<li>"touchmove": <em>(<font class="type">String</font>
+	类型
+)</em>触摸滑屏事件<br><p>
+	当手指在屏幕上滑动的时候连续地触发。
+	注意：如果需要监听touchmove事件必须将View控件设置为拦截触屏事件（调用view.interceptTouchEvent(true)）。
+						</p>
+</li>
+<li>"touchend": <em>(<font class="type">String</font>
+	类型
+)</em>结束触屏事件<br><p>
+	当手指从屏幕上离开的时候触发。
+	注意：如果需要监听touchend事件必须将View控件设置为拦截触屏事件（调用view.interceptTouchEvent(true)）。
+						</p>
+</li>
+<li>"click": <em>(<font class="type">String</font>
+	类型
+)</em>点击事件<br><p>
+	当手指点击屏幕时触发。
+	注意：监听了click事件将会导致View控件拦截触屏事件（即使调用view.interceptTouchEvent(false)）。
+						</p>
+</li>
+</ul>
+<h1><a name="plus.nativeObj.ViewStyles">ViewStyles</a></h1>
+<p>View控件样式</p>
+<pre class="prettyprint linenums">
+interface ViewStyles {
+	attribute String top;
+	attribute String left;
+	attribute String width;
+	attribute String height;
+	attribute String dock;
+	attribute String position;
+	attribute Number opacity;
+}				</pre>
+<h2>说明：</h2>
+<p class="des">
+	包括位置、大小等信息，位置信息相对于父容器控件进行计算。
+				</p>
+<h2>属性：</h2>
+<ul>
+<li>top: <em>(<font class="type">String</font>
+	类型
+)</em>View控件左上角的垂直偏移量<br><p>
+	可取值：像素值，如"100px"；百分比，如"10%"，相对于父控件的高度；自动计算，如"auto",根据height值自动计算，相对于父控件垂直居中。
+						</p>
+</li>
+<li>left: <em>(<font class="type">String</font>
+	类型
+)</em>区域左上角的水平偏移量<br><p>
+	可取值：像素值，如"100px"；百分比，如"10%"，相对于父控件的宽度；自动计算，如"auto",根据width值自动计算，相对于父控件水平居中。
+						</p>
+</li>
+<li>width: <em>(<font class="type">String</font>
+	类型
+)</em>区域的宽度<br><p>
+	可取值：像素值，如"100px";百分比，如"10%"，相对于父控件的宽度。
+						</p>
+</li>
+<li>height: <em>(<font class="type">String</font>
+	类型
+)</em>区域的高度<br><p>
+	可取值：像素值，如"100px";百分比，如"10%"，相对于父控件的高度。
+						</p>
+</li>
+<li>dock: <em>(<font class="type">String</font>
+	类型
+)</em>View控件的停靠方式<br><p>
+	仅当View控件添加到Webview窗口对象中并且position属性值设置为"dock"时才生效，此时View控件挤压Webview窗口的大小。
+	可取值："top"，控件停靠则页面顶部；"bottom"，控件停靠在页面底部；"right"，控件停靠在页面右侧；"left"，控件停靠在页面左侧。
+						</p>
+</li>
+<li>position: <em>(<font class="type">String</font>
+	类型
+)</em>View控件的排版方式<br><p>
+	仅当View控件添加到Webview窗口对象中时才生效。
+	可取值：
+	"static"，View控件在页面中正常定位，如果页面存在滚动条则随窗口内容滚动；
+	"absolute"，Veiw控件在页面中绝对定位，如果页面存在滚动条不随窗口内容滚动；
+	"dock"，View控件在页面中停靠，停靠的位置由dock属性值决定。
+	默认值为"absolute"。
+						</p>
+</li>
+<li>opacity: <em>(<font class="type">Number</font>
+	类型
+)</em>View控件的不透明度<br><p>
+	取值范围为0-1，0为全透明，1为不透明，默认值为1，即不透明。
+						</p>
+</li>
 </ul>
 <h1><a name="plus.nativeObj.BitmapSaveSuccessCallback">BitmapSaveSuccessCallback</a></h1>
 <p>图片保存操作成功回调接口</p>
@@ -113,6 +555,37 @@ void onSuccess( Event event ){
 	可通过event.size（Number类型）获取保存后图片的大小，单位为字节（Byte）；
 	可通过event.width（Number类型）获取保存后的图片的实际宽度，单位为px；
 	可通过event.height（Number类型）获取保存后的图片的实际高度，单位为px。
+						</li></ul>
+<h2>返回值：</h2>
+<font class="type">void</font>
+			: 无<h1><a name="plus.nativeObj.TouchEventCallback">TouchEventCallback</a></h1>
+<p>触屏事件的回调函数</p>
+<pre class="prettyprint linenums">
+void onEvent(Event e){
+	// Event handled code.
+	var clientX = e.clientX;
+	var clientY = e.clientY;
+	var pageX = e.pageX;
+	var pageY = e.pageY;
+	var screenX = e.screenX;
+	var screenY = e.screenY;
+	var target = e.target;
+}
+				</pre>
+<h2>参数：</h2>
+<ul><li>event: 
+		<em>(
+			<font class="type">Event</font>
+			)
+			必选 </em>触屏数据<br>
+	Event对象包含以下属性：
+		target：保存触发此事件的对象；
+		clientX：Number类型，保存触摸目标在View控件中的X坐标；
+		clientY：Number类型，保存触摸目标在View控件中的Y坐标；
+		pageX：Number类型，保存触摸目标在当前页面（运行此脚本的窗口）中的X坐标；
+		pageY：Number类型，保存触摸目标在当前页面（运行此脚本的窗口）中的Y坐标；
+		screenX：Number类型，保存触摸目标在屏幕中的X坐标；
+		screenY：Number类型，保存触摸目标在屏幕中的Y坐标。
 						</li></ul>
 <h2>返回值：</h2>
 <font class="type">void</font>

@@ -46,10 +46,16 @@
 <a href="#plus.audio.AudioErrorCallback">AudioErrorCallback</a>: 音频操作失败回调</li>
 </ul>
 <h2>权限：</h2>
-<p>permissions</p>
+<p>5+功能模块（permissions）</p>
 <pre class="prettyprint linenums">
-"Audio": {
-	"description": "访问音频设备"
+{
+// ...
+"permissions":{
+	// ...
+	"Audio": {
+		"description": "音频"
+	}
+}
 }
 			</pre>
 <h1><a name="plus.audio.AudioRecorder">AudioRecorder</a></h1>
@@ -162,9 +168,11 @@ void onCompleted() {
 }
 				</pre>
 <h2>说明：</h2>
-<p class="des">麦克风录音操作成功的回调函数，在录音操作完成调用stop()方法时调用。</p>
+<p class="des">
+	音频播放操作成功的回调函数，在音频播放完成或调用stop()方法时触发。
+				</p>
 <h2>参数：</h2>
-<ul></ul>
+<p>无</p>
 <h2>返回值：</h2>
 <font class="type">void</font>
 			: 无<h1><a name="plus.audio.AudioErrorCallback">AudioErrorCallback</a></h1>

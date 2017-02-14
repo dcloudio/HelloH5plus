@@ -89,8 +89,14 @@
 <h2>权限：</h2>
 <p>permissions</p>
 <pre class="prettyprint linenums">
-"Maps": {
-	"description": "访问地图插件"
+{
+// ...
+"permissions":{
+	// ...
+	"Maps": {
+		"description": "地图"
+	}
+}
 }
 			</pre>
 <h1><a name="plus.maps.Map">Map</a></h1>
@@ -122,6 +128,8 @@
 <a href="#plus.maps.Map.getZoom">getZoom</a>: 获取地图的缩放级别</li>
 <li>
 <a href="#plus.maps.Map.reset">reset</a>: 重置地图</li>
+<li>
+<a href="#plus.maps.Map.resize">resize</a>: 重设地图控件大小</li>
 <li>
 <a href="#plus.maps.Map.setMapType">setMapType</a>: 设置地图的视图类型</li>
 <li>
@@ -200,6 +208,16 @@
 	true表示显示地图的内置缩放控件，false则不显示，默认值为false。
 						</p>
 </li>
+<li>position: <em>(<font class="type">String</font>
+	类型
+)</em>地图控件在Webview窗口的布局模式<br><p>
+	可取值：
+		"static" - 地图控件在页面中正常布局模式，如果页面存在滚动条则随窗口内容滚动；
+		"absolute" - 地图控件在页面中绝对布局模式，如果页面存在滚动条不随窗口内容滚动；
+		默认值为"static"。
+	注意：布局模式并不影响地图控件在窗口中的位置及大小，如果构造时传入的DOM元素位置及大小发生变化，可通过resize方法更新。
+						</p>
+</li>
 </ul>
 <h1><a name="plus.maps.GeocodeOptions">GeocodeOptions</a></h1>
 <p>地理编码转换的参数</p>
@@ -266,9 +284,19 @@
 <h2>方法：</h2>
 <ul>
 <li>
+<a href="#plus.maps.Bounds.setNorthEase">setNorthEase</a>: 设置地理区域的东北坐标点</li>
+<li>
 <a href="#plus.maps.Bounds.getNorthEase">getNorthEase</a>: 地理区域的东北坐标点</li>
 <li>
+<a href="#plus.maps.Bounds.setSouthWest">setSouthWest</a>: 设置地理区域的西南坐标点</li>
+<li>
 <a href="#plus.maps.Bounds.getSouthWest">getSouthWest</a>: 地理区域的西南坐标点</li>
+<li>
+<a href="#plus.maps.Bounds.contains">contains</a>: 判断制定的坐标是否在地理区域中</li>
+<li>
+<a href="#plus.maps.Bounds.equals">equals</a>: 判断两个地理区域是否相等</li>
+<li>
+<a href="#plus.maps.Bounds.getCenter">getCenter</a>: 获取地理区域的中心点坐标</li>
 </ul>
 <h1><a name="plus.maps.MapType">MapType</a></h1>
 <p>地图视图类型</p>
@@ -344,7 +372,7 @@ Overlay是地图上显示元素的基类，用于抽象地图元素，不用于�
 <li>
 <a href="#plus.maps.Marker.onclick">onclick</a>: 用户点击地图标点事件</li>
 <li>
-<a href="#plus.maps.Marker.ondrag">ondrag</a>: 用户点击地图标点事件</li>
+<a href="#plus.maps.Marker.onDrag">onDrag</a>: 用户拖拽标点事件</li>
 </ul>
 <h1><a name="plus.maps.Bubble">Bubble</a></h1>
 <p>地图上显示的气泡对象</p>
@@ -804,18 +832,18 @@ void onClick( overlay ) {
 			: 无<h1><a name="plus.maps.OverlayDragEventHandler">OverlayDragEventHandler</a></h1>
 <p>用户拖拽覆盖物回调事件</p>
 <pre class="prettyprint linenums">
-void ondrag( event ) {
+void onDrag( target ) {
 	// Click code
-	var target = event.target;    // 拖拽的覆盖物对象
+	var marker = target;    // 拖拽的覆盖物对象
 }
 				</pre>
 <h2>参数：</h2>
-<ul><li>event: 
+<ul><li>target: 
 		<em>(
 			<font class="type">Event</font>
 			)
 			必选 </em>拖拽事件对象<br>
-	可通过event.target（Overlay类型）获取拖拽的覆盖物对象，target可以是Marker、Bubble、Circle、Polyline、Polygon对象的引用。
+	可通过target（Overlay类型）获取拖拽的覆盖物对象，target可以是Marker、Bubble、Circle、Polyline、Polygon对象的引用。
 						</li></ul>
 <h2>返回值：</h2>
 <font class="type">void</font>

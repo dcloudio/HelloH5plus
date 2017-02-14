@@ -19,39 +19,39 @@ function plusReady(){
 	ws=plus.webview.currentWebview();
 	wo=ws.opener();
 	// 开始扫描
-	ws.addEventListener('show',function(){
+	ws.addEventListener('show', function(){
 		scan=new plus.barcode.Barcode('bcid');
 	    scan.onmarked=onmarked;
-	    scan.start({conserve:true,filename:"_doc/barcode/"});
-	});
+	    scan.start({conserve:true,filename:'_doc/barcode/'});
+	}, false);
 	// 显示页面并关闭等待框
-    ws.show("pop-in");
-    wo.evalJS("closeWaiting()");
+    ws.show('pop-in');
+    wo.evalJS('closeWaiting()');
 }
 if(window.plus){
 	plusReady();
 }else{
-	document.addEventListener("plusready",plusReady,false);
+	document.addEventListener('plusready', plusReady, false);
 }
 // 监听DOMContentLoaded事件
-document.addEventListener("DOMContentLoaded",function(){
+document.addEventListener('DOMContentLoaded', function(){
 	domready=true;
 	plusReady();
-},false);
+}, false);
 // 二维码扫描成功
-function onmarked(type,result,file){
+function onmarked(type, result, file){
     switch(type){
     	case plus.barcode.QR:
-    	type = "QR";
+    	type = 'QR';
     	break;
     	case plus.barcode.EAN13:
-    	type = "EAN13";
+    	type = 'EAN13';
     	break;
     	case plus.barcode.EAN8:
-    	type = "EAN8";
+    	type = 'EAN8';
     	break;
     	default:
-    	type = "其它"+type;
+    	type = '其它'+type;
     	break;
     }
     result = result.replace(/\n/g, '');
@@ -59,13 +59,13 @@ function onmarked(type,result,file){
     back();
 }
 // 从相册中选择二维码图片 
-function scanPicture() {
+function scanPicture(){
     plus.gallery.pick(function(path){
 	    plus.barcode.scan(path,onmarked,function(error){
-			plus.nativeUI.alert( "无法识别此图片" );
+			plus.nativeUI.alert('无法识别此图片');
 		});
-    },function(err){
-        plus.nativeUI.alert("Failed: "+err.message);
+    }, function(err){
+        plus.nativeUI.alert('Failed: '+err.message);
     });
 }
 		</script>
@@ -110,8 +110,8 @@ footer {
 			<p class="tip">...载入中...</p>
 		</div>
 		<footer>
-			<div class="fbt" onclick="back();">取　 消</div>
-			<div class="fbt" onclick="scanPicture();">从相册选择二维码</div>
+			<div class="fbt" onclick="back()">取　 消</div>
+			<div class="fbt" onclick="scanPicture()">从相册选择二维码</div>
 		</footer>
 	</body>
 </html>

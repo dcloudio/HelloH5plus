@@ -44,22 +44,22 @@ function watchStop() {
 	</head>
 	<body>
 		<header id="header">
-			<div class="nvbt iback" onclick="back(true);"></div>
+			<div class="nvbt iback" onclick="back()"></div>
 			<div class="nvtt">Orientation</div>
 			<div class="nvbt idoc" onclick="openDoc('Orientation Document','/doc/orientation.html')"></div>
 		</header>
 		<div id="dcontent" class="dcontent">
-			<div class="button" onclick="clicked('orientation_level.html',true);">
+			<div class="button" onclick="clicked('orientation_level.html',true)">
 				水平仪
 			</div>
-			<div class="button" onclick="clicked('orientation_compass.html',true);">
+			<div class="button" onclick="clicked('orientation_compass.html',true)">
 				指南针
 			</div>
 			<br/>
 			<ul class="dlist">
-				<li class="ditem" onclick="getOrient();">获取设备的方向信息</li>
-				<li class="ditem" onclick="watchOrient();">监听设备的方向变化</li>
-				<li class="ditem" onclick="watchStop();">停止监听</li>
+				<li class="ditem" onclick="getOrient()">获取设备的方向信息</li>
+				<li class="ditem" onclick="watchOrient()">监听设备的方向变化</li>
+				<li class="ditem" onclick="watchStop()">停止监听</li>
 			</ul>
 		</div>
 		<div id="output">

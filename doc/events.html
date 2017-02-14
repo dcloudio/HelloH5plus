@@ -29,6 +29,12 @@
 <a href="#plus.Events.%22plusscrollbottom%22">"plusscrollbottom"</a>: 窗口滚动到底部事件</li>
 <li>
 <a href="#plus.Events.%22error%22">"error"</a>: 页面加载错误事件</li>
+<li>
+<a href="#plus.Events.%22background%22">"background"</a>: 应用切换到后台运行事件</li>
+<li>
+<a href="#plus.Events.%22foreground%22">"foreground"</a>: 应用切换到前台运行事件</li>
+<li>
+<a href="#plus.Events.%22trimmemory%22">"trimmemory"</a>: 应用需要清理内存事件</li>
 </ul>
 <h2>方法：</h2>
 <ul><li>
@@ -40,20 +46,11 @@
 <li>
 <a href="#plus.Events.ErrorEventTrigCallback">ErrorEventTrigCallback</a>: 页面加载错误事件回调函数</li>
 </ul>
-<h2>权限：</h2>
-<p>permissions</p>
-<pre class="prettyprint linenums">
-			
-"Events": {
-	"description": "访问应用状态变化事件"
-}
-			
-			</pre>
 <h1><a name="plus.Events.EventTrigCallback">EventTrigCallback</a></h1>
 <p>事件触发回调函数</p>
 <pre class="prettyprint linenums">
 				
-void onTrig() {
+void onTrig(){
 	// Event trig code
 }
 				
@@ -70,7 +67,7 @@ void onTrig() {
 <p>页面加载错误事件回调函数</p>
 <pre class="prettyprint linenums">
 				
-void onErrorTrig( Event event ) {
+void onErrorTrig(Event event){
 	// Event trig code
 	var url = event.url;  // 加载错误的页面路径，API中传入的url值
 	var href = event.href;  // 加载错误的页面完整路径，通常以“file://”开头的路径

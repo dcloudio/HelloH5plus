@@ -33,18 +33,25 @@
 <h2>权限：</h2>
 <p>permissions</p>
 <pre class="prettyprint linenums">
-"Speech": {
-	"description": "访问语音插件"
+{
+// ...
+"permissions":{
+	// ...
+	"Speech": {
+		"description": "语音输入"
+	}
+}
 }
 			</pre>
 <h1><a name="plus.speech.SpeechRecognizeOption">SpeechRecognizeOption</a></h1>
 <p>JSON对象，语音识别参数</p>
 <pre class="prettyprint linenums">
 interface plus.speech.SpeechRecognizeOption {
-	attribute DOMString engine;
-	attribute DOMString service;
+	attribute String engine;
+	attribute String service;
 	attribute Number timeout;
-	attribute DOMString lang;
+	attribute String lang;
+	attribute String punctuation;
 	attribute Boolean continue;
 	attribute Number nbest;
 	attribute Boolean userInterface;
@@ -62,11 +69,11 @@ interface plus.speech.SpeechRecognizeOption {
 				</p>
 <h2>属性：</h2>
 <ul>
-<li>engine: <em>(<font class="type">DOMString</font>
+<li>engine: <em>(<font class="type">String</font>
 	类型
 )</em>语音识别引擎标识<br><p>用于兼容多语音识别引擎的浏览器，建议使用语音识别厂商的产品名称，如未设置或设置不正确则使用浏览器默认的语音识别引擎。</p>
 </li>
-<li>service: <em>(<font class="type">DOMString</font>
+<li>service: <em>(<font class="type">String</font>
 	类型
 )</em>语音识别引擎服务器地址<br><p>可使用url地址或ip地址，如service:192.168.1.99指定定制的语音识别引擎服务器。默认值为浏览器内置服务器地址。</p>
 </li>
@@ -74,9 +81,25 @@ interface plus.speech.SpeechRecognizeOption {
 	类型
 )</em>语音识别超时时间<br><p>语音识别超时的时间，单位为ms，如timeout:60000，默认值为10s。</p>
 </li>
-<li>lang: <em>(<font class="type">DOMString</font>
+<li>lang: <em>(<font class="type">String</font>
 	类型
-)</em>语音识别引擎的语言<br><p>用于定义语音识别引擎的语言，其取值需符合W3C的Language codes规范。默认值为浏览器的默认语言。</p>
+)</em>语音识别引擎的语言<br><p>
+	用于定义语音识别引擎的语言，其取值需符合W3C的Language codes规范。
+	目前讯飞语音支持以下语言：
+	"zh-cn" - 中文，普通话；
+	"en-us" - 英语；
+	"zh-cantonese" - 中文，粤语；
+	"zh-henanese" - 中文，河南话。
+	默认值为“zh-cn”。
+
+						</p>
+</li>
+<li>punctuation: <em>(<font class="type">Boolean</font>
+	类型
+)</em>识别结果中是否包含标点符号<br><p>
+	true表示识别结果文本中包含标点符号，false表示识别结果文本中不包含标点符号。
+	默认值为true。
+						</p>
 </li>
 <li>continue: <em>(<font class="type">Boolean</font>
 	类型
@@ -127,7 +150,10 @@ void RecognitionSuccessCallback ( results ) {
 <h2>参数：</h2>
 <ul><li>results: 
 		<em>(
-			<font class="type">DOMString[]</font>
+			<font class="type">Array</font>[
+						<font class="type">String</font>
+						]
+					
 			)
 			必选 </em>语音识别出的文本内容数组<br>语音识别出的候选文本内容，区配度高的在数组的前面，通过其length属性可获取总的候选内容的长度</li></ul>
 <h2>返回值：</h2>

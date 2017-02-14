@@ -45,8 +45,14 @@
 <h2>权限：</h2>
 <p>permissions</p>
 <pre class="prettyprint linenums">
-"Share": {
-	"description": "访问分享插件"
+{
+// ...
+"permissions":{
+	// ...
+	"Share": {
+		"description": "分享"
+	}
+}
 }
 			</pre>
 <h1><a name="plus.share.ShareService">ShareService</a></h1>
@@ -120,6 +126,8 @@ interface plus.share.ShareMessage {
 	attribute String title;
 	attribute JSON extra;
 	attribute GEOPosition geo;
+	attribute ShareMessageExtra extra;
+	attribute String interface;
 }
 				</pre>
 <h2>说明：</h2>
@@ -130,7 +138,10 @@ interface plus.share.ShareMessage {
 	类型
 )</em>分享消息的文字内容<br>
 </li>
-<li>pictures: <em>(<font class="type">String[]</font>
+<li>pictures: <em>(<font class="type">Array</font>[
+				<font class="type">String</font>
+				]
+			
 	类型
 )</em>分享消息的图片<br><p>
 	分享消息中包含的图片路径，仅支持本地路径。
@@ -138,7 +149,10 @@ interface plus.share.ShareMessage {
 	如果不能同时支持其它内容信息，优先级顺序为：pictures&gt;content。
 						</p>
 </li>
-<li>thumbs: <em>(<font class="type">String[]</font>
+<li>thumbs: <em>(<font class="type">Array</font>[
+				<font class="type">Stromg</font>
+				]
+			
 	类型
 )</em>分享消息的缩略图<br><p>
 	分享消息中包含的缩略图路径；
@@ -167,6 +181,17 @@ interface plus.share.ShareMessage {
 <li>extra: <em>(<a href="#plus.share.ShareMessageExtra">ShareMessageExtra</a>
 	类型
 )</em>分享消息扩展参数<br>
+</li>
+<li>interface: <em>(<font class="type">String</font>
+	类型
+)</em>分享消息的模式<br><p>
+	可取值：
+    "auto" - 自动选择，如果已经安装微博客户端则采用编辑界面进行分享，否则采用无界面分享；
+    "slient" - 静默分享，采用无界面模式进行分享；
+    "editable" - 进入编辑界面，用户确认分享内容后发送，如果当前未安装微博客户端则触发错误回调。
+    默认值为"auto"。
+    （仅新浪微博分享时生效）
+						</p>
 </li>
 </ul>
 <h1><a name="plus.share.GeoPosition">GeoPosition</a></h1>

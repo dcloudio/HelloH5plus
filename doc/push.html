@@ -49,8 +49,14 @@
 <h2>权限：</h2>
 <p>permissions</p>
 <pre class="prettyprint linenums">
-"Push": {
-	"description": "访问推送插件"
+{
+// ...
+"permissions":{
+	// ...
+	"Push": {
+		"description": "消息推送"
+	}
+}
 }
 			</pre>
 			属性：
@@ -76,7 +82,10 @@
 </li>
 <li>clientid: <em>(<font class="type">String</font>
 	类型
-)</em>推送服务令牌（设备唯一标识），用于标识推送信息接收者身份<br><p>第三方推送服务器管理的设备唯一标识，在iOS平台此值通常与token不同；在其它平台此值通常与token值一致。</p>
+)</em>推送服务令牌（设备唯一标识），用于标识推送信息接收者身份<br><p>
+	第三方推送服务器管理的设备唯一标识，在iOS平台此值通常与token不同；在其它平台此值通常与token值一致。
+	此值与设备及应用都相关，即不同的apk/ipa安装到同一台设备上的值都不相同。
+						</p>
 </li>
 <li>appid: <em>(<font class="type">String</font>
 	类型
@@ -112,6 +121,12 @@
 <p>JSON对象，获客户端创建本地消息的参数</p>
 <h2>属性：</h2>
 <ul>
+<li>appid: <em>(<font class="type">String</font>
+	类型
+)</em>要启动流应用的appid<br><p>
+	默认值为当前流应用的appid。
+						</p>
+</li>
 <li>title: <em>(<font class="type">String</font>
 	类型
 )</em>推送消息的标题<br><p>

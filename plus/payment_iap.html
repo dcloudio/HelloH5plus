@@ -48,12 +48,24 @@ function pay(id){
 	plus.nativeUI.showWaiting('',{style:"black",background:"rgba(0,0,0,0)"});
 	plus.payment.request(iap, {productid:id}, function(result){
 		plus.nativeUI.closeWaiting();
+		alert('成功：'+JSON.stringify(result));
 		plus.nativeUI.alert("支付成功：感谢你的支持，我们会继续努力完善产品。",function(){
 			back();
 		},"捐赠");
 	},function(e){
 		plus.nativeUI.closeWaiting();
 		plus.nativeUI.alert("错误信息："+e.message,null,"支付失败："+e.code);
+	});
+}
+// 获取已购买商品（非消耗性商品和订阅商品）
+function restoreComplateRequest(){
+	plus.nativeUI.showWaiting('',{style:"black",background:"rgba(0,0,0,0)"});
+	iap.restoreComplateRequest({},function(results){
+		plus.nativeUI.closeWaiting();
+		alert(results.length);
+		for(var i in results){
+			alert('restoreComplateRequest['+i+']: '+JSON.stringify(results[i]));
+		}
 	});
 }
 		</script>
@@ -78,6 +90,9 @@ DCloud 是W3C会员、中国HTML5产业联盟发起单位，致力于推进HTML5
 			</div>
 			<div class="button" onclick="pay(ids[1])">
 				捐赠6元
+			</div>
+			<div class="button" onclick="restoreComplateRequest()">
+				restoreComplateRequest
 			</div>
 		</div>
 	</body>

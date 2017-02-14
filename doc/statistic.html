@@ -18,17 +18,23 @@
 <li>
 <a href="#plus.statistic.eventTrig">eventTrig</a>: 触发事件</li>
 <li>
-<a href="#plus.statistic.eventStart">eventStart</a>: 开始持续事件</li>
-<li>
-<a href="#plus.statistic.eventEnd">eventEnd</a>: 结束持续事件</li>
-<li>
 <a href="#plus.statistic.eventDuration">eventDuration</a>: 精确持续事件</li>
+<li>
+<a href="#plus.statistic.eventStart">eventStart</a>: 开始持续事件（过期API，不推荐使用）</li>
+<li>
+<a href="#plus.statistic.eventEnd">eventEnd</a>: 结束持续事件（过期API，不推荐使用）</li>
 </ul>
 <h2>权限：</h2>
 <p>permissions</p>
 <pre class="prettyprint linenums">
-"Statistic": {
-	"description": "访问统计插件"
+{
+// ...
+"permissions":{
+	// ...
+	"Statistic": {
+		"description": "统计"
+	}
+}
 }
 			</pre>
 <br><br>
