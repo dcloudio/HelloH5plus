@@ -27,7 +27,7 @@ header {
 	position: fixed;
 	top: 0;
 	left: 0;
-	font-size: 20px;
+	font-size: 17px;
 	text-align: center;
 	line-height: 44px;
 	background: -webkit-linear-gradient(top,rgba(215,75,40,1),rgba(215,75,40,0.8));
@@ -49,6 +49,7 @@ header {
 .nvtt {
 	width: 70%;
 	height: 100%;
+	color: #cccccc;
 	float: left;
 	overflow:hidden;
 	text-overflow:ellipsis;

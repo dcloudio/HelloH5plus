@@ -131,7 +131,7 @@ window.back=safeback;
 		</header>
 		<div id="content" class="content">
 			<p class="des">
-	使用nview来做转场动画，以及使用nview做title。
+	使用nview来做转场动画，以及使用原生view做标题栏。
 			</p>
 			<div class="button" onclick="nWaitingShow()">演示</div>
 			<p class="des" style="font-weight:bold;text-indent:0;">
@@ -139,8 +139,7 @@ window.back=safeback;
 			</p>
 			<p class="des">
 	启动后先创建一个原生waiting界面，但不显示。
-	点击show按钮后，原生waiting做动画进来，同时然后创建一个contentWebview加载百度首页，等titleUpdate后绑定一个新的nTitle，然后show出来
-	点击nTitle的返回按钮时，原生title和contentWebview一起被close掉。
+	点击show按钮后，原生waiting做动画进来，同时然后创建一个带原生View控件导航栏的contentWebview加载网络页面，等titleUpdate后显示contentWebview并关闭原生waiting界面。
 			</p>
 		</div>
 	</body>
