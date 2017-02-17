@@ -11,35 +11,34 @@
 var w=null;
 // H5 plus事件处理
 function plusReady(){
-	w=plus.nativeUI.showWaiting();
 }
 if(window.plus){
 	plusReady();
 }else{
-	document.addEventListener("plusready",plusReady,false);
+	document.addEventListener('plusready', plusReady, false);
 }
-function imgLoaded() {
+function imgLoaded(){
 	w&&(w.close(),w=null);
 	var b = document.body;
-	var img = document.getElementById("img");
+	var img = document.getElementById('img');
 	var pb = b.clientHeight/b.clientWidth,
 	pi = img.clientHeight/img.clientWidth;
-	if ( pb > pi ) {
-		img.style.width = "100%";
-	} else {
-		img.style.height = "100%";
+	if(pb > pi){
+		img.style.width = '100%';
+	}else{
+		img.style.height = '100%';
 	}
-	b.style.lineHeight = b.clientHeight+"px";
+	b.style.lineHeight = b.clientHeight+'px';
 }
 function imgError(){
 	w&&(w.close(),w=null);
-	document.getElementById("img").style.display = "none";
-	plus.nativeUI.alert( "无效的图片资源", function(){
+	document.getElementById('img').style.display = 'none';
+	plus.nativeUI.alert('无效的图片资源', function(){
 		back();
-	} );
+	});
 }
 function loadMedia(src){
-	document.getElementById("img").src=src;
+	document.getElementById('img').src=src;
 }
 		</script>
 		<link rel="stylesheet" href="../css/common.css" type="text/css" charset="utf-8"/>
@@ -50,6 +49,6 @@ img {
 		</style>
 	</head>
 	<body style="text-align:center;background:#000000;">
-		<img id="img" onclick="back();" onload="imgLoaded();" onerror="imgError();"/>
+		<img id="img" onclick="back()" onload="imgLoaded()" onerror="imgError()"/>
 	</body>
 </html>
