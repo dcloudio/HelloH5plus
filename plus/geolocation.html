@@ -62,7 +62,7 @@ function getGeocode(){
 	outSet( "获取定位位置信息:" );
 	plus.geolocation.getCurrentPosition( geoInf, function ( e ) {
 		outSet( "获取定位位置信息失败："+e.message );
-	},{geocode:true,provider:'amap'});
+	},{geocode:true});
 }
 		</script>
 		<link rel="stylesheet" href="../css/common.css" type="text/css" charset="utf-8"/>
@@ -81,11 +81,9 @@ function getGeocode(){
 				<li class="ditem" onclick="clearWatch()">停止监听</li>
 			</ul>
 			<br/>
-			<div class="button" onclick="getGeocode()">
-				获取定位信息
-			</div>
+			<div class="button" onclick="getGeocode()">获取定位信息</div>
 			<p class="des">
-				定位模块需要配置高德或百度地图相关参数才能正常使用。
+				Android平台推荐配置高德或百度定位，避免在部分设备（如三星、HTC等）可能无法获取位置信息的问题。
 			</p>
 		</div>
 		<div id="output">

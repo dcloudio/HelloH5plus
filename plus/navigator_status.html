@@ -23,21 +23,13 @@ if(window.plus){
 }else{
 	document.addEventListener("plusready",plusReady,false);
 }
-// 设置系统状态栏为深色文字样式
+// 设置系统状态栏为深色前景色（黑色文字）
 function darkStyle(){
-	if(plus.os.name=='iOS'){
-		plus.navigator.setStatusBarStyle('UIStatusBarStyleDefault');
-	}else{
-		plus.nativeUI.toast('暂不支持此功能');
-	}
+	plus.navigator.setStatusBarStyle('dark');
 }
-// 设置系统状态栏为浅色文字样式
+// 设置系统状态栏为浅色前景色（白色文字）
 function lightStyle(){
-	if(plus.os.name=='iOS'){
-		plus.navigator.setStatusBarStyle('UIStatusBarStyleBlackOpaque');
-	}else{
-		plus.nativeUI.toast('暂不支持此功能');
-	}
+	plus.navigator.setStatusBarStyle('light');
 }
 		</script>
 		<link rel="stylesheet" href="../css/common.css" type="text/css" charset="utf-8"/>
@@ -52,11 +44,8 @@ function lightStyle(){
 			<p class="des">
 				Android平台需要5.0及以上版本支持设置系统状态栏背景颜色。
 			</p>
-			<p class="des">
-				Android平台暂不支持设置系统状态栏样式(文字颜色)，如果要修改的系统状态栏样式，可使用离线打包，在AndroidManifest.xml中修改主Activity的android:theme值进行自定义。
-			</p>
-			<div class="button" onclick="darkStyle()">系统状态栏深色文字</div>
-			<div class="button" onclick="lightStyle()">系统状态栏浅色文字</div>
+			<div class="button" onclick="darkStyle()">系统状态栏黑色样式</div>
+			<div class="button" onclick="lightStyle()">系统状态栏白色样式</div>
 		</div>
 	</body>
 	<script type="text/javascript" src="../js/immersed.js" ></script>
