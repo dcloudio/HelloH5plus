@@ -37,15 +37,17 @@
 <h2>对象：</h2>
 <ul>
 <li>
-<a href="#plus.nativeUI.ActionButtonStyle">ActionButtonStyle</a>: JSON对象，原生选择按钮框上按钮的样式参数</li>
+<a href="#plus.nativeUI.ActionButtonStyles">ActionButtonStyles</a>: JSON对象，原生选择按钮框上按钮的样式参数</li>
 <li>
-<a href="#plus.nativeUI.ActionSheetStyle">ActionSheetStyle</a>: JSON对象，原生选择按钮框的样式参数</li>
+<a href="#plus.nativeUI.ActionSheetStyles">ActionSheetStyles</a>: JSON对象，原生选择按钮框的样式参数</li>
 <li>
 <a href="#plus.nativeUI.PickDateOption">PickDateOption</a>: JSON对象，日期选择对话框的参数</li>
 <li>
 <a href="#plus.nativeUI.PickTimeOption">PickTimeOption</a>: JSON对象，时间选择对话框的参数</li>
 <li>
-<a href="#plus.nativeUI.Waiting">Waiting</a>: 系统等待对话框对象</li>
+<a href="#plus.nativeUI.NativeUIObj">NativeUIObj</a>: 系统原生界面基类对象</li>
+<li>
+<a href="#plus.nativeUI.WaitingObj">WaitingObj</a>: 系统等待对话框对象</li>
 <li>
 <a href="#plus.nativeUI.WaitingOptions">WaitingOptions</a>: JSON对象，原生等待对话框的参数</li>
 <li>
@@ -81,22 +83,33 @@
 }
 }
 			</pre>
-<h1><a name="plus.nativeUI.ActionButtonStyle">ActionButtonStyle</a></h1>
+<h1><a name="plus.nativeUI.ActionButtonStyles">ActionButtonStyles</a></h1>
 <p>JSON对象，原生选择按钮框上按钮的样式参数</p>
 <h2>属性：</h2>
 <ul>
+<li>color: <em>(<font class="type">String</font>
+	类型
+)</em>按钮上显示的文字颜色<br><p>
+	可取值：
+	"#RRGGBB"格式字符串，如"#FF0000"表示文字颜色为红色；
+	"rgba(R,G,B,A)"，其中R/G/B分别代表红色值/绿色值/蓝色值，正整数类型，取值范围为0-255，A为透明度，浮点数类型，取值范围为0-1（0为全透明，1为不透明），如"rgba(255,0,0,0.5)"，表示红色半透明。
+						</p>
+</li>
 <li>title: <em>(<font class="type">String</font>
 	类型
 )</em>按钮上显示的文字内容<br>
 </li>
 <li>style: <em>(<font class="type">String</font>
 	类型
-)</em>按钮的样式，可取值“destructive”、“default”<br><p>
-	“destructive”表示警示按钮样式、“default”表示默认按钮样式，默认为“default”。
+)</em>按钮的样式<br><p>
+	可取值：
+	"destructive" - 表示警示按钮样式，默认文字颜色为红色；
+	"default" - 表示默认按钮样式。
+	默认值为"default"。
 						</p>
 </li>
 </ul>
-<h1><a name="plus.nativeUI.ActionSheetStyle">ActionSheetStyle</a></h1>
+<h1><a name="plus.nativeUI.ActionSheetStyles">ActionSheetStyles</a></h1>
 <p>JSON对象，原生选择按钮框的样式参数</p>
 <h2>属性：</h2>
 <ul>
@@ -111,11 +124,11 @@
 						</p>
 </li>
 <li>buttons: <em>(<font class="type">Array</font>[
-				<a href="#plus.nativeUI.ActionButtonStyle">ActionButtonStyle</a>
+				<a href="#plus.nativeUI.ActionButtonStyles">ActionButtonStyles</a>
 				]
 			
 	类型
-)</em>选择框上的按钮，ActionButtonStyle对象数组<br>
+)</em>选择框上的按钮，ActionButtonStyles对象数组<br>
 </li>
 </ul>
 <h1><a name="plus.nativeUI.PickDateOption">PickDateOption</a></h1>
@@ -185,22 +198,33 @@
 						</p>
 </li>
 </ul>
-<h1><a name="plus.nativeUI.Waiting">Waiting</a></h1>
+<h1><a name="plus.nativeUI.NativeUIObj">NativeUIObj</a></h1>
+<p>系统原生界面基类对象</p>
+<pre class="prettyprint linenums">
+interface NativeUIObj{
+	function void close();
+}
+				</pre>
+<h2>方法：</h2>
+<ul><li>
+<a href="#plus.nativeUI.NativeUIObj.close">close</a>: 关闭显示的系统原生界面</li></ul>
+<h1><a name="plus.nativeUI.WaitingObj">WaitingObj</a></h1>
 <p>系统等待对话框对象</p>
 <h2>说明：</h2>
 <p class="des">
-	可通过plus.nativeUI.showWaiting方法创建，用于控制系统样式等待对话框的操作，如关闭、设置标题内容等。
+	从NativeUIObj对象继承而来，通过plus.nativeUI.showWaiting方法创建时返回。
+	用于控制系统样式等待对话框的操作，如关闭、设置标题内容等。
 				</p>
 <h2>方法：</h2>
 <ul>
 <li>
-<a href="#plus.nativeUI.Waiting.setTitle">setTitle</a>: 设置等待对话框上显示的文字内容</li>
+<a href="#plus.nativeUI.WaitingObj.setTitle">setTitle</a>: 设置等待对话框上显示的文字内容</li>
 <li>
-<a href="#plus.nativeUI.Waiting.close">close</a>: 关闭显示的系统等待对话框</li>
+<a href="#plus.nativeUI.WaitingObj.close">close</a>: 关闭显示的系统等待对话框</li>
 </ul>
 <h2>事件：</h2>
 <ul><li>
-<a href="#plus.nativeUI.Waiting.onclose">onclose</a>: 等待对话框关闭事件</li></ul>
+<a href="#plus.nativeUI.WaitingObj.onclose">onclose</a>: 等待对话框关闭事件</li></ul>
 <h1><a name="plus.nativeUI.WaitingOptions">WaitingOptions</a></h1>
 <p>JSON对象，原生等待对话框的参数</p>
 <h2>属性：</h2>
@@ -367,7 +391,8 @@ void onActioned( Event event ){
 			)
 			必选 </em>用户操作选择按钮框关闭后返回的数据<br>
 	可通过event.index（Number类型）获取用户关闭时点击按钮的索引值，索引值从0开始；
-	0表示用户点击取消按钮，大于0值表示用户点击ActionSheetStyle中buttons属性定义的按钮，索引值从1开始（即1表示点击buttons中定义的第一个按钮）。
+	0表示用户点击取消按钮，大于0值表示用户点击ActionSheetStyles中buttons属性定义的按钮，索引值从1开始（即1表示点击buttons中定义的第一个按钮）。
+	通过API（close()方法）关闭，则回调函数中event的index属性值为-1。
 						</li></ul>
 <h2>返回值：</h2>
 <font class="type">void</font>

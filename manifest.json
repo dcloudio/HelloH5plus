@@ -2,8 +2,8 @@
     "id": "HelloH5",
     "name": "HelloH5",
     "version": {
-        "name": "2.0.0",
-        "code": "20000"
+        "name": "2.1.1",
+        "code": "20101"
     },
     "description": "HTML5 Plus能力演示",
     "icons": {

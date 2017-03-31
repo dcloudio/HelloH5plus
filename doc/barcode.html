@@ -230,8 +230,10 @@ void BarcodeSuccessCallback ( type, code, file ) {
 			: 无<h1><a name="plus.barcode.BarcodeErrorCallback">BarcodeErrorCallback</a></h1>
 <p>条码识别错误的回调函数</p>
 <pre class="prettyprint linenums">
-void BarcodeErrorCallback( error ) {
-	// Handle error
+void BarcodeErrorCallback(error){
+	// Error 
+	var code = error.code; 			// 错误编码
+	var message = error.message;	// 错误描述信息
 }
 				</pre>
 <h2>参数：</h2>
@@ -240,7 +242,9 @@ void BarcodeErrorCallback( error ) {
 			<font class="type">DOMException</font>
 			)
 			必选 </em>条码识别的错误信息<br>
-</li></ul>
+	可通过error.code（Number类型）获取错误编码；
+	可通过error.message（String类型）获取错误描述信息。
+						</li></ul>
 <h2>返回值：</h2>
 <font class="type">void</font>
 			: 无<br><br>

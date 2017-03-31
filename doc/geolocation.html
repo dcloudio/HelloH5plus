@@ -111,6 +111,7 @@ interface Address {
 	readonly attribute String city;
 	readonly attribute String district;
 	readonly attribute String street;
+	readonly attribute String streetNum;
 	readonly attribute String poiName;
 	readonly attribute String postalCode;
 	readonly attribute String cityCode;
@@ -144,8 +145,14 @@ interface Address {
 </li>
 <li>street: <em>(<font class="type">String</font>
 	类型
-)</em>街道和门牌信息<br><p>
+)</em>街道信息<br><p>
 	如“酒仙桥路”，如果无法获取此信息则返回undefined。
+						</p>
+</li>
+<li>streetNum: <em>(<font class="type">String</font>
+	类型
+)</em>获取街道门牌号信息<br><p>
+	如“3号”，如果无法获取此信息则返回undefined。
 						</p>
 </li>
 <li>poiName: <em>(<font class="type">String</font>

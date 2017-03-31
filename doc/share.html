@@ -14,8 +14,12 @@
 <h1><a name="plus.share">share</a></h1>
 <p>Share模块管理客户端的社交分享功能，提供调用终端社交软件的分享能力。通过plus.share可获取社交分享管理对象。</p>
 <h2>方法：</h2>
-<ul><li>
-<a href="#plus.share.getServices">getServices</a>: 获取分享服务</li></ul>
+<ul>
+<li>
+<a href="#plus.share.getServices">getServices</a>: 获取分享服务</li>
+<li>
+<a href="#plus.share.sendWithSystem">sendWithSystem</a>: 使用系统组件发送分享</li>
+</ul>
 <h2>对象：</h2>
 <ul>
 <li>
@@ -36,11 +40,11 @@
 <li>
 <a href="#plus.share.ServicesSuccessCallback">ServicesSuccessCallback</a>: 获取分享服务成功回调</li>
 <li>
-<a href="#plus.share.AuthorizeSuccessCallback%20">AuthorizeSuccessCallback </a>: 分享消息成功回调</li>
+<a href="#plus.share.AuthorizeSuccessCallback">AuthorizeSuccessCallback</a>: 分享授权认证成功回调</li>
 <li>
-<a href="#plus.share.ShareSuccessCallback%20">ShareSuccessCallback </a>: 分享操作成功回调</li>
+<a href="#plus.share.ShareSuccessCallback">ShareSuccessCallback</a>: 分享操作成功回调</li>
 <li>
-<a href="#plus.share.ShareErrorCallback%20">ShareErrorCallback </a>: 分享操作失败回调</li>
+<a href="#plus.share.ShareErrorCallback">ShareErrorCallback</a>: 分享操作失败回调</li>
 </ul>
 <h2>权限：</h2>
 <p>permissions</p>
@@ -254,7 +258,9 @@ interface plus.share.Authorize {
 }
 				</pre>
 <h2>说明：</h2>
-<p class="des">Authorize对象表示分享控件对象，用于在窗口中显示分享控件，使用此对象可自定义分享授权界面。</p>
+<p class="des">
+	Authorize对象表示分享控件对象，用于在窗口中显示分享控件，使用此对象可自定义分享授权界面。
+				</p>
 <h2>构造：</h2>
 <ul><li>
 <a href="#plus.share.Authorize.Authorize(id,display)">Authorize(id,display)</a>: 创建分享授权控件对象</li></ul>
@@ -282,34 +288,43 @@ void ServicesSuccessCallback( services ) {
 }
 				</pre>
 <h2>说明：</h2>
-<p class="des">当获取分享服务列表成功时的回调函数，用于返回终端支持的分享服务列表。</p>
+<p class="des">
+	当获取分享服务列表成功时的回调函数，用于返回终端支持的分享服务列表。
+				</p>
 <h2>参数：</h2>
 <ul><li>services: 
 		<em>(
-			<a href="#plus.share.ShareService">ShareService</a>
+			<font class="type">Array</font>[
+						<a href="#plus.share.ShareService">ShareService</a>
+						]
+					
 			)
-			必选 </em>数组，运行环境支持的分享服务列表<br>运行环境支持的分享服务列表数组，可通过services.length获取分享服务列表的数目。</li></ul>
+			必选 </em>数组，运行环境支持的分享服务列表<br>
+	运行环境支持的分享服务列表数组，可通过services.length获取分享服务列表的数目。
+						</li></ul>
 <h2>返回值：</h2>
 <font class="type">void</font>
-			: 无<h1><a name="plus.share.AuthorizeSuccessCallback%20">AuthorizeSuccessCallback </a></h1>
-<p>分享消息成功回调</p>
+			: 无<h1><a name="plus.share.AuthorizeSuccessCallback">AuthorizeSuccessCallback</a></h1>
+<p>分享授权认证成功回调</p>
 <pre class="prettyprint linenums">
-void AuthorizeSuccessCallback( service ) {
+void AuthorizeSuccessCallback(services){
 	　　// Authorize success code
 }
 				</pre>
 <h2>说明：</h2>
-<p class="des">分享操作成功回调函数，当分享操作成功时调用。</p>
+<p class="des">
+	分享服务授权认证操作成功时调用。
+				</p>
 <h2>参数：</h2>
 <ul><li>service: 
 		<em>(
 			<a href="#plus.share.ShareService">ShareService</a>
 			)
-			必选 </em>认证操作成功的分享服务对象<br>
+			必选 </em>授权认证操作的分享服务对象<br>
 </li></ul>
 <h2>返回值：</h2>
 <font class="type">void</font>
-			: 无<h1><a name="plus.share.ShareSuccessCallback%20">ShareSuccessCallback </a></h1>
+			: 无<h1><a name="plus.share.ShareSuccessCallback">ShareSuccessCallback</a></h1>
 <p>分享操作成功回调</p>
 <pre class="prettyprint linenums">
 void ShareSuccessCallback () {
@@ -317,27 +332,35 @@ void ShareSuccessCallback () {
 }
 				</pre>
 <h2>说明：</h2>
-<p class="des">分享操作成功回调函数，当分享操作成功时调用。</p>
+<p class="des">
+	分享操作成功回调函数，当分享操作成功时调用。
+				</p>
 <h2>参数：</h2>
 <p>无</p>
 <h2>返回值：</h2>
 <font class="type">void</font>
-			: 无<h1><a name="plus.share.ShareErrorCallback%20">ShareErrorCallback </a></h1>
+			: 无<h1><a name="plus.share.ShareErrorCallback">ShareErrorCallback</a></h1>
 <p>分享操作失败回调</p>
 <pre class="prettyprint linenums">
 void ShareErrorCallback ( error ) {
-	// Recognition error code
+	// Error 
+	var code = error.code; 			// 错误编码
+	var message = error.message;	// 错误描述信息
 }
 				</pre>
 <h2>说明：</h2>
-<p class="des">　　当分享操作失败时的回调函数，用于返回分享相关操作失败的错误信息。</p>
+<p class="des">
+	当分享操作失败时的回调函数，用于返回分享相关操作失败的错误信息。
+				</p>
 <h2>参数：</h2>
 <ul><li>error: 
 		<em>(
 			<font class="type">DOMException</font>
 			)
-			必选 </em>分享操作失败错误信息，通过error.code获取错误代码<br>
-</li></ul>
+			必选 </em>分享操作失败错误信息<br>
+	可通过error.code（Number类型）获取错误编码；
+	可通过error.message（String类型）获取错误描述信息。
+						</li></ul>
 <h2>返回值：</h2>
 <font class="type">void</font>
 			: 无<br><br>

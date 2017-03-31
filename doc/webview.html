@@ -71,15 +71,25 @@
 <li>
 <a href="#plus.webview.WebviewDrawOptions">WebviewDrawOptions</a>: 截屏绘制操作参数</li>
 <li>
+<a href="#plus.webview.WebviewNavigationbarStyles">WebviewNavigationbarStyles</a>: 窗口导航栏控件样式</li>
+<li>
+<a href="#plus.webview.WebviewSplitLineStyles">WebviewSplitLineStyles</a>: 窗口导航栏控件分割线样式</li>
+<li>
+<a href="#plus.webview.WebviewBackButtonStyles">WebviewBackButtonStyles</a>: 窗口导航栏控件返回键样式</li>
+<li>
 <a href="#plus.webview.WebviewEvent">WebviewEvent</a>: Webview窗口事件</li>
 <li>
 <a href="#plus.webview.WebviewExtraOptions">WebviewExtraOptions</a>: JSON对象，原生窗口扩展参数</li>
 <li>
 <a href="#plus.webview.WebviewPosition">WebviewPosition</a>: 原生控件在窗口中显示的位置</li>
 <li>
-<a href="#plus.webview.WebviewRefreshStyle">WebviewRefreshStyle</a>: Webview窗口下拉刷新样式</li>
+<a href="#plus.webview.WebviewRefreshStyles">WebviewRefreshStyles</a>: Webview窗口下拉刷新样式</li>
 <li>
-<a href="#plus.webview.WebviewStyles">WebviewStyles</a>: JSON对象，原生窗口设置参数的对象</li>
+<a href="#plus.webview.WebviewRenderedEventOptions">WebviewRenderedEventOptions</a>: Webview窗口rendered事件参数</li>
+<li>
+<a href="#plus.webview.WebviewStatusbarStyles">WebviewStatusbarStyles</a>: JSON对象，Webview窗口的系统状态栏区域样式</li>
+<li>
+<a href="#plus.webview.WebviewStyles">WebviewStyles</a>: JSON对象，Webview窗口对象的样式</li>
 <li>
 <a href="#plus.webview.WebviewTransform">WebviewTransform</a>: 一组用于定义页面或控件变形的属性</li>
 <li>
@@ -288,9 +298,13 @@
 <li>
 <a href="#plus.webview.WebviewObject.back">back</a>: 后退到上次加载的页面</li>
 <li>
+<a href="#plus.webview.WebviewObject.beginPullToRefresh">beginPullToRefresh</a>: 开始Webview窗口的下拉刷新</li>
+<li>
 <a href="#plus.webview.WebviewObject.canBack">canBack</a>: 查询Webview窗口是否可后退</li>
 <li>
 <a href="#plus.webview.WebviewObject.canForward">canForward</a>: 查询Webview窗口是否可前进</li>
+<li>
+<a href="#plus.webview.WebviewObject.checkRenderedContent">checkRenderedContent</a>: 检测Webview窗口是否渲染完成</li>
 <li>
 <a href="#plus.webview.WebviewObject.children">children</a>: 获取Webview窗口的所有子Webview窗口</li>
 <li>
@@ -361,6 +375,8 @@
 <a href="#plus.webview.WebviewObject.setContentVisible">setContentVisible</a>: 设置HTML内容是否可见</li>
 <li>
 <a href="#plus.webview.WebviewObject.setPullToRefresh">setPullToRefresh</a>: 设置Webview窗口的下拉刷新效果</li>
+<li>
+<a href="#plus.webview.WebviewObject.setRenderedEventOptions">setRenderedEventOptions</a>: 设置Webview窗口rendered事件参数</li>
 <li>
 <a href="#plus.webview.WebviewObject.setStyle">setStyle</a>: 设置Webview窗口的样式</li>
 <li>
@@ -580,6 +596,16 @@ interface WebviewAnimationOptions {
 <p>Webview窗口滑动事件数据</p>
 <h2>属性：</h2>
 <ul>
+<li>direction: <em>(<font class="type">String</font>
+	类型
+)</em>手势类型<br><p>
+	可取值：
+	"rtl" - 从右向左滑动手势；
+	"left" - 向左滑动手势，与rtl一致；
+	"ltr" - 从左向右滑动手势；
+	"right" - 向右滑动手势，与ltr一致。
+						</p>
+</li>
 <li>type: <em>(<font class="type">String</font>
 	类型
 )</em>窗口滑动类型<br><p>
@@ -605,16 +631,25 @@ interface WebviewAnimationOptions {
 	当type值为"end"时保存滑动操作后显示窗口（或View控件）的标识（即result值为"true"则认为关联窗口显示，result值为false则认为主窗口显示）。
 						</p>
 </li>
+<li>otherId: <em>(<font class="type">String</font>
+	类型
+)</em>关联窗口标识<br><p>
+	滑动操作关联窗口（或View控件）的标识。
+						</p>
+</li>
 <li>targetId: <em>(<font class="type">String</font>
 	类型
 )</em>主窗口标识<br><p>
 	滑动操作主窗口（或View控件）的标识。
 						</p>
 </li>
-<li>otherId: <em>(<font class="type">String</font>
+<li>progress: <em>(<font class="type">Number</font>
 	类型
-)</em>关联窗口标识<br><p>
-	滑动操作关联窗口（或View控件）的标识。
+)</em>滑动进度<br><p>
+	滑动进度位置信息，取值范围为0-100，如20表示滑动了总距离的20%：
+	当type值为"start"时progress值为0；
+	当type值为"end"时如果result为true则progress值为0，如果result为false则progress值为100；
+	当type值为"move"时，保存当前滑动的进度信息（注：多次触发move事件）。
 						</p>
 </li>
 </ul>
@@ -622,12 +657,23 @@ interface WebviewAnimationOptions {
 <p>窗口手势操作参数</p>
 <h2>属性：</h2>
 <ul>
+<li>callbackStep: <em>(<font class="type">Number</font>
+	类型
+)</em>滑屏操作回调事件触发步长<br><p>
+	用于设置滑屏回调事件触发频率，取值范围为1-100，值越小触发频率越高，值越大触发频率越小，默认值为20。
+	如设置值为20，则表示滑屏操作移动距离超过可移动范围的20%则触发一次回调事件，可通过回调函数参数（WebviewDragEvent）的progress属性获取。
+	注意：触发频率过大会影响效率，开发者需谨慎设置此值。
+						</p>
+</li>
 <li>direction: <em>(<font class="type">String</font>
 	类型
 )</em>设置的手势类型<br><p>
 	可取值：
-	"left" - 向左滑动手势；
-	"right" - 向右滑动手势。
+	可取值：
+	"rtl" - 从右向左滑动手势；
+	"left" - 向左滑动手势，与rtl一致；
+	"ltr" - 从左向右滑动手势；
+	"right" - 向右滑动手势，与ltr一致。
 						</p>
 </li>
 <li>moveMode: <em>(<font class="type">String</font>
@@ -635,7 +681,8 @@ interface WebviewAnimationOptions {
 )</em>滑动手势模式<br><p>
 	可取值：
 	"followFinger" - 当前Webview窗口跟随手指滑动；
-	"silent" - 当前Webview窗口不跟随手指滑动。
+	"silent" - 当前Webview窗口不跟随手指滑动；
+	"bounce" - 当前Webview窗口自动回弹（松手后窗口恢复到拖动前的位置）,通常可通过设置此模式来实现Tab项无法继续滑动切换自动回弹效果。
 						</p>
 </li>
 </ul>
@@ -662,11 +709,20 @@ interface WebviewAnimationOptions {
 <p>截屏绘制操作参数</p>
 <h2>属性：</h2>
 <ul>
+<li>bit: <em>(<font class="type">String</font>
+	类型
+)</em>截屏图片的位深<br><p>
+	可取值：
+		"RGB565" - RGB565彩色模式,一个像素占两个字节；
+		"ARGB" - ARGB彩色模式,保存透明度信息。
+						</p>
+</li>
 <li>check: <em>(<font class="type">Boolean</font>
 	类型
 )</em>是否检测截屏图片是否为空白<br><p>
-	true：表示检测到截屏到空白图片时认为操作失败（触发错误回调函数）；
-	false：表示不检测，即使为空白图片仍然返回成功。
+	可取值：
+		true - 表示检测到截屏到空白图片时认为操作失败（触发错误回调函数）；
+		false - 表示不检测，即使为空白图片仍然返回成功。
 	默认值为false。
 						</p>
 </li>
@@ -674,6 +730,114 @@ interface WebviewAnimationOptions {
 	类型
 )</em>设置截屏区域<br><p>
 	相对于Webview窗口的区域信息，默认值为{top:'0px',left:'0px',width:'100%',height:'100%'}。
+						</p>
+</li>
+<li>checkKeyboard: <em>(<font class="type">Boolean</font>
+	类型
+)</em>是否检测当前是否弹出软键盘<br><p>
+	可取值：
+		true - 表示检测到弹出软键盘是认为截屏操作失败（触发错误回调函数）；
+		false - 表示不检测软键盘状态，直接截屏。
+	默认值为false。
+						</p>
+</li>
+</ul>
+<h1><a name="plus.webview.WebviewNavigationbarStyles">WebviewNavigationbarStyles</a></h1>
+<p>窗口导航栏控件样式</p>
+<h2>说明：</h2>
+<p class="des">
+	导航栏控件固定高度为44px,可通过Webview窗口对象的getNavigationbar方法获取导航栏原生控件对象动态绘制内容。
+				</p>
+<h2>属性：</h2>
+<ul>
+<li>backButton: <em>(<a href="#plus.webview.WebviewBackButtonStyles">WebviewBackButtonStyles</a>
+	类型
+)</em>导航控件的返回键样式<br><p>
+	设置此属性则在导航栏控件中左侧显示返回键，可配置返回键颜色。
+	设置此属性值为undefined或null则隐藏返回键。
+	默认不显示返回键。
+						</p>
+</li>
+<li>backgroundColor: <em>(<font class="type">String</font>
+	类型
+)</em>导航栏控件的背景颜色<br><p>
+	颜色值格式为"#RRGGBB"，如"#FF0000"表示为红色背景，默认值为"#1B1A1F"。
+						</p>
+</li>
+<li>titleColor: <em>(<font class="type">String</font>
+	类型
+)</em>导航栏控件的标题颜色<br><p>
+	颜色值格式为"#RRGGBB"，如"#FF0000"表示标题文字为红色，默认值为"#FFFFFF"。
+						</p>
+</li>
+<li>titleText: <em>(<font class="type">String</font>
+	类型
+)</em>导航栏控件的标题内容<br><p>
+	在导航栏控件居中（水平和垂直）显示，左右边距为88px，如果文本过长则尾部裁剪显示。
+	当不设置titleText属性或属性值为undefined/null时，使用当前Webview窗口加载页面的标题，并自动同步更新页面的标题。
+						</p>
+</li>
+<li>titleSize: <em>(<font class="type">String</font>
+	类型
+)</em>导航栏控件的标题字体大小<br><p>
+	字体大小单位为像素，如"20px"表示字体大小为20像素，默认值为17像素。
+						</p>
+</li>
+<li>splitLine: <em>(<a href="#plus.webview.WebviewSplitLineStyles">WebviewSplitLineStyles</a>
+	类型
+)</em>导航栏控件底部分割线<br><p>
+	设置此属性则在导航栏控件底部显示分割线，可配置颜色值及高度。
+	设置此属性值为undefined或null则隐藏分割线。
+	默认不显示底部分割线。
+						</p>
+</li>
+</ul>
+<h1><a name="plus.webview.WebviewSplitLineStyles">WebviewSplitLineStyles</a></h1>
+<p>窗口导航栏控件分割线样式</p>
+<h2>说明：</h2>
+<p class="des">
+	显示在导航栏控件底部。
+				</p>
+<h2>属性：</h2>
+<ul>
+<li>color: <em>(<font class="type">String</font>
+	类型
+)</em>底部分割线颜色<br><p>
+	可取值： "#RRGGBB"格式字符串，如"#FF0000"表示绘制红色分割线；
+	"rgba(R,G,B,A)"，其中R/G/B分别代表红色值/绿色值/蓝色值，正整数类型，取值范围为0-255，A为透明度，浮点数类型，取值范围为0-1（0为全透明，1为不透明），如"rgba(255,0,0,0.5)"，表示红色半透明。
+	默认值为无色（白色全透明）。
+						</p>
+</li>
+<li>height: <em>(<font class="type">String</font>
+	类型
+)</em>底部分割线高度<br><p>
+	可取值：像素值，如"1px"表示1像素高；百分比，如"1%"，相对于导航栏控件的高度。
+	默认值为"1px"。
+						</p>
+</li>
+</ul>
+<h1><a name="plus.webview.WebviewBackButtonStyles">WebviewBackButtonStyles</a></h1>
+<p>窗口导航栏控件返回键样式</p>
+<h2>说明：</h2>
+<p class="des">
+	显示在导航栏控件右侧，点击后触发"backButton"事件（与点击物理返回键逻辑一致）。
+				</p>
+<h2>属性：</h2>
+<ul>
+<li>color: <em>(<font class="type">String</font>
+	类型
+)</em>返回键颜色<br><p>
+	可取值： "#RRGGBB"格式字符串，如"#FF0000"表示绘制红色返回键；
+	"rgba(R,G,B,A)"，其中R/G/B分别代表红色值/绿色值/蓝色值，正整数类型，取值范围为0-255，A为透明度，浮点数类型，取值范围为0-1（0为全透明，1为不透明），如"rgba(255,0,0,0.5)"，表示红色半透明。
+	默认值为窗口导航栏控件标题颜色。
+						</p>
+</li>
+<li>colorPressed: <em>(<font class="type">String</font>
+	类型
+)</em>返回键按下状态的颜色<br><p>
+	可取值： "#RRGGBB"格式字符串，如"#FF0000"表示绘制红色返回键；
+	"rgba(R,G,B,A)"，其中R/G/B分别代表红色值/绿色值/蓝色值，正整数类型，取值范围为0-255，A为透明度，浮点数类型，取值范围为0-1（0为全透明，1为不透明），如"rgba(255,0,0,0.5)"，表示红色半透明。
+	默认值为color属性值自动调整透明度为0.3。
 						</p>
 </li>
 </ul>
@@ -767,6 +931,13 @@ interface WebviewAnimationOptions {
 	通过WebviewObject对象的addEventListener方法添加事件监听函数，当Webview窗口侧滑返回时触发此事件，回调函数类型为PopGestureCallback。
 						</p>
 </li>
+<li>"progressChanged": <em>(<font class="type">String</font>
+	类型
+)</em>Webview窗口加载进度变化事件<br><p>
+	通过WebviewObject对象的addEventListener方法添加事件监听函数，当Webview窗口加载页面进度变化时触发此事件。
+	回调函数原型为void PorgressCandedCallback(Event e),可通过e.progress获取窗口加载进度，取值范围为0-100。
+						</p>
+</li>
 </ul>
 <h1><a name="plus.webview.WebviewExtraOptions">WebviewExtraOptions</a></h1>
 <p>JSON对象，原生窗口扩展参数</p>
@@ -817,7 +988,7 @@ interface WebviewAnimationOptions {
 )</em>控件在页面中停靠，停靠的位置通过dock属性进行定义<br>
 </li>
 </ul>
-<h1><a name="plus.webview.WebviewRefreshStyle">WebviewRefreshStyle</a></h1>
+<h1><a name="plus.webview.WebviewRefreshStyles">WebviewRefreshStyles</a></h1>
 <p>Webview窗口下拉刷新样式</p>
 <h2>属性：</h2>
 <ul>
@@ -826,6 +997,13 @@ interface WebviewAnimationOptions {
 )</em>是否开启Webview窗口的下拉刷新功能<br><p>
 	true表示开启窗口的下拉刷新功能；
 	false表示关闭窗口的下拉刷新功能。
+						</p>
+</li>
+<li>color: <em>(<font class="type">String</font>
+	类型
+)</em>下拉刷新控件颜色<br><p>
+	颜色值格式为"#RRGGBB"，如"#FF0000"为设置下拉属性控件为红色，默认值为"#2BD009"。
+	注意：仅"circle"样式下拉刷新支持此属性。
 						</p>
 </li>
 <li>style: <em>(<font class="type">String</font>
@@ -879,8 +1057,44 @@ interface WebviewAnimationOptions {
 						</p>
 </li>
 </ul>
+<h1><a name="plus.webview.WebviewRenderedEventOptions">WebviewRenderedEventOptions</a></h1>
+<p>Webview窗口rendered事件参数</p>
+<h2>属性：</h2>
+<ul>
+<li>type: <em>(<font class="type">String</font>
+	类型
+)</em>判断窗口渲染完成类型<br><p>
+	可取值：
+	"top"-从顶部向下偏移22px横线截屏检测渲染是否完成；
+	"bottom"-从底部向上偏移25px横线检测渲染是否完成；
+	"center"-从中间横线检测渲染是否完成；
+	"auto"为全屏检测（左、中、右三条竖线）。
+	默认值为"auto"。
+						</p>
+</li>
+<li>interval: <em>(<font class="type">Number</font>
+	类型
+)</em>判断窗口渲染完成间隔时间<br><p>
+	单位为ms（毫秒），默认值为150ms。
+						</p>
+</li>
+</ul>
+<h1><a name="plus.webview.WebviewStatusbarStyles">WebviewStatusbarStyles</a></h1>
+<p>JSON对象，Webview窗口的系统状态栏区域样式</p>
+<h2>说明：</h2>
+<p class="des">
+	仅在应用设置为沉浸式状态栏样式下有效，非沉浸式状态栏样式下忽略此属性。
+				</p>
+<h2>属性：</h2>
+<ul><li>background: <em>(<font class="type">String</font>
+	类型
+)</em>系统状态栏区域背景颜色<br><p>
+	颜色值格式为"#RRGGBB"，如"#FF0000"表示为红色背景。
+	默认值为应用manifest.json中plus-&gt;statusbar-&gt;background属性配置的值，如果未配置此属性值，则使用系统默认状态栏的背景颜色。
+						</p>
+</li></ul>
 <h1><a name="plus.webview.WebviewStyles">WebviewStyles</a></h1>
-<p>JSON对象，原生窗口设置参数的对象</p>
+<p>JSON对象，Webview窗口对象的样式</p>
 <h2>属性：</h2>
 <ul>
 <li>cachemode: <em>(<font class="type">String</font>
@@ -912,7 +1126,7 @@ interface WebviewAnimationOptions {
 	类型
 )</em>窗口垂直向上的偏移量<br><p>
 	支持百分比、像素值，默认值无值（根据top和height属性值来自动计算）。
-	当设置了top和height值时，忽略此属性值；
+	当同时设置了top和height值时，忽略此属性值；
 	当未设置height值时，可通过top和bottom属性值来确定窗口的高度。
 						</p>
 </li>
@@ -949,6 +1163,13 @@ interface WebviewAnimationOptions {
 )</em>窗口加载错误时跳转的页面地址<br><p>
 	当Webview窗口无法加载指定的url地址时（如本地页面不存在，或者无法访问的网络地址），此时会自动跳转到指定的错误页面地址（仅支持本地页面地址）。
 	设置为“none”则关闭跳转到错误页面功能，此时页面显示Webview默认的错误页面内容。默认使用5+ Runtime内置的错误页面。
+						</p>
+</li>
+<li>geolocation: <em>(<font class="type">Number</font>
+	类型
+)</em>拦截替换原生定位接口<br><p>
+	当Webview加载的内容超过其高度时，可以拖拽滑动内容，decelerationRate属性控制手指松开后页面滑动的速度。
+	设置值越大手指松开后的滑动速度越快（滑动距离越长），其值域范围为0.0-1.0，默认值为0.989。
 						</p>
 </li>
 <li>hardwareAccelerated: <em>(<font class="type">Boolean</font>
@@ -1002,13 +1223,10 @@ interface WebviewAnimationOptions {
 	默认值为"none"，即无遮罩层。
 						</p>
 </li>
-<li>navigationbar: <em>(<a href="#plus.webview.json">json</a>
+<li>navigationbar: <em>(<a href="#plus.webview.WebviewNavigationbarStyles">WebviewNavigationbarStyles</a>
 	类型
 )</em>定义窗口创建导航栏控件<br><p>
-	设置此属性值则表明创建导航栏控件，支持以下属性定义样式：
-	backgroundcolor：导航栏背景颜色，字符串类型，格式为“#RRGGBB”，默认值为灰黑色（#1B1A1F）；
-    titletext：导航栏标题文字内容，默认值为当前应用的标题；
-    titlecolor：导航栏标题文字颜色，字符串类型，格式为“#RRGGBB”，默认值为白色（#FFFFFF）。
+	设置此属性值则表明创建导航栏控件，并可通过其属性值设置背景颜色、文本内容、文本颜色等。
 						</p>
 </li>
 <li>opacity: <em>(<font class="type">Number</font>
@@ -1071,6 +1289,12 @@ interface WebviewAnimationOptions {
 )</em>弹出系统软键盘模式<br><p>
 	可选值：“adjustPan”- 弹出软键盘时Webview窗口自动上移，以保证当前输入框可见；“adjustResize”- 自动调整Webview窗口大小（屏幕区域减去软键盘区域），同时自动滚动Webview保证输入框可见。
 	默认值为“adjustPan”。
+						</p>
+</li>
+<li>statusbar: <em>(<font class="type">WebviewStatusbarStyles</font>
+	类型
+)</em>窗口状态栏样式<br><p>
+	仅在应用设置为沉浸式状态栏样式下有效，设置此属性后将自动保留系统状态栏区域不被Webview窗口占用（即Webview窗口非沉浸式样式显示）。
 						</p>
 </li>
 <li>top: <em>(<font class="type">String</font>
@@ -1194,6 +1418,15 @@ interface WebviewAnimationOptions {
 <p>拦截Webview窗口URL请求的属性</p>
 <h2>属性：</h2>
 <ul>
+<li>effect: <em>(<font class="type">String</font>
+	类型
+)</em>拦截URL请求生效时机<br><p>
+	可取值：
+		"instant" - 表示立即生效，即调用overrideUrlLoading方法后立即生效；
+		"touchstart" - 表示用户操作Webview窗口（触发touchstart事件）后生效，如果用户没有操作Webview窗口则不对URL请求操作进行拦截处理。
+	默认值为"instant"。
+						</p>
+</li>
 <li>mode: <em>(<font class="type">String</font>
 	类型
 )</em>拦截模式<br><p>
@@ -1257,7 +1490,7 @@ void onEvent( Event event ){
 			: 无<h1><a name="plus.webview.EventCallback">EventCallback</a></h1>
 <p>Webview窗口事件的回调函数</p>
 <pre class="prettyprint linenums">
-void onEvent( Event event ){
+void onEvent(Event event){
 	// Event handled code.
 }
 				</pre>
@@ -1268,7 +1501,8 @@ void onEvent( Event event ){
 			)
 			必选 </em>Webview窗口事件触发时事件数据<br>
 	Event对象包含以下属性：
-		target：保存触发此事件的Webview窗口对象。
+		target：保存触发此事件的Webview窗口对象；
+		progress：保存窗口页面加载进度，仅"progressChanged"事件时有此属性。
 						</li></ul>
 <h2>返回值：</h2>
 <font class="type">void</font>
@@ -1393,6 +1627,10 @@ void onDrag( Event event ) {
 	// Event handled code.
 }
 				</pre>
+<h2>说明：</h2>
+<p class="des">
+	在窗口开始滑动、滑动过程、滑动结束时触发，其中滑动过程中会触发多次，滑动过程中触发次数由WebviewDragOptions对象的callbackStep决定。
+				</p>
 <h2>参数：</h2>
 <ul><li>event: 
 		<em>(

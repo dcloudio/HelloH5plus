@@ -28,11 +28,17 @@
 <li>
 <a href="#plus.nativeObj.Rect">Rect</a>: 区域信息对象</li>
 <li>
+<a href="#plus.nativeObj.Position">Position</a>: 区域信息对象</li>
+<li>
 <a href="#plus.nativeObj.TextStyles">TextStyles</a>: 文本样式对象</li>
 <li>
 <a href="#plus.nativeObj.ViewAnimationOptions">ViewAnimationOptions</a>: View控件动画参数</li>
 <li>
+<a href="#plus.nativeObj.ViewDrawTagStyles">ViewDrawTagStyles</a>: View控件绘制元素参数</li>
+<li>
 <a href="#plus.nativeObj.ViewEvents">ViewEvents</a>: View控件事件</li>
+<li>
+<a href="#plus.nativeObj.ViewStatusbarStyles">ViewStatusbarStyles</a>: JSON对象，View控件的系统状态栏区域样式</li>
 <li>
 <a href="#plus.nativeObj.ViewStyles">ViewStyles</a>: View控件样式</li>
 </ul>
@@ -156,18 +162,20 @@ interface View {
 
 	function void addEventListener(event, listener, capture);
 	function void animate(options, callback);
-	function void drawBitmap(bitmap, src, dst, id);
-	function void drawRect(color, dst, id);
-	function void drawText(text, options, dst, id);
+	function void close();
+	function void clearRect(position, id);
+	function void draw(tags);
+	function void drawBitmap(src, sprite, position, id);
+	function void drawRect(color, position, id);
+	function void drawText(text, position, styles, id);
 	function void reset();
 	function void restore();
 	function void show();
+	function void setStyle(styles);
 	function void setTouchEventRect(rect);
-	function void setStyle();
 	function void hide();
 	function void interceptTouchEvent(intercept);
 	function Boolean isVisible();
-	function void clear();
 }
 				</pre>
 <h2>说明：</h2>
@@ -176,7 +184,7 @@ interface View {
 				</p>
 <h2>构造：</h2>
 <ul><li>
-<a href="#plus.nativeObj.View.View(id,%20styles)">View(id, styles)</a>: 创建View对象</li></ul>
+<a href="#plus.nativeObj.View.View(id,%20styles,%20tags)">View(id, styles, tags)</a>: 创建View对象</li></ul>
 <h2>属性：</h2>
 <ul><li>
 <a href="#plus.nativeObj.View.id">id</a>: View对象的标识</li></ul>
@@ -193,7 +201,11 @@ interface View {
 <li>
 <a href="#plus.nativeObj.View.animate">animate</a>: View控件内容动画</li>
 <li>
-<a href="#plus.nativeObj.View.clear">clear</a>: 销毁View控件</li>
+<a href="#plus.nativeObj.View.close">close</a>: 关闭View控件</li>
+<li>
+<a href="#plus.nativeObj.View.clearRect">clearRect</a>: 清空矩形区域</li>
+<li>
+<a href="#plus.nativeObj.View.draw">draw</a>: 绘制内容</li>
 <li>
 <a href="#plus.nativeObj.View.drawBitmap">drawBitmap</a>: 绘制图片</li>
 <li>
@@ -234,8 +246,8 @@ interface AnimationOptions {
 	类型
 )</em>动画类型<br><p>
 	可取值：
-	"pop-in" - 从右侧平移入栈动画效果（副窗口从右侧向左平移滑出显示，主窗口从当前屏幕区域向左侧平移滑出被遮盖）；
-	"pop-out" - 从右侧平移出栈动画效果（副窗口从当前屏幕区域向右侧平移出可视区域，主窗口从左侧向右平移滑出显示）；
+	"pop-in" - 从右侧平移入栈动画效果（副窗口从右侧向左平移滑出显示，主窗口从当前屏幕区域向左侧平移滑出被遮盖），如果仅传入一个View控件对象则自动降级为slide-in-right动画；
+	"pop-out" - 从右侧平移出栈动画效果（副窗口从当前屏幕区域向右侧平移出可视区域，主窗口从左侧向右平移滑出显示），如果仅出入一个View控件对象则自动降级为slide-out-right动画；
 	"slide-in-right" - 从右侧横向滑动效果（主窗口从当前屏幕右侧外向内横向滑动显示）；
 	"slide-out-right - 横向向右侧滑出屏幕动画（主窗口从屏幕中横向向右侧滑动到屏幕外）。
 						</p>
@@ -321,6 +333,68 @@ interface Rect {
 						</p>
 </li>
 </ul>
+<h1><a name="plus.nativeObj.Position">Position</a></h1>
+<p>区域信息对象</p>
+<pre class="prettyprint linenums">
+interface Position {
+	attribute String top;
+	attribute String left;
+	attribute String width;
+	attribute String height;
+	attribute String bottom;
+	attribute String right;
+}				</pre>
+<h2>说明：</h2>
+<p class="des">
+	包括位置、大小等信息。
+				</p>
+<h2>属性：</h2>
+<ul>
+<li>top: <em>(<font class="type">String</font>
+	类型
+)</em>区域顶部相对于作用对象（或容器）向下的偏移量<br><p>
+	可取值：像素值，如"100px"；百分比，如"10%"，相对于作用对象（或容器）的高度；
+	自动计算，如"auto",根据height值自动计算，相对于作用对象（或容器）垂直居中。
+						</p>
+</li>
+<li>left: <em>(<font class="type">String</font>
+	类型
+)</em>区域左侧相对于作用对象（或容器）向右的偏移量<br><p>
+	可取值：像素值，如"100px"；百分比，如"10%"，相对于作用对象（或容器）的宽度；
+	自动计算，如"auto",根据width值自动计算，相对于作用对象（或容器）水平居中。
+						</p>
+</li>
+<li>width: <em>(<font class="type">String</font>
+	类型
+)</em>区域的宽度<br><p>
+	可取值：像素值，如"100px";百分比，如"10%"，相对于作用对象（或容器）的宽度。
+						</p>
+</li>
+<li>height: <em>(<font class="type">String</font>
+	类型
+)</em>区域的高度<br><p>
+	可取值：像素值，如"100px";百分比，如"10%"，相对于作用对象（或容器）的高度。
+						</p>
+</li>
+<li>bottom: <em>(<font class="type">String</font>
+	类型
+)</em>区域底部相对于作用对象（或容器）向上的偏移量<br><p>
+	可取值：像素值，如"100px";百分比，如"10%"，相对于作用对象（或容器）的高度。
+	当设置了top和height值时，忽略此属性值；
+	当未设置top值时，可通过bottom属性值来确定区域的垂直位置；
+	当未设置height值时，可通过top和bottom属性值来确定区域的高度。
+						</p>
+</li>
+<li>right: <em>(<font class="type">String</font>
+	类型
+)</em>区域右侧相对于作用对象（或容器）向左的偏移量<br><p>
+	可取值：像素值，如"100px";百分比，如"10%"，相对于作用对象（或容器）的宽度。
+	当设置了left和width值时，忽略此属性值；
+	当未设置left值时，可通过right属性值来确定区域的水平位置；
+	当未设置width值时，可通过left和right属性值来确定区域的宽度。
+						</p>
+</li>
+</ul>
 <h1><a name="plus.nativeObj.TextStyles">TextStyles</a></h1>
 <p>文本样式对象</p>
 <pre class="prettyprint linenums">
@@ -331,6 +405,8 @@ interface Rect {
 	attribute String size;
 	attribute String style;
 	attribute String weight;
+	attribute String fontSrc;
+	attribute String overflow;
 }				</pre>
 <h2>说明：</h2>
 <p class="des">
@@ -389,6 +465,21 @@ interface Rect {
 	可取值："normal" - 普通字体；"bold" - 粗字体。默认值为"normal"。
 						</p>
 </li>
+<li>fontSrc: <em>(<font class="type">String</font>
+	类型
+)</em>字体文件路径<br><p>
+	加载字体文件路径。
+						</p>
+</li>
+<li>overflow: <em>(<font class="type">String</font>
+	类型
+)</em>文本内容超出显示区域时处理方式<br><p>
+	可取值：
+		"clip" - 超出显示区域时内容裁剪；
+		"ellipsis" - 超出显示区域时尾部显示省略标记（...）。
+	默认值为"clip"。
+						</p>
+</li>
 </ul>
 <h1><a name="plus.nativeObj.ViewAnimationOptions">ViewAnimationOptions</a></h1>
 <p>View控件动画参数</p>
@@ -435,49 +526,153 @@ interface ViewAnimationOptions {
 						</p>
 </li>
 </ul>
+<h1><a name="plus.nativeObj.ViewDrawTagStyles">ViewDrawTagStyles</a></h1>
+<p>View控件绘制元素参数</p>
+<pre class="prettyprint linenums">
+interface ViewDrawTagStyles {
+	attribute String id;
+	attribute String tag;
+	attribute String color;
+	attribute Position position;
+	attribute String src;
+	attribute Position sprite;
+	attribute String text;
+	attribute TextStyles textStyles;
+}				</pre>
+<h2>说明：</h2>
+<p class="des">
+	指定绘制图片、矩形区域、文本内容等信息。
+				</p>
+<h2>属性：</h2>
+<ul>
+<li>id: <em>(<font class="type">String</font>
+	类型
+)</em>绘制操作标识<br><p>
+	可通过view对象的drawBitmap/drawRect/drawText/clearRect方法进行更新。
+						</p>
+</li>
+<li>tag: <em>(<font class="type">String</font>
+	类型
+)</em>绘制操作类型<br><p>
+	可取值：
+	"img" - 绘制图片，与drawBitmap操作一致，此时id、src、position、sprite属性值有效；
+	"rect" - 绘制矩形区域，与drawRect操作一致，此时id、color、position属性值有效；
+	"font" - 绘制文本内容，与drawText操作一致，此时id、position、text、textStyles属性值有效。
+						</p>
+</li>
+<li>color: <em>(<font class="type">String</font>
+	类型
+)</em>矩形区域颜色<br><p>
+	可取值：
+	"#RRGGBB"格式字符串，如红色为"#FF0000"。
+	"rgba(R,G,B,A)"，其中R/G/B分别代表红色值/绿色值/蓝色值，正整数类型，取值范围为0-255，A为透明度，浮点数类型，取值范围为0-1（0为全透明，1为不透明），如"rgba(255,0,0,0.5)"，表示红色半透明。
+	当tag属性值为"rect"时有效，用于指定矩形区域颜色，默认值为"#FFFFFF"（白色）。
+						</p>
+</li>
+<li>position: <em>(<a href="#plus.nativeObj.Position">Position</a>
+	类型
+)</em>绘制内容区域<br><p>
+	当tag属性值为"img"时，用于指定绘制图片的目标区域；
+	当tag属性值为"rect"时，用于指定绘制的矩形区域；
+	当tag属性值为"font"时，用于指定绘制文本的目标区域。
+	相对于View控件的区域信息，默认值为{top:'0px',left:'0px',width:'100%',height:'100%'}。
+						</p>
+</li>
+<li>src: <em>(<font class="type">String</font>
+	类型
+)</em>绘制的图片资源<br><p>
+	当tag属性值为"img"时有效，可以是图片资源路径（字符串类型）或者图片对象（plus.nativeObj.Bitmap对象）。
+	src路径支持gif图片，但设置的图片路径文件使用".gif"后缀时则认为是gif图片，如"_www/loading.gif"。
+						</p>
+</li>
+<li>sprite: <em>(<a href="#plus.nativeObj.Position">Position</a>
+	类型
+)</em>图片源的绘制区域<br><p>
+	当tag属性值为"img"时有效，用于指定图片源的绘制区域，相对于图片的区域信息，默认值为{top:'0px',left:'0px',width:'100%',height:'100%'}。
+						</p>
+</li>
+<li>text: <em>(<font class="type">String</font>
+	类型
+)</em>绘制的文本内容<br><p>
+	当tag属性值为"font"时有效，用于保存绘制的文本内容。
+						</p>
+</li>
+<li>textStyles: <em>(<a href="#plus.nativeObj.TextStyles">TextStyles</a>
+	类型
+)</em>绘制文本的样式<br><p>
+	当tag属性值为"font"时有效，用于指定绘制文本内容的字体大小、字体颜色、字体类型等信息。
+						</p>
+</li>
+</ul>
 <h1><a name="plus.nativeObj.ViewEvents">ViewEvents</a></h1>
 <p>View控件事件</p>
 <h2>常量：</h2>
 <ul>
-<li>"touchstart": <em>(<font class="type">String</font>
+<li>"doubleclick": <em>(<font class="type">String</font>
 	类型
-)</em>开始触屏事件<br><p>
-	当手指触摸屏幕时候触发。
-						</p>
-</li>
-<li>"touchmove": <em>(<font class="type">String</font>
-	类型
-)</em>触摸滑屏事件<br><p>
-	当手指在屏幕上滑动的时候连续地触发。
-	注意：如果需要监听touchmove事件必须将View控件设置为拦截触屏事件（调用view.interceptTouchEvent(true)）。
-						</p>
-</li>
-<li>"touchend": <em>(<font class="type">String</font>
-	类型
-)</em>结束触屏事件<br><p>
-	当手指从屏幕上离开的时候触发。
-	注意：如果需要监听touchend事件必须将View控件设置为拦截触屏事件（调用view.interceptTouchEvent(true)）。
+)</em>双击事件<br><p>
+	双击屏幕时触发。
+	注意：如果将View控件设置为不拦截触屏事件（view.interceptTouchEvent(false)）则不会触发此事件。
+	
 						</p>
 </li>
 <li>"click": <em>(<font class="type">String</font>
 	类型
 )</em>点击事件<br><p>
 	当手指点击屏幕时触发。
-	注意：监听了click事件将会导致View控件拦截触屏事件（即使调用view.interceptTouchEvent(false)）。
+	注意：如果将View控件设置为不拦截触屏事件（view.interceptTouchEvent(false)）则不会触发此事件。
+	
+						</p>
+</li>
+<li>"touchstart": <em>(<font class="type">String</font>
+	类型
+)</em>开始触屏事件<br><p>
+	当手指触摸屏幕时候触发。
+	注意：如果将View控件设置为不拦截触屏事件（view.interceptTouchEvent(false)）则不会触发此事件。
+						</p>
+</li>
+<li>"touchmove": <em>(<font class="type">String</font>
+	类型
+)</em>触摸滑屏事件<br><p>
+	当手指在屏幕上滑动的时候连续地触发。
+	注意：如果将View控件设置为不拦截触屏事件（view.interceptTouchEvent(false)）则不会触发此事件。
+						</p>
+</li>
+<li>"touchend": <em>(<font class="type">String</font>
+	类型
+)</em>结束触屏事件<br><p>
+	当手指从屏幕上离开的时候触发。
+	注意：如果将View控件设置为不拦截触屏事件（view.interceptTouchEvent(false)）则不会触发此事件。
 						</p>
 </li>
 </ul>
+<h1><a name="plus.nativeObj.ViewStatusbarStyles">ViewStatusbarStyles</a></h1>
+<p>JSON对象，View控件的系统状态栏区域样式</p>
+<h2>说明：</h2>
+<p class="des">
+	仅在应用设置为沉浸式状态栏样式下有效，非沉浸式状态栏样式下忽略此属性。
+				</p>
+<h2>属性：</h2>
+<ul><li>background: <em>(<font class="type">String</font>
+	类型
+)</em>系统状态栏区域背景颜色<br><p>
+	颜色值格式为"#RRGGBB"，如"#FF0000"表示为红色背景，默认值为应用manifest.json中plus-&gt;statusbar-&gt;background属性配置的值。
+						</p>
+</li></ul>
 <h1><a name="plus.nativeObj.ViewStyles">ViewStyles</a></h1>
 <p>View控件样式</p>
 <pre class="prettyprint linenums">
 interface ViewStyles {
+	attribute String bottom;
 	attribute String top;
 	attribute String left;
 	attribute String width;
 	attribute String height;
+	attribute String backgroundColor;
 	attribute String dock;
 	attribute String position;
 	attribute Number opacity;
+	attribute ViewStatusbarStyles statusbar;
 }				</pre>
 <h2>说明：</h2>
 <p class="des">
@@ -485,6 +680,14 @@ interface ViewStyles {
 				</p>
 <h2>属性：</h2>
 <ul>
+<li>bottom: <em>(<font class="type">String</font>
+	类型
+)</em>View控件垂直向上的偏移量<br><p>
+	支持百分比、像素值，默认值无值（根据top和height属性值来自动计算）。
+	当设置了top和height值时，忽略此属性值；
+	当未设置height值时，可通过top和bottom属性值来确定View控件的高度。
+						</p>
+</li>
 <li>top: <em>(<font class="type">String</font>
 	类型
 )</em>View控件左上角的垂直偏移量<br><p>
@@ -509,6 +712,12 @@ interface ViewStyles {
 	可取值：像素值，如"100px";百分比，如"10%"，相对于父控件的高度。
 						</p>
 </li>
+<li>backgroundColor: <em>(<font class="type">String</font>
+	类型
+)</em>区域背景颜色<br><p>
+	颜色值格式为"#RRGGBB"，如"#FF0000"为红色，默认值为透明区域。
+						</p>
+</li>
 <li>dock: <em>(<font class="type">String</font>
 	类型
 )</em>View控件的停靠方式<br><p>
@@ -531,6 +740,12 @@ interface ViewStyles {
 	类型
 )</em>View控件的不透明度<br><p>
 	取值范围为0-1，0为全透明，1为不透明，默认值为1，即不透明。
+						</p>
+</li>
+<li>statusbar: <em>(<a href="#plus.nativeObj.ViewStatusbarStyles">ViewStatusbarStyles</a>
+	类型
+)</em>View控件的状态栏样式<br><p>
+	仅在应用设置为沉浸式状态栏样式下有效，设置此属性后将自动保留系统状态栏区域不被View控件占用（即View控件非沉浸式样式显示）。
 						</p>
 </li>
 </ul>

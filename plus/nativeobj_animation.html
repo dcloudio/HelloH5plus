@@ -99,7 +99,7 @@ function showWithWaiting(){
 	var bShow=bUpdate=false;
 	contentWebview = plus.webview.create('http://m.weibo.cn/u/3196963860', 'contendWebview', {navigationbar:{backgroundColor:'#D74B28',titletText:'标题',titleColor:'#CCCCCC'}});
 	// 更新Webview的原生头内容
-	setTimeout(updateNavigationbar, 100);
+	updateNavigationbar();//setTimeout(updateNavigationbar, 100);
 	contentWebview.addEventListener('close', function(){
 		contentWebview=null;
 	});
@@ -110,7 +110,7 @@ function showWithWaiting(){
 	contentWebview.addEventListener('loaded', function(){// 兼容titleUpdate事件不触发的情况
 		bUpdate||(bUpdate=true,bShow&&nWaiting.hide());
 	}, false);
-	contentWebview.show('pop-in', 300, function(){
+	contentWebview.show('pop-in', null, function(){
 		bShow=true;
 		bUpdate&&nWaiting.hide();
 	}, {capture:nWaiting});
