@@ -73,12 +73,19 @@ function shareMessage(s,m){
 	});
 }
 function shareWithSystem(){
+	plus.share.sendWithSystem?plus.share.sendWithSystem({
+		content:'"HelloH5"使用HTML5+技术开发，如果你有流应用引擎还能省流量秒装，快来体验吧('+(bStream?'http://m3w.cn/s/HelloH5?__streamapp':'http://www.dcloud.io/streamapp/')+')',
+		title:'HelloH5',
+		href:bStream?'http://m3w.cn/s/HelloH5?__streamapp':'http://www.dcloud.io/streamapp/'
+	}):shareWithSystemNativeJS();
+}
+function shareWithSystemNativeJS(){
 	var main = plus.android.runtimeMainActivity(),
 	Intent = plus.android.importClass('android.content.Intent'),
 	File = plus.android.importClass('java.io.File'),
 	Uri = plus.android.importClass('android.net.Uri');
 	var intent=new Intent(Intent.ACTION_SEND),
-	p=plus.io.convertLocalFileSystemURL('_doc/icon.png'),
+	p=plus.io.convertLocalFileSystemURL('_www/icon.png'),
 	f=new File(p),
 	uri=Uri.fromFile(f);
 	if(f.exists()&&f.isFile()){

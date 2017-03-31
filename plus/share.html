@@ -41,11 +41,43 @@ function shareSystem(){
 	if(pic&&pic.realUrl){
 		msg.pictures=[pic.realUrl];
 	}
-	plus.share.sendWithSystem(msg, function(){
-		
+	plus.share.sendWithSystem?plus.share.sendWithSystem(msg, function(){
+		outLine('Success');
+		console.log('Success');
 	}, function(e){
-		
-	});
+		outLine('Failed: '+JSON.stringify(e));
+		console.log('Failed: '+JSON.stringify(e));
+	}):shareSystemNativeJS();
+}
+function shareSystemNativeJS() {
+	if(plus.os.name!=='Android'){
+		plus.nativeUI.alert('此平台暂不支持系统分享功能!');
+		return;
+	}
+	var intent=new Intent(Intent.ACTION_SEND);
+	if(pic&&pic.realUrl){
+		var p = '';
+		p = pic.realUrl;
+		if(p.substr(0,7)==='file://'){
+			p=p.substr(7);
+		}else if(p.sub(0)!=='/'){
+			p=plus.io.convertLocalFileSystemURL(p);
+		}
+	}
+	var f = new File(p);
+	var uri = Uri.fromFile(f);
+	if(f.exists()&&f.isFile()){
+		console.log('image/*');
+		intent.setType('image/*');
+		intent.putExtra(Intent.EXTRA_STREAM,uri);
+	}else{
+		console.log('text/plain');
+		intent.setType('text/plain');
+	}
+	intent.putExtra(Intent.EXTRA_SUBJECT,'HelloH5');
+	intent.putExtra(Intent.EXTRA_TEXT,sharecontent.value);
+	intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+	main.startActivity(Intent.createChooser(intent,'系统分享HelloH5'));
 }
 /**
    * 分享操作
