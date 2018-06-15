@@ -12,41 +12,41 @@
 </head>
 <body><div id="content" class="content">
 <h1><a name="plus.barcode">barcode</a></h1>
-<p>Barcode模块管理条码扫描，提供常见的条码（二维码及一维码）的扫描识别功能，可调用设备的摄像头对条码图片扫描进行数据输入。通过plus.barcode可获取条码码管理对象。</p>
+<p>Barcode模块管理条码扫描，支持常见的条码（一维码及二维码）的扫描识别功能。可调用设备的摄像头对条码图片扫描进行数据输入，解码后返回码数据及码类型。通过plus.barcode可获取条码码管理对象。</p>
 <h2>常量：</h2>
 <ul>
 <li>
-<a href="#plus.barcode.QR">QR</a>: 条码类型常量，QR二维码，数值为0</li>
+<a href="#plus.barcode.QR">QR</a>: QR二维码，数值为0</li>
 <li>
-<a href="#plus.barcode.EAN13">EAN13</a>: 条码类型常量，EAN一维条形码码标准版，数值为1</li>
+<a href="#plus.barcode.EAN13">EAN13</a>: EAN条形码标准版，数值为1</li>
 <li>
-<a href="#plus.barcode.EAN8">EAN8</a>: 条码类型常量，ENA一维条形码简版，数值为2</li>
+<a href="#plus.barcode.EAN8">EAN8</a>: ENA条形码简版，数值为2</li>
 <li>
-<a href="#plus.barcode.AZTEC">AZTEC</a>: 条码类型常量，Aztec二维码，数值为3</li>
+<a href="#plus.barcode.AZTEC">AZTEC</a>: Aztec二维码，数值为3</li>
 <li>
-<a href="#plus.barcode.DATAMATRIX">DATAMATRIX</a>: 条码类型常量，Data Matrix二维码，数值为4</li>
+<a href="#plus.barcode.DATAMATRIX">DATAMATRIX</a>: Data Matrix二维码，数值为4</li>
 <li>
-<a href="#plus.barcode.UPCA">UPCA</a>: 条码类型常量，UPC码标准版，数值为5</li>
+<a href="#plus.barcode.UPCA">UPCA</a>: UPC条形码标准版，数值为5</li>
 <li>
-<a href="#plus.barcode.UPCE">UPCE</a>: 条码类型常量，UPC码缩短版，数值为6</li>
+<a href="#plus.barcode.UPCE">UPCE</a>: UPC条形码缩短版，数值为6</li>
 <li>
-<a href="#plus.barcode.CODABAR">CODABAR</a>: 条码类型常量，Codabar码，数值为7</li>
+<a href="#plus.barcode.CODABAR">CODABAR</a>: Codabar条形码，数值为7</li>
 <li>
-<a href="#plus.barcode.CODE39">CODE39</a>: 条码类型常量，Code39一维条形码，数值为8</li>
+<a href="#plus.barcode.CODE39">CODE39</a>: Code39条形码，数值为8</li>
 <li>
-<a href="#plus.barcode.CODE93">CODE93</a>: 条码类型常量，Code93码，数值为9</li>
+<a href="#plus.barcode.CODE93">CODE93</a>: Code93条形码，数值为9</li>
 <li>
-<a href="#plus.barcode.CODE128">CODE128</a>: 条码类型常量，Code128码，数值为10</li>
+<a href="#plus.barcode.CODE128">CODE128</a>: Code128条形码，数值为10</li>
 <li>
-<a href="#plus.barcode.ITF">ITF</a>: 条码类型常量，ITF码，数值为11</li>
+<a href="#plus.barcode.ITF">ITF</a>: ITF条形码，数值为11</li>
 <li>
-<a href="#plus.barcode.MAXICODE">MAXICODE</a>: 条码类型常量，MaxiCode二维码，数值为12</li>
+<a href="#plus.barcode.MAXICODE">MAXICODE</a>: MaxiCode二维码，数值为12</li>
 <li>
-<a href="#plus.barcode.PDF417">PDF417</a>: 条码类型常量，PDF 417码，数值为13</li>
+<a href="#plus.barcode.PDF417">PDF417</a>: PDF 417二维条码，数值为13</li>
 <li>
-<a href="#plus.barcode.RSS14">RSS14</a>: 条码类型常量，RSS 14组合码，数值为14</li>
+<a href="#plus.barcode.RSS14">RSS14</a>: RSS 14条形组合码，数值为14</li>
 <li>
-<a href="#plus.barcode.RSSEXPANDED">RSSEXPANDED</a>: 条码类型常量，扩展式RSS组合码，数值为15</li>
+<a href="#plus.barcode.RSSEXPANDED">RSSEXPANDED</a>: 扩展式RSS条形组合码，数值为15</li>
 </ul>
 <h2>方法：</h2>
 <ul><li>

@@ -48,7 +48,7 @@ function pay(id){
 	plus.nativeUI.showWaiting('',{style:"black",background:"rgba(0,0,0,0)"});
 	plus.payment.request(iap, {productid:id}, function(result){
 		plus.nativeUI.closeWaiting();
-		alert('成功：'+JSON.stringify(result));
+		//alert('成功：'+JSON.stringify(result));
 		plus.nativeUI.alert("支付成功：感谢你的支持，我们会继续努力完善产品。",function(){
 			back();
 		},"捐赠");
@@ -91,9 +91,9 @@ DCloud 是W3C会员、中国HTML5产业联盟发起单位，致力于推进HTML5
 			<div class="button" onclick="pay(ids[1])">
 				捐赠6元
 			</div>
-			<div class="button" onclick="restoreComplateRequest()">
+			<!--<div class="button" onclick="restoreComplateRequest()">
 				restoreComplateRequest
-			</div>
+			</div>-->
 		</div>
 	</body>
 	<script type="text/javascript" src="../js/immersed.js" ></script>

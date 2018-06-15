@@ -27,6 +27,8 @@
 <li>
 <a href="#plus.gallery.GalleryFilter">GalleryFilter</a>: 相册选择文件过滤类型</li>
 <li>
+<a href="#plus.gallery.GallerySaveEvent">GallerySaveEvent</a>: 保存图片到相册成功事件</li>
+<li>
 <a href="#plus.gallery.PopPosition">PopPosition</a>: JSON对象，弹出拍照或摄像界面指示位置</li>
 </ul>
 <h2>回调方法：</h2>
@@ -35,6 +37,8 @@
 <a href="#plus.gallery.GalleryPickSuccessCallback">GalleryPickSuccessCallback</a>: 单选系统相册图片成功的回调</li>
 <li>
 <a href="#plus.gallery.GalleryMultiplePickSuccessCallback">GalleryMultiplePickSuccessCallback</a>: 多选系统相册图片成功的回调</li>
+<li>
+<a href="#plus.gallery.GallerySaveSuccessCallback">GallerySaveSuccessCallback</a>: </li>
 <li>
 <a href="#plus.gallery.GallerySuccessCallback">GallerySuccessCallback</a>: 操作系统相册成功的回调</li>
 <li>
@@ -113,7 +117,7 @@
 <li>system: <em>(<font class="type">Boolean</font>
 	类型
 )</em>是否使用系统相册文件选择界面<br><p>
-	设置为true时，如果系统自带相册选择控件时则优先使用，否则使用5+统一相册选择控件；设置为false则不使用系统自带相册选择控件，直接使用5+统一相册选择界面。
+	multiple属性设置为true时，如果系统自带相册选择控件时则优先使用，否则使用5+统一相册选择控件；设置为false则不使用系统自带相册选择控件，直接使用5+统一相册选择界面。
 	默认值为true。
 						</p>
 </li>
@@ -135,6 +139,13 @@
 )</em>不过滤，可选择图片或视频文件<br>
 </li>
 </ul>
+<h1><a name="plus.gallery.GallerySaveEvent">GallerySaveEvent</a></h1>
+<p>保存图片到相册成功事件</p>
+<h2>属性：</h2>
+<ul><li>path: <em>(<font class="type">String</font>
+	类型
+)</em>保存到相册的图片路径<br>
+</li></ul>
 <h1><a name="plus.gallery.PopPosition">PopPosition</a></h1>
 <p>JSON对象，弹出拍照或摄像界面指示位置</p>
 <h2>属性：</h2>
@@ -203,10 +214,16 @@ void onSuccess( event ) {
 						</li></ul>
 <h2>返回值：</h2>
 <font class="type">void</font>
-			: 无<h1><a name="plus.gallery.GallerySuccessCallback">GallerySuccessCallback</a></h1>
+			: 无<h1><a name="plus.gallery.GallerySaveSuccessCallback">GallerySaveSuccessCallback</a></h1>
+<p></p>
+<h2>参数：</h2>
+<p>无</p>
+<h2>返回值：</h2>
+<font class="type"></font>
+			: <h1><a name="plus.gallery.GallerySuccessCallback">GallerySuccessCallback</a></h1>
 <p>操作系统相册成功的回调</p>
 <pre class="prettyprint linenums">
-void onSuccess() {
+void onSuccess(GallerySaveEvent event) {
 	// Success code
 }
 				</pre>
@@ -215,7 +232,13 @@ void onSuccess() {
 	系统相册操作成功的回调函数，在保存文件到系统相册操作成功时调用。
 				</p>
 <h2>参数：</h2>
-<p>无</p>
+<ul><li>event: 
+		<em>(
+			<a href="#plus.gallery.GallerySaveEvent">GallerySaveEvent</a>
+			)
+			必选 </em>保存文件到系统相册成功事件对象<br>
+	可通过其path属性获取保存文件的路径。
+						</li></ul>
 <h2>返回值：</h2>
 <font class="type">void</font>
 			: 无<h1><a name="plus.gallery.GalleryErrorCallback">GalleryErrorCallback</a></h1>

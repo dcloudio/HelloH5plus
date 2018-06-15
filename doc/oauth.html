@@ -170,7 +170,7 @@ interface plus.oauth.AuthInfo {
 				</pre>
 <h2>说明：</h2>
 <p class="des">
-	此对象仅定义标准属性，登录授权认证服务可扩展定义。
+	此对象仅定义标准属性，登录授权认证服务可扩展自定义数据。
 	例如“微信”登录授权服务，则包括以下数据：
 	unionid - 用户统一标识，针对一个微信开放平台帐号下的应用，同一用户的unionid是唯一的。
 				</p>
@@ -214,17 +214,19 @@ interface plus.oauth.UserInfo {
 	attribute String openid;
 	attribute String headimgurl:
 	attribute String nickname;
+	attribute String email;
+	attribute String phonenumber;
+	attribute String sex;
+	attribute String province;
+	attribute String city;
+	attribute String country;
 }
 				</pre>
 <h2>说明：</h2>
 <p class="des">
 	用于保存登录授权用户的信息。
-	此对象仅定义标准属性，登录授权认证服务可扩展定义。
-	例如“微信”登录授权服务，则包括以下数据：
-	sex - 普通用户性别，1为男性，2为女性；
-	province - 普通用户个人资料填写的省份；
-	city - 普通用户个人资料填写的城市；
-	country - 国家，如中国为CN；
+	此对象仅定义标准属性，登录授权认证服务可扩展自定义数据。
+	例如“微信”登录授权服务，可能包括以下自定义数据：
 	privilege - 用户特权信息，json数组，如微信沃卡用户为（chinaunicom）；
 	unionid - 用户统一标识，针对一个微信开放平台帐号下的应用，同一用户的unionid是唯一的。
 				</p>
@@ -245,6 +247,43 @@ interface plus.oauth.UserInfo {
 <li>nickname: <em>(<font class="type">String</font>
 	类型
 )</em>登录授权用户的昵称<br><p>
+	如果登录授权服务不支持此属性，则返回"undefined"。
+						</p>
+</li>
+<li>email: <em>(<font class="type">String</font>
+	类型
+)</em>登录授权用户的邮箱地址<br><p>
+	如果登录授权服务不支持此属性，则返回"undefined"。
+						</p>
+</li>
+<li>phonenumber: <em>(<font class="type">String</font>
+	类型
+)</em>登录授权用户的电话号码<br><p>
+	如果登录授权服务不支持此属性，则返回"undefined"。
+						</p>
+</li>
+<li>sex: <em>(<font class="type">String</font>
+	类型
+)</em>登录授权用户的性别<br><p>
+	1为男性，2为女性。
+	如果登录授权服务不支持此属性，则返回"undefined"。
+						</p>
+</li>
+<li>province: <em>(<font class="type">String</font>
+	类型
+)</em>登录授权用户注册的省份信息<br><p>
+	如果登录授权服务不支持此属性，则返回"undefined"。
+						</p>
+</li>
+<li>city: <em>(<font class="type">String</font>
+	类型
+)</em>登录授权用户注册的城市信息<br><p>
+	如果登录授权服务不支持此属性，则返回"undefined"。
+						</p>
+</li>
+<li>country: <em>(<font class="type">String</font>
+	类型
+)</em>登录授权用户注册的国家信息<br><p>
 	如果登录授权服务不支持此属性，则返回"undefined"。
 						</p>
 </li>

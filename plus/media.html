@@ -1,0 +1,45 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta charset="utf-8"/>
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+		<meta name="HandheldFriendly" content="true"/>
+		<meta name="MobileOptimized" content="320"/>
+		<title>Hello H5+</title>
+		<script type="text/javascript" src="../js/common.js"></script>
+		<script type="text/javascript">
+function openPage(url, title) {
+	var w = plus.webview.create(url, url, {
+		titleNView:{
+			autoBackButton:true,
+			backgroundColor:'#D74B28',
+			titleColor:'#CCCCCC',
+			titleText:title
+		},
+		backButtonAutoControl:'close',
+		scrollIndicator:'none',
+		scalable:false
+	});
+	w.show('pop-in');
+}
+		</script>
+		<link rel="stylesheet" href="../css/common.css" type="text/css" charset="utf-8"/>
+	</head>
+	<body>
+		<header id="header">
+			<div class="nvbt iback" onclick="back()"></div>
+			<div class="nvtt">Media</div>
+			<div class="nvbt idoc" onclick="openDoc('Media Document','/doc/media.html')"></div>
+		</header>
+		<div id="dcontent" class="dcontent">
+			<br/>
+			<div class="button" onclick="openPage('media_videoplayer.html','VideoPlayer')">VideoPlayer</div>
+			<div class="button" onclick="openPage('media_livepusher.html','LivePusher')">LivePusher</div>
+			<br/>
+		</div>
+		<div id="output">
+Meida模块管理多媒体，可用创建视频播放控件，直播推流控件等。
+		</div>
+	</body>
+	<script type="text/javascript" src="../js/immersed.js" ></script>
+</html>

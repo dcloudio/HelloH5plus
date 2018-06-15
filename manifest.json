@@ -2,8 +2,8 @@
     "id": "HelloH5",
     "name": "HelloH5",
     "version": {
-        "name": "2.1.2",
-        "code": "20102"
+        "name": "2.3.0",
+        "code": "20300"
     },
     "description": "HTML5 Plus能力演示",
     "icons": {
@@ -117,12 +117,22 @@
         },
         "Statistic": {
             "description": "统计"
+        },
+        "VideoPlayer": {
+            "description": "Media-视频播放"
+        },
+        "LivePusher": {
+            "description": "Media-直播推流"
         }
     },
     "plus": {
         "splashscreen": {
             "autoclose": false,
             "waiting": true
+        },
+        "statusbar": {
+            "immersed": true,
+            "background": "#D74B28"
         },
         "popGesture": "close",
         "runmode": "liberate",

@@ -24,6 +24,10 @@
 <li>
 <a href="#plus.nativeUI.closeWaiting">closeWaiting</a>: 关闭系统等待对话框</li>
 <li>
+<a href="#plus.nativeUI.closeToast">closeToast</a>: 关闭自动消失的提示消息</li>
+<li>
+<a href="#plus.nativeUI.previewImage">previewImage</a>: 预览图片</li>
+<li>
 <a href="#plus.nativeUI.showWaiting">showWaiting</a>: 显示系统等待对话框</li>
 <li>
 <a href="#plus.nativeUI.pickDate">pickDate</a>: 弹出系统日期选择对话框</li>
@@ -41,7 +45,11 @@
 <li>
 <a href="#plus.nativeUI.ActionSheetStyles">ActionSheetStyles</a>: JSON对象，原生选择按钮框的样式参数</li>
 <li>
-<a href="#plus.nativeUI.PickDateOption">PickDateOption</a>: JSON对象，日期选择对话框的参数</li>
+<a href="#plus.nativeUI.ConfirmOptions">ConfirmOptions</a>: 确认对话框的参数</li>
+<li>
+<a href="#plus.nativeUI.PreviewImageOptions">PreviewImageOptions</a>: JSON对象，图片预览的参数</li>
+<li>
+<a href="#plus.nativeUI.PickDateOption">PickDateOption</a>: 日期选择对话框的参数</li>
 <li>
 <a href="#plus.nativeUI.PickTimeOption">PickTimeOption</a>: JSON对象，时间选择对话框的参数</li>
 <li>
@@ -131,8 +139,75 @@
 )</em>选择框上的按钮，ActionButtonStyles对象数组<br>
 </li>
 </ul>
+<h1><a name="plus.nativeUI.ConfirmOptions">ConfirmOptions</a></h1>
+<p>确认对话框的参数</p>
+<h2>属性：</h2>
+<ul>
+<li>title: <em>(<font class="type">String</font>
+	类型
+)</em>确认对话框显示的标题<br><p>
+	如果不设置此属性值，则不显示标题。
+						</p>
+</li>
+<li>buttons: <em>(<font class="type">Array</font>[
+				<font class="type">String</font>
+				]
+			
+	类型
+)</em>确认对话框上显示的按钮<br><p>
+	字符串数组，每项对应在确认对话框上显示一个按钮，用户点击后通过confirmCB返回用户点击按钮的在数组中的索引值。
+						</p>
+</li>
+<li>verticalAlign: <em>(<font class="type">String</font>
+	类型
+)</em>对话框在屏幕中的垂直分享对齐方式<br><p>
+	可取值：
+		"top" - 表示垂直居顶对齐；
+		"center" - 表示垂直居中对齐；
+		"bottom" - 表示垂直居底对齐。
+	默认值为"center"（垂直居中对齐）。
+						</p>
+</li>
+</ul>
+<h1><a name="plus.nativeUI.PreviewImageOptions">PreviewImageOptions</a></h1>
+<p>JSON对象，图片预览的参数</p>
+<h2>属性：</h2>
+<ul>
+<li>background: <em>(<font class="type">String</font>
+	类型
+)</em>图片预览的背景颜色<br><p>
+	颜色值格式为"#RRGGBB"，如"#FF0000"表示为红色背景。
+	默认值为黑色（"#000000"）。
+						</p>
+</li>
+<li>current: <em>(<font class="type">Number</font>
+	类型
+)</em>默认显示图片的索引值<br><p>
+	索引值从0开始，默认值为0。
+						</p>
+</li>
+<li>indicator: <em>(<font class="type">String</font>
+	类型
+)</em>图片指示器样式<br><p>
+	可取值：
+		"default" - 默认指示器（底部圆点样式）；
+		"number" - 顶部数字指示器（顶部居中显示，文字为%当前图片索引值（从1开始）%/%图片总数%）；
+		"none" - 不显示指示器。
+	默认值为"default"。
+						</p>
+</li>
+<li>loop: <em>(<font class="type">Boolean</font>
+	类型
+)</em>是否可循环预览<br><p>
+	可取值：
+		"true" - 支持循环预览；
+		"false" - 不支持循环预览。
+	默认值为"false"。
+						</p>
+</li>
+</ul>
 <h1><a name="plus.nativeUI.PickDateOption">PickDateOption</a></h1>
-<p>JSON对象，日期选择对话框的参数</p>
+<p>日期选择对话框的参数</p>
 <h2>属性：</h2>
 <ul>
 <li>title: <em>(<font class="type">String</font>
@@ -344,6 +419,18 @@ interface NativeUIObj{
 <p>JSON对象，系统提示消息框要设置的参数</p>
 <h2>属性：</h2>
 <ul>
+<li>align: <em>(<font class="type">String</font>
+	类型
+)</em>提示消息框在屏幕中的水平位置<br><p>
+	可选值为"left"、"center"、"right"，分别为水平居左、居中、居右，未设置时默认值为"center"。
+						</p>
+</li>
+<li>duration: <em>(<font class="type">String</font>
+	类型
+)</em>提示消息框显示的时间<br><p>
+	可选值为"long"、"short"，值为"long"时显示时间约为3.5s，值为"short"时显示时间约为2s，未设置时默认值为"short"。
+						</p>
+</li>
 <li>icon: <em>(<font class="type">String</font>
 	类型
 )</em>提示消息框上显示的图标<br>
@@ -357,16 +444,26 @@ interface NativeUIObj{
 	默认值为"block"。
 						</p>
 </li>
-<li>duration: <em>(<font class="type">String</font>
+<li>type: <em>(<font class="type">String</font>
 	类型
-)</em>提示消息框显示的时间<br><p>
-	可选值为"long"、"short"，值为"long"时显示时间约为3.5s，值为"short"时显示时间约为2s，未设置时默认值为"short"。
+)</em>提示消息框上显示的文本类型<br><p>
+	可取值：
+		"text" - 显示的消息内容为文本字符串；
+		"richtext" - 显示的消息内容为富文本内容。
+	默认值为"text"。
+	当type为"text"时，富文本使用html的部分标签，具体标签如下：
+	图片标签&lt;img src="图片资源url地址" width="图片显示的宽度" height="图片显示的高度" onclick="console.log('clicked img')"&gt;&lt;/img&gt;；
+	字体标签&lt;font color="字体颜色"&gt;&lt;/font&gt;，内容在一行显示不下时自动换行，行高默认为字体的1.2倍；
+	换行标签&lt;br/&gt;；
+	链接标签&lt;a onclick="console.log('clicked a')"&gt;链接地址&lt;/a&gt;。
+	如示例“&lt;img onclick="console.log('clicked img')" src="http://img-cdn-qiniu.dcloud.net.cn/icon2.png"/&gt;&lt;a onclick="console.log(clicked a)"&gt;链接地址&lt;/a&gt;”。
+
 						</p>
 </li>
-<li>align: <em>(<font class="type">String</font>
+<li>richTextStyle: <em>(<a href="#href.RichTextStyles">RichTextStyles</a>
 	类型
-)</em>提示消息框在屏幕中的水平位置<br><p>
-	可选值为"left"、"center"、"right"，分别为水平居左、居中、居右，未设置时默认值为"center"。
+)</em>富文本样式<br><p>
+	当type属性值为"richtext"时有效，用于定义富文本的样式，如其文本对齐方式、使用的字体等。
 						</p>
 </li>
 <li>verticalAlign: <em>(<font class="type">String</font>

@@ -58,7 +58,7 @@ function creatWaiting(){
 }
 // 更新窗口导航栏 
 function updateNavigationbar(){
-	nTitle = contentWebview.getNavigationbar();
+	nTitle = contentWebview.getTitleNView();
 	nTitle.interceptTouchEvent(true);
 	// 处理touchstart、touchmove、touchend事件，实现下效果 
 //	nTitle.addEventListener('touchstart', function(e){

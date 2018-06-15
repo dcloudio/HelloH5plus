@@ -76,10 +76,10 @@ interface Position {
 	类型
 )</em>获取到地理坐标信息的坐标系类型<br><p>
 	可取以下坐标系类型：
-	“gps”：表示WGS-84坐标系；
-	“gcj02”：表示国测局经纬度坐标系；
-	“bd09”：表示百度墨卡托坐标系；
-	“bd09ll”：表示百度经纬度坐标系。	
+	"gps"：表示WGS-84坐标系；
+	"gcj02"：表示国测局经纬度坐标系；
+	"bd09"：表示百度墨卡托坐标系；
+	"bd09ll"：表示百度经纬度坐标系。	
 						</p>
 </li>
 <li>timestamp: <em>(<font class="type">Number</font>
@@ -256,11 +256,11 @@ interface Coordinates {
 	类型
 )</em>指定获取的定位数据坐标系类型<br><p>
 	可取以下坐标系类型：
-	“wgs84”：表示WGS-84坐标系；
-	“gcj02”：表示国测局经纬度坐标系；
-	“bd09”：表示百度墨卡托坐标系；
-	“bd09ll”：表示百度经纬度坐标系；
-	provider为“system”时，默认使用“wgs84”类型；provider为“baidu”是，默认使用“bd09ll”类型。
+	"wgs84"：表示WGS-84坐标系；
+	"gcj02"：表示国测局经纬度坐标系；
+	"bd09"：表示百度墨卡托坐标系；
+	"bd09ll"：表示百度经纬度坐标系；
+	provider为"system"时，默认使用"wgs84"坐标系；provider为"baidu"时，默认使用"gcj02"坐标系；provider为"amap"时，默认使用"gcj02"坐标系。
 	如果设置的坐标系类型provider不支持，则返回错误。
 						</p>
 </li>

@@ -105,7 +105,7 @@ function openDir( item ) {
 	} else {
 		outSet( "Open file: \""+dir+item.id+"\"" );
 		plus.runtime.openFile( dir+item.id, {}, function ( e ) {
-			plus.nativeUI.alert( "无法打开此文件："+e.emssage );
+			plus.nativeUI.alert( "无法打开此文件："+e.message );
 		} );
 	}
 }
@@ -129,7 +129,7 @@ function parentDir() {
 			current.getParent( function ( entry ) {
 				parent = entry;
 			}, function ( e ) {
-				outLine( "Get \""+current.name+"\" parent directory failed: "+e.emssage );
+				outLine( "Get \""+current.name+"\" parent directory failed: "+e.message );
 			} );
 			parent = null;
 			// Update ui

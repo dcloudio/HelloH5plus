@@ -85,6 +85,7 @@ interface CameraOption {
 	attribute String filename;
 	attribute String format;
 	attribute String index;
+	attribute String resolution;
 	attribute PopPosition popover;
 }
 				</pre>
@@ -94,6 +95,12 @@ interface CameraOption {
 	类型
 )</em>拍照或摄像文件保存的路径<br><p>
 	可设置具体文件名（如"_doc/camera/a.jpg"）；也可只设置路径，以"/"结尾则表明是路径（如"_doc/camera/"）。如未设置文件名称或设置的文件名冲突则文件名由程序程序自动生成。
+						</p>
+</li>
+<li>resolution: <em>(<font class="type">String</font>
+	类型
+)</em>拍照或摄像使用的分辨率<br><p>
+	可通过Camera对象的supportedImageResolutions或supportedVideoResolutions获取，如果设置的参数无效则使用系统默认值。
 						</p>
 </li>
 <li>format: <em>(<font class="type">String</font>

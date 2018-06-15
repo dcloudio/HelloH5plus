@@ -1,0 +1,46 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta charset="utf-8"/>
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+		<meta name="HandheldFriendly" content="true"/>
+		<meta name="MobileOptimized" content="320"/>
+		<title>Hello H5+</title>
+		<script type="text/javascript">
+var video = null;
+// H5 plus事件处理
+function plusReady(){
+	// 创建视频播放控件
+	video = new plus.media.VideoPlayer('video',{
+		src:'rtmp://live.hkstv.hk.lxdns.com/live/hks'
+		//'rtmp://live.hkstv.hk.lxdns.com/live/hks'
+		//'rtmp://pull.live.dcloud.io/test/test999'
+		//'http://hd.yinyuetai.com/uploads/videos/common/0D7601345B999963CD41FB5D5CF356C0.flv'
+		//'http://vjs.zencdn.net/v/oceans.mp4'
+	});
+}
+document.addEventListener('plusready', plusReady, false);
+// 播放
+function playVideo() {
+	video.play();
+}
+// 暂停
+function pauseVideo() {
+	video.pause();
+}
+// 全屏
+function fullscreenVideo() {
+	video.requestFullScreen(90);
+}
+		</script>
+		<link rel="stylesheet" href="../css/common.css" type="text/css" charset="utf-8"/>
+	</head>
+	<body>
+		<br/>
+		<div id="video" style="width:98%;height:300px;background-color:#000000;margin:auto"></div>
+		<br/>
+		<div class="button" onclick="playVideo()">播放</div>
+		<div class="button" onclick="pauseVideo()">暂停</div>
+		<div class="button" onclick="fullscreenVideo()">全屏</div>
+	</body>
+</html>
