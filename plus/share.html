@@ -44,6 +44,7 @@ function shareSystem(){
 	if('iOS'==plus.os.name){//iOS平台添加链接地址
 		msg.href='http://www.dcloud.io/';
 	}
+	outLine(JSON.stringify(msg));
 	plus.share.sendWithSystem?plus.share.sendWithSystem(msg, function(){
 		outLine('Success');
 		console.log('Success');

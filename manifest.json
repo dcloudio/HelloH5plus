@@ -2,8 +2,8 @@
     "id": "HelloH5",
     "name": "HelloH5",
     "version": {
-        "name": "2.3.0",
-        "code": "20300"
+        "name": "2.3.1",
+        "code": "20301"
     },
     "description": "HTML5 Plus能力演示",
     "icons": {
@@ -119,10 +119,10 @@
             "description": "统计"
         },
         "VideoPlayer": {
-            "description": "Media-视频播放"
+            "description": "视频播放"
         },
         "LivePusher": {
-            "description": "Media-直播推流"
+            "description": "直播推流"
         }
     },
     "plus": {

@@ -54,7 +54,7 @@ function onmarked(type, result, file){
     	type = '其它'+type;
     	break;
     }
-    result = result.replace(/\n/g, '');
+    result = result.replace(/\r\n/g, '');
     wo.evalJS("scaned('"+ type +"','"+ result +"','"+ file +"');");
     back();
 }

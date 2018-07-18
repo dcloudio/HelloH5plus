@@ -79,15 +79,28 @@ w.clicked=function(id,wa,ns,ws){
 	return null;
 };
 w.openDoc=function(t,c){
-	var d=plus.webview.getWebviewById('document');
-	if(d){
-		d.evalJS('updateDoc("'+t+'","'+c+'")');
-	}else{
-		d=plus.webview.create('/plus/doc.html','document',{zindex:9999,popGesture:'hide'},{preate:true});
-		d.addEventListener('loaded',function(){
-			d.evalJS('updateDoc("'+t+'","'+c+'")');
-		},false);
-	}
+//	var d=plus.webview.getWebviewById('document');
+//	if(d){
+//		d.evalJS('updateDoc("'+t+'","'+c+'")');
+//	}else{
+//		d=plus.webview.create('/plus/doc.html', 'document', {
+//			zindex:9999,
+//			popGesture:'hide'
+//			}, {preate:true});
+//		d.addEventListener('loaded',function(){
+//			d.evalJS('updateDoc("'+t+'","'+c+'")');
+//		},false);
+//	}
+	plus.webview.create(c, 'document', {
+		titleNView:{
+			autoBackButton:true,
+			backgroundColor:'#D74B28',
+			titleColor:'#CCCCCC',
+			titleText:t
+		},
+		backButtonAutoControl:'close',
+		scalable:false
+	}).show('pop-in');
 }
 /**
  * 关闭等待框

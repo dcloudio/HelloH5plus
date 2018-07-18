@@ -11,31 +11,31 @@
 <script type="text/javascript" src="res/doc.js" charset="utf-8"></script><script type="text/javascript" src="res/prettify.js" charset="utf-8"></script>
 </head>
 <body><div id="content" class="content">
-<h1><a name="plus.media">media</a></h1>
-<p>Meida模块管理多媒体，可用创建视频播放控件，直播推流控件等。</p>
+<h1><a name="plus.video">video</a></h1>
+<p>Video模块管理多媒体视频相关能力，可用创建视频播放控件，直播推流控件等。</p>
 <h2>方法：</h2>
 <ul></ul>
 <h2>对象：</h2>
 <ul>
 <li>
-<a href="#plus.media.VideoPlayer">VideoPlayer</a>: 视频播放控件对象</li>
+<a href="#plus.video.VideoPlayer">VideoPlayer</a>: 视频播放控件对象</li>
 <li>
-<a href="#plus.media.VideoPlayerOptions">VideoPlayerOptions</a>: 视频播放控件配置选项</li>
+<a href="#plus.video.VideoPlayerOptions">VideoPlayerOptions</a>: 视频播放控件配置选项</li>
 <li>
-<a href="#plus.media.VideoPlayerEvents">VideoPlayerEvents</a>: 视频播放控件事件类型</li>
+<a href="#plus.video.VideoPlayerEvents">VideoPlayerEvents</a>: 视频播放控件事件类型</li>
 <li>
-<a href="#plus.media.LivePusher">LivePusher</a>: 直播推流控件对象</li>
+<a href="#plus.video.LivePusher">LivePusher</a>: 直播推流控件对象</li>
 <li>
-<a href="#plus.media.LivePusherOptions">LivePusherOptions</a>: 直播推流控件配置选项</li>
+<a href="#plus.video.LivePusherOptions">LivePusherOptions</a>: 直播推流控件配置选项</li>
 <li>
-<a href="#plus.media.LivePusherEvents">LivePusherEvents</a>: 直播推流控件事件类型</li>
+<a href="#plus.video.LivePusherEvents">LivePusherEvents</a>: 直播推流控件事件类型</li>
 </ul>
 <h2>回调方法：</h2>
 <ul>
 <li>
-<a href="#plus.media.VideoPlayerEventCallback">VideoPlayerEventCallback</a>: 视频播放控件事件监听回调函数</li>
+<a href="#plus.video.VideoPlayerEventCallback">VideoPlayerEventCallback</a>: 视频播放控件事件监听回调函数</li>
 <li>
-<a href="#plus.media.LivePusherEventCallback">LivePusherEventCallback</a>: 视频播放控件事件监听回调函数</li>
+<a href="#plus.video.LivePusherEventCallback">LivePusherEventCallback</a>: 视频播放控件事件监听回调函数</li>
 </ul>
 <h2>权限：</h2>
 <p>5+功能模块（permissions）</p>
@@ -50,10 +50,10 @@
 }
 }
 			</pre>
-<h1><a name="plus.media.VideoPlayer">VideoPlayer</a></h1>
+<h1><a name="plus.video.VideoPlayer">VideoPlayer</a></h1>
 <p>视频播放控件对象</p>
 <pre class="prettyprint linenums">
-interface plus.media.VideoPlayer {
+interface plus.video.VideoPlayer {
 	// Methods
 	function void addEventListener(event, listener, capture);
 	function void setOptions(options);
@@ -72,29 +72,29 @@ VideoPlayer对象表示视频播放控件对象，在窗口中播放视频，可
 				</p>
 <h2>构造：</h2>
 <ul><li>
-<a href="#plus.media.VideoPlayer.VideoPlayer.constructor(id,%20options)">VideoPlayer.constructor(id, options)</a>: 创建VideoPlayer对象</li></ul>
+<a href="#plus.video.VideoPlayer.VideoPlayer.constructor(id,%20options)">VideoPlayer.constructor(id, options)</a>: 创建VideoPlayer对象</li></ul>
 <h2>方法：</h2>
 <ul>
 <li>
-<a href="#plus.media.VideoPlayer.addEventListener">addEventListener</a>: 监听视频播放控件事件</li>
+<a href="#plus.video.VideoPlayer.addEventListener">addEventListener</a>: 监听视频播放控件事件</li>
 <li>
-<a href="#plus.media.VideoPlayer.setOptions">setOptions</a>: 设置视频播放控件配置选项</li>
+<a href="#plus.video.VideoPlayer.setOptions">setOptions</a>: 设置视频播放控件配置选项</li>
 <li>
-<a href="#plus.media.VideoPlayer.play">play</a>: 播放视频</li>
+<a href="#plus.video.VideoPlayer.play">play</a>: 播放视频</li>
 <li>
-<a href="#plus.media.VideoPlayer.pause">pause</a>: 暂停视频</li>
+<a href="#plus.video.VideoPlayer.pause">pause</a>: 暂停视频</li>
 <li>
-<a href="#plus.media.VideoPlayer.seek">seek</a>: 跳转到指定位置</li>
+<a href="#plus.video.VideoPlayer.seek">seek</a>: 跳转到指定位置</li>
 <li>
-<a href="#plus.media.VideoPlayer.requestFullScreen">requestFullScreen</a>: 切换到全屏</li>
+<a href="#plus.video.VideoPlayer.requestFullScreen">requestFullScreen</a>: 切换到全屏</li>
 <li>
-<a href="#plus.media.VideoPlayer.exitFullScreen">exitFullScreen</a>: 退出全屏</li>
+<a href="#plus.video.VideoPlayer.exitFullScreen">exitFullScreen</a>: 退出全屏</li>
 <li>
-<a href="#plus.media.VideoPlayer.stop">stop</a>: 停止播放视频</li>
+<a href="#plus.video.VideoPlayer.stop">stop</a>: 停止播放视频</li>
 <li>
-<a href="#plus.media.VideoPlayer.close">close</a>: 关闭视频播放控件</li>
+<a href="#plus.video.VideoPlayer.close">close</a>: 关闭视频播放控件</li>
 </ul>
-<h1><a name="plus.media.VideoPlayerOptions">VideoPlayerOptions</a></h1>
+<h1><a name="plus.video.VideoPlayerOptions">VideoPlayerOptions</a></h1>
 <p>视频播放控件配置选项</p>
 <h2>属性：</h2>
 <ul>
@@ -187,7 +187,7 @@ VideoPlayer对象表示视频播放控件对象，在窗口中播放视频，可
 						</p>
 </li>
 </ul>
-<h1><a name="plus.media.VideoPlayerEvents">VideoPlayerEvents</a></h1>
+<h1><a name="plus.video.VideoPlayerEvents">VideoPlayerEvents</a></h1>
 <p>视频播放控件事件类型</p>
 <h2>常量：</h2>
 <ul>
@@ -241,10 +241,10 @@ VideoPlayer对象表示视频播放控件对象，在窗口中播放视频，可
 						</p>
 </li>
 </ul>
-<h1><a name="plus.media.LivePusher">LivePusher</a></h1>
+<h1><a name="plus.video.LivePusher">LivePusher</a></h1>
 <p>直播推流控件对象</p>
 <pre class="prettyprint linenums">
-interface plus.media.LivePusher {
+interface plus.video.LivePusher {
 	// Methods
 	function void addEventListener(event, listener, capture);
 	function void setOptions(options);
@@ -263,29 +263,29 @@ LivePusher对象表示直播推流控件对象，在窗口中显示捕获视频�
 				</p>
 <h2>构造：</h2>
 <ul><li>
-<a href="#plus.media.LivePusher.LivePusher.constructor(id,%20options)">LivePusher.constructor(id, options)</a>: 创建LivePusher对象</li></ul>
+<a href="#plus.video.LivePusher.LivePusher.constructor(id,%20options)">LivePusher.constructor(id, options)</a>: 创建LivePusher对象</li></ul>
 <h2>方法：</h2>
 <ul>
 <li>
-<a href="#plus.media.LivePusher.addEventListener">addEventListener</a>: 监听直播推流控件事件</li>
+<a href="#plus.video.LivePusher.addEventListener">addEventListener</a>: 监听直播推流控件事件</li>
 <li>
-<a href="#plus.media.LivePusher.setOptions">setOptions</a>: 设置直播推流控件配置选项</li>
+<a href="#plus.video.LivePusher.setOptions">setOptions</a>: 设置直播推流控件配置选项</li>
 <li>
-<a href="#plus.media.LivePusher.start">start</a>: 开始推流</li>
+<a href="#plus.video.LivePusher.start">start</a>: 开始推流</li>
 <li>
-<a href="#plus.media.LivePusher.stop">stop</a>: 停止推流</li>
+<a href="#plus.video.LivePusher.stop">stop</a>: 停止推流</li>
 <li>
-<a href="#plus.media.LivePusher.pause">pause</a>: 暂停推流</li>
+<a href="#plus.video.LivePusher.pause">pause</a>: 暂停推流</li>
 <li>
-<a href="#plus.media.LivePusher.resume">resume</a>: 恢复推流</li>
+<a href="#plus.video.LivePusher.resume">resume</a>: 恢复推流</li>
 <li>
-<a href="#plus.media.LivePusher.switchCamera">switchCamera</a>: 切换前后摄像头</li>
+<a href="#plus.video.LivePusher.switchCamera">switchCamera</a>: 切换前后摄像头</li>
 <li>
-<a href="#plus.media.LivePusher.snapshot">snapshot</a>: 快照</li>
+<a href="#plus.video.LivePusher.snapshot">snapshot</a>: 快照</li>
 <li>
-<a href="#plus.media.LivePusher.close">close</a>: 关闭直播推流控件</li>
+<a href="#plus.video.LivePusher.close">close</a>: 关闭直播推流控件</li>
 </ul>
-<h1><a name="plus.media.LivePusherOptions">LivePusherOptions</a></h1>
+<h1><a name="plus.video.LivePusherOptions">LivePusherOptions</a></h1>
 <p>直播推流控件配置选项</p>
 <h2>属性：</h2>
 <ul>
@@ -370,7 +370,7 @@ LivePusher对象表示直播推流控件对象，在窗口中显示捕获视频�
 						</p>
 </li>
 </ul>
-<h1><a name="plus.media.LivePusherEvents">LivePusherEvents</a></h1>
+<h1><a name="plus.video.LivePusherEvents">LivePusherEvents</a></h1>
 <p>直播推流控件事件类型</p>
 <h2>常量：</h2>
 <ul>
@@ -431,7 +431,7 @@ LivePusher对象表示直播推流控件对象，在窗口中显示捕获视频�
 						</p>
 </li>
 </ul>
-<h1><a name="plus.media.VideoPlayerEventCallback">VideoPlayerEventCallback</a></h1>
+<h1><a name="plus.video.VideoPlayerEventCallback">VideoPlayerEventCallback</a></h1>
 <p>视频播放控件事件监听回调函数</p>
 <pre class="prettyprint linenums">
 void onEvent(event) {
@@ -448,7 +448,7 @@ void onEvent(event) {
 						</li></ul>
 <h2>返回值：</h2>
 <font class="type">void</font>
-			: 无<h1><a name="plus.media.LivePusherEventCallback">LivePusherEventCallback</a></h1>
+			: 无<h1><a name="plus.video.LivePusherEventCallback">LivePusherEventCallback</a></h1>
 <p>视频播放控件事件监听回调函数</p>
 <pre class="prettyprint linenums">
 void onEvent(event) {
