@@ -2,8 +2,8 @@
     "id": "HelloH5",
     "name": "HelloH5",
     "version": {
-        "name": "2.3.1",
-        "code": "20301"
+        "name": "2.3.2",
+        "code": "20302"
     },
     "description": "HTML5 Plus能力演示",
     "icons": {
@@ -127,7 +127,7 @@
     },
     "plus": {
         "splashscreen": {
-            "autoclose": false,
+            "autoclose": true,
             "waiting": true
         },
         "statusbar": {

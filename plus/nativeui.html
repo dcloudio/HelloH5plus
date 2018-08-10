@@ -8,6 +8,17 @@
 		<title>Hello H5+</title>
 		<script type="text/javascript" src="../js/common.js"></script>
 		<script type="text/javascript">
+function previewImage() {
+	outSet("预览图片");
+	plus.nativeUI.previewImage([
+		"_www/img/h5p.jpg",
+		"../img/shake/2.jpg",
+		"http://img-cdn-qiniu.dcloud.net.cn/newpage/images/logo4.png"
+	],{
+		current:1,
+		loop:true
+	});
+}
 function pickDate() {
 	outSet( "打开系统日期选择框：");
 	var dDate=new Date();
@@ -94,6 +105,7 @@ function showWaiting(){
 		</header>
 		<div id="dcontent" class="dcontent">
 			<ul class="dlist">
+				<li class="ditem" onclick="previewImage()">预览图片</li>
 				<li class="ditem" onclick="pickDate()">系统日期选择框</li>
 				<li class="ditem" onclick="pickTime()">系统时间选择框</li>
 				<li class="ditem" onclick="showAlert()">提示框</li>
