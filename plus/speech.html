@@ -43,6 +43,20 @@ function startRecognizeEnglish(){
 		outSet( "语音识别失败："+e.message );
 	} );
 }
+function openCustom() {
+	var w = plus.webview.create('speech_custom.html', 'speech_custom', {
+        backButtonAutoControl: 'close',
+		titleNView:{
+			autoBackButton:true,
+			backgroundColor:'#D74B28',
+			titleColor:'#CCCCCC',
+			titleText:'自定义语音识别'
+		},
+		scrollIndicator:'none',
+		scalable:false
+	});
+	w.show('pop-in');
+}
 		</script>
 		<link rel="stylesheet" href="../css/common.css" type="text/css" charset="utf-8"/>
 		<style type="text/css">
@@ -68,6 +82,10 @@ function startRecognizeEnglish(){
 			<textarea readonly="readonly" id="text" style="margin:2%;padding:2%;height:50%;width:90%;border:1px solid #6C6C6C;-webkit-border-radius: 2px;border-radius: 2px;-webkit-appearance:none;">
 语音输入内容
 			</textarea>
+            <br/>
+            <br/>
+            <div class="button" onclick="openCustom()">自定义语音识别</div>
+            <br/>
 		</div>
 		<div id="output">
 Speech提供语音识别功能，可通过麦克风设备进行语音输入操作。
